@@ -59,10 +59,10 @@ loginForm.addEventListener('submit', async (e) => {
 
                 // Redirigir según el rol del usuario
                 setTimeout(() => {
-                    if (user.role === "admin") {|
-                        window.location.href = 'pages/admin.html'; // Página para administradores
+                    if (user.role === "admin") {
+                        window.location.href = 'src/pages/admin.html'; // Página para administradores
                     } else {
-                        window.location.href = 'pages/inicio.html'; // Página para usuarios normales
+                        window.location.href = 'src/pages/inicio.html'; // Página para usuarios normales
                     }
                 }, 2000); // Esperar 2 segundos antes de redirigir
             } else {
