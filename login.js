@@ -32,7 +32,7 @@ loginForm.addEventListener('submit', async (e) => {
     const password = passwordInput.value;
 
     try {
-        const response = await fetch('http://localhost:5000/users');
+        const response = await fetch('http://localhost:3000/users');
         const users = await response.json();
 
         // Buscar si el usuario existe
@@ -89,7 +89,7 @@ registerForm.addEventListener('submit', async (e) => {
   const role = roleInput.value;
 
   try {
-    const response = await fetch('http://localhost:5000/users');
+    const response = await fetch('http://localhost:3000/users');
     const users = await response.json();
 
     const userExists = users.find((user) => user.username === newUsername);
@@ -104,7 +104,7 @@ registerForm.addEventListener('submit', async (e) => {
         role: role,
       };
 
-      const postResponse = await fetch('http://localhost:5000/users', {
+      const postResponse = await fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
