@@ -410,11 +410,16 @@ body {
   box-shadow: 1px 1px 8px rgba(30, 41, 43, 0.575);
   border: 1px solid rgba(5, 77, 82, 0.466);
 }
+.dropdown-button:focus {
+  background-color: #0a3a42b0;
+  box-shadow: 1px 1px 8px rgba(30, 41, 43, 0.575);
+  border: 1px solid rgba(5, 77, 82, 0.466);
+}
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #07333a;  
+  background-color: #07333a !important;  
   width: 100%;  
   box-shadow: 1px 1px 8px rgba(122, 167, 173, 0.616);
   z-index: 1;

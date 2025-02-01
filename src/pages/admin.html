@@ -52,11 +52,11 @@
         <input class="form-control" type="text" id="circuitName" placeholder="Nombre del Circuito" required>
       </div>
 <!-- Dropdown para dificultad -->
-<div class="dropdown">
+<div class="dropdown ">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
     Dificultad del Circuito
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <ul class="dropdown-menu dropdown-content " aria-labelledby="dropdownMenuButton">
     <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Facil')">Fácil</a></li>
     <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Media')">Media</a></li>
     <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Dificil')">Difícil</a></li>
@@ -96,7 +96,7 @@
 
 <!-- Lista de Circuitos -->
 <div class="bg-custom2 card-table mt-4">
-  <div class="g-custom2 card-body">
+  <div class="responsive-table" class="g-custom2 card-body">
     <h5 style="color: rgba(141, 179, 180, 0.973);" class="card-title">Lista de Circuitos</h5>
     <table id="circuitList" style="margin: auto;" >
       <thead>
@@ -225,7 +225,7 @@
           title: 'Eliminado',
           text: 'El circuito ha sido eliminado correctamente',
           icon: 'success',
-          background: '#aa111191 !importante',
+          background: '#fa04042f',
           showCancelButton: true,
           confirmButtonText: 'Sí, eliminarlo',
           cancelButtonText: 'Cancelar'
