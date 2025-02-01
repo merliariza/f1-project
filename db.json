@@ -1,13 +1,13 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "usuario1",
       "password": "12345",
-      "role": "usuario"
+      "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "usuario2",
       "password": "67890",
       "role": "admin"
@@ -23,6 +23,56 @@
       "username": "usuario4",
       "password": "12345",
       "role": "administrador"
+    },
+    {
+      "id": "35b4",
+      "username": "usuario6",
+      "password": "123456",
+      "role": ""
+    },
+    {
+      "id": "f2b9",
+      "username": "admin",
+      "password": "123",
+      "role": "administrador"
+    },
+    {
+      "id": "1278",
+      "username": "usuario7",
+      "password": "1234567",
+      "role": "usuario"
+    },
+    {
+      "id": "25f2",
+      "username": "usuario8",
+      "password": "123",
+      "role": ""
+    },
+    {
+      "id": "340f",
+      "username": "usuario9",
+      "password": "123456789",
+      "role": "admin"
+    },
+    {
+      "id": "a4e9",
+      "username": "usuario10",
+      "password": "12345",
+      "role": "admin"
+    }
+  ],
+  "circuitos": [
+    {
+      "id": 1,
+      "name": "Circuito de Mónaco",
+      "length": 3.337,
+      "location": "Mónaco"
+    },
+    {
+      "id": 2,
+      "name": "Circuito de Silverstone",
+      "length": 5.891,
+      "location": "Reino Unido"
     }
   ]
 }

@@ -15,7 +15,7 @@
   Tu navegador no soporta el video.
 </video>
   <div class="card">
-    <div class="card-glow"></div>
+  <div class="card-glow"></div>
     <div class="card-content">
       <div id="loginFormContainer">
         <form id="loginForm">
@@ -26,8 +26,9 @@
           <label for="" class="form-label">Ingrese Contraseña</label>
           <input  class="form-control" type="password" id="password" placeholder="Contraseña" required />
           <hr>
-          <button class="futuristic-button">
-            <span class="button-text">Iniciar</span>
+          <br>
+          <button  class="futuristic-button">
+            <span class="button-text">Registrarse</span>
             <div class="button-glow"></div>
             <div class="corner-btn top-left"></div>
             <div class="corner-btn top-right"></div>
@@ -43,28 +44,31 @@
     <div class="corner top-right"></div>
     <div class="corner bottom-left"></div>
     <div class="corner bottom-right"></div>
-  </div>
   
-
-  <div id="registerFormContainer" style="display:none;">
+  <div id="registerFormContainer" style="display:none;" >
     <div class="card-glow"></div>
     <div class="card-content">
       <div id="loginFormContainer">
         <form id="registerForm">
           <h2>Registarse</h2>
-          <input type="text" id="newUsername" placeholder="Nuevo Usuario" required />
-          <input type="password" id="newPassword" placeholder="Nueva Contraseña" required />
-          
+          <label for="" class="form-label">Ingrese su usuario</label>
+          <input class="form-control"  type="text" id="newUsername" placeholder="Nuevo Usuario" required />
+          <hr>
+          <label for="" class="form-label">Ingrese Contraseña</label>
+          <input class="form-control"  type="password" id="newPassword" placeholder="Nueva Contraseña" required />
+          <hr>
           <div class="dropdown">
             <button class="dropdown-button">Selecciona Rol</button>
             <div class="dropdown-content">
               <a href="#" data-role="usuario">Usuario</a>
-              <a href="#" data-role="administrador">Administrador</a>
+              <a href="#" data-role="admin">Administrador</a>
             </div>
           </div>
           <input type="hidden" id="role" required />
+          <br>
+          <br>
           <button type="submit" class="futuristic-button">
-            <span class="button-text">Iniciar</span>
+            <span class="button-text">Registrarse</span>
             <div class="button-glow"></div>
             <div class="corner-btn top-left"></div>
             <div class="corner-btn top-right"></div>
@@ -85,10 +89,12 @@
   <p id="messageBox"></p>
   </div>
   
+</div>
 
 
 
 
+  
 
 
 

@@ -64,7 +64,7 @@ loginForm.addEventListener('submit', async (e) => {
                     } else {
                         window.location.href = 'src/pages/inicio.html'; // Página para usuarios normales
                     }
-                }, 2000); // Esperar 2 segundos antes de redirigir
+                }, 800); // Espera 800 milisegundos antes de redirigir
             } else {
                 messageBox.textContent = 'Contraseña incorrecta.';
                 messageBox.style.color = 'red';
