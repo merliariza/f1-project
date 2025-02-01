@@ -12,106 +12,115 @@
   <body class="body">
 
     <!-- Navegación -->
-    <nav class="navbar navbar-dark bg-custom fixed-top">
+    <nav class="navbar navbar-dark bg-custom  shadow">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"> F1 MANAGEMENT</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <a class="navbar-brand fw-bold text-uppercase" href="#">F1 Management</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end text-bg-dark bg-custom" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-          <div class="offcanvas-header bg-custom">
-            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">OPCIONES DE ADMINISTRADOR</h5>
+        <div class="offcanvas offcanvas-end bg-custom text-light" tabindex="-1" id="offcanvasDarkNavbar">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold text-uppercase" id="offcanvasDarkNavbarLabel">Opciones de Administrador</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body bg-custom">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <div class="offcanvas-body">
+            <ul class="navbar-nav flex-grow-1">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Equipos</a>
+                <a class="nav-link text-white nav-hover" href="#">Equipos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Vehiculos</a>
+                <a class="nav-link text-white nav-hover" href="#">Vehículos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Circuitos</a>
+                <a class="nav-link text-white nav-hover" href="#">Circuitos</a>
               </li>
-              
             </ul>
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- Contenido de Administración de Circuitos -->
-    <div style="color: white;" class="container mt-5 pt-5">
-      <h2>Administrar Circuitos de Carrera</h2>
+<!-- Formulario para agregar un nuevo circuito -->
+<div class="card-admin mt-4">
+  <div class="card-content">
+    <h5 class="card-title">Agregar Nuevo Circuito</h5>
+    <form id="addCircuitForm">
+      <hr>
+      
+      <div class="mb-3">
+        <label for="circuitName" class="form-label">Nombre del Circuito</label>
+        <input class="form-control" type="text" id="circuitName" placeholder="Nombre del Circuito" required>
+      </div>
+<!-- Dropdown para dificultad -->
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Dificultad del Circuito
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Facil')">Fácil</a></li>
+    <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Media')">Media</a></li>
+    <li><a class="dropdown-item" href="#" onclick="selectDifficulty('Dificil')">Difícil</a></li>
+  </ul>
+</div>
+<br>
 
-      <!-- Formulario para agregar un nuevo circuito -->
-      <div class="card-admin mt-4">
-        <div class="card-content">
-          <h5 class="card-title">Agregar Nuevo Circuito</h5>
-          <form id="addCircuitForm">
-            <hr>
-            <div class="dropdown">
-                <button class="dropdown-button">Dificultad del Circuito</button>
-                <div class="dropdown-content">
-                  <a href="#" data-role="facil">Facil</a>
-                  <a href="#" data-role="media">Media</a>
-                  <a href="#" data-role="dificil">Difcil</a>
-                 
-                </div>
-            </div>
-            <br>
-            <div class="mb-3">
-              <label for="circuitName" class="form-label">Nombre del Circuito</label>
-              <input class="form-control"  type="text" class="form-control" id="circuitName" placeholder="Nombre del Circuito" required>
-            </div>
-            <div class="mb-3">
-              <label for="circuitLength" class="form-label">Longitud del Circuito (km)</label>
-              <input class="form-control"  type="number" class="form-control" id="circuitLength" placeholder="Longitud del Circuito" required>
-            </div>
-
-              <input type="hidden" id="role" required />
-            <div class="mb-3">
-              <label for="circuitLocation" class="form-label">Ubicación del Circuito</label>
-              <input class="form-control"  type="text" class="form-control" id="circuitLocation" placeholder="Ubicación del Circuito" required>
-            </div>
-            
-            <br>
-            <button type="submit" href="#" class="btn-neon">
-                <span id="span1"></span>
-                <span id="span2"></span>
-                <span id="span3"></span>
-                <span id="span4"></span>
-                Agregar Circuito
-            </button>
-         <!--  <button type="submit" class="btn btn-success">Agregar Circuito</button> -->  
-          </form>
-        </div>
+      <div class="mb-3">
+        <label for="circuitLength" class="form-label">Longitud del Circuito (km)</label>
+        <input class="form-control" type="number" id="circuitLength" placeholder="Longitud del Circuito" required>
       </div>
 
-      <!-- Lista de Circuitos -->
-      <div class="bg-custom card mt-4">
-        <div class="bg-custom  card-body">
-          <h5 style="color: rgba(141, 179, 180, 0.973);" class="card-title">Lista de Circuitos</h5>
-          <table id="circuitList">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Longitud (km)</th>
-                <th>Ubicación</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="table-custom">
-              <!-- Los circuitos se agregarán aquí mediante JavaScript -->
-            </tbody>
-          </table>
-        </div>
+      <div class="mb-3">
+        <label for="circuitLaps" class="form-label">Cantidad de Vueltas</label>
+        <input class="form-control" type="number" id="circuitLaps" placeholder="Cantidad de Vueltas" required>
       </div>
-    </div>
+
+      <div class="mb-3">
+        <label for="circuitLocation" class="form-label">Ubicación del Circuito</label>
+        <input class="form-control" type="text" id="circuitLocation" placeholder="Ubicación del Circuito" required>
+      </div>
+
+      <!-- Campo oculto para la dificultad -->
+      <input type="hidden" id="difficulty" required />
+
+      <br>
+  <button type="submit" href="#" class="btn-neon">
+    <span id="span1"></span>
+    <span id="span2"></span>
+    <span id="span3"></span>
+    <span id="span4"></span>
+    Agregar Circuito
+</button>
+    </form>
+  </div>
+</div>
+
+<!-- Lista de Circuitos -->
+<div class="bg-custom2 card-table mt-4">
+  <div class="g-custom2 card-body">
+    <h5 style="color: rgba(141, 179, 180, 0.973);" class="card-title">Lista de Circuitos</h5>
+    <table id="circuitList" style="margin: auto;" >
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Longitud (km)</th>
+          <th>Vueltas</th>
+          <th>Ubicación</th>
+          <th>Dificultad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="table-custom">
+        <!-- Los circuitos se agregarán aquí mediante JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+      // Obtener referencias
+      const dropdownLinks = document.querySelectorAll('.dropdown-item');
+      const dropdownButton = document.getElementById('dropdownMenuButton');
       const addCircuitForm = document.getElementById('addCircuitForm');
       const circuitList = document.getElementById('circuitList').getElementsByTagName('tbody')[0];
 
@@ -124,10 +133,11 @@
         circuits.forEach((circuit, index) => {
           const row = document.createElement('tr');
           row.innerHTML = `
-        
             <td>${circuit.name}</td>
             <td>${circuit.length}</td>
+            <td>${circuit.laps}</td>
             <td>${circuit.location}</td>
+            <td>${circuit.difficulty}</td>
             <td>
               <button class="btn btn-secondary btn-sm" onclick="editCircuit(${index})">Editar</button>
               <button class="btn btn-danger btn-sm" onclick="deleteCircuit(${index})">Eliminar</button>
@@ -142,26 +152,51 @@
         event.preventDefault();
         const name = document.getElementById('circuitName').value;
         const length = document.getElementById('circuitLength').value;
+        const laps = document.getElementById('circuitLaps').value;
         const location = document.getElementById('circuitLocation').value;
+        const difficulty = document.getElementById('difficulty').value;
 
-        const newCircuit = { name, length, location };
+        // Validar que se haya seleccionado una dificultad
+        if (!difficulty) {
+          alert("Por favor, selecciona una dificultad.");
+          return;
+        }
+
+        const newCircuit = { name, length, laps, location, difficulty };
         circuits.push(newCircuit);
         updateCircuitList();
-        
+
         // Guardar en LocalStorage
         localStorage.setItem('circuitos', JSON.stringify(circuits));
 
         // Limpiar el formulario
         addCircuitForm.reset();
-        Swal.fire('Circuito agregado', '', 'success');
+        document.getElementById('difficulty').value = ''; // Limpiar la dificultad
+
+        Swal.fire({
+          title: 'Circuito agregado',
+          icon: 'success',
+          background:  '#004346be',
+          color: '#FFFF',
+          confirmButtonColor: '#023f4677',
+          iconColor: '#1de9b6',
+        });
       });
+
+      // Función para seleccionar la dificultad del circuito
+      function selectDifficulty(difficulty) {
+        document.getElementById('difficulty').value = difficulty;
+        dropdownButton.textContent = `Dificultad del Circuito: ${difficulty}`;
+      }
 
       // Función para editar un circuito
       function editCircuit(index) {
         const circuit = circuits[index];
         document.getElementById('circuitName').value = circuit.name;
         document.getElementById('circuitLength').value = circuit.length;
+        document.getElementById('circuitLaps').value = circuit.laps;
         document.getElementById('circuitLocation').value = circuit.location;
+        document.getElementById('difficulty').value = circuit.difficulty;
 
         // Eliminar el circuito actual para ser reemplazado
         circuits.splice(index, 1);
@@ -174,6 +209,8 @@
           title: '¿Estás seguro?',
           text: 'No podrás revertir esto!',
           icon: 'warning',
+          color:'white',
+          background:  '#004346be',
           showCancelButton: true,
           confirmButtonText: 'Sí, eliminarlo',
           cancelButtonText: 'Cancelar'
@@ -181,11 +218,19 @@
           if (result.isConfirmed) {
             circuits.splice(index, 1);
             updateCircuitList();
-            
+
             // Guardar cambios en LocalStorage
             localStorage.setItem('circuitos', JSON.stringify(circuits));
-
-            Swal.fire('Eliminado!', 'El circuito ha sido eliminado.', 'success');
+            Swal.fire({
+          title: 'Eliminado',
+          text: 'El circuito ha sido eliminado correctamente',
+          icon: 'success',
+          background: '#aa111191 !importante',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, eliminarlo',
+          cancelButtonText: 'Cancelar'
+        })
+            Swal.fire('Eliminado', 'El circuito ha sido eliminado correctamente', 'success');
           }
         });
       }
@@ -195,3 +240,5 @@
     </script>
   </body>
 </html>
+
+  

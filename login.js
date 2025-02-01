@@ -6,7 +6,9 @@ const passwordInput = document.getElementById('password');
 const newUsernameInput = document.getElementById('newUsername');
 const newPasswordInput = document.getElementById('newPassword');
 const roleInput = document.getElementById('role');
-const messageBox = document.getElementById('messageBox');
+const loginMessageBox = document.getElementById('loginMessageBox');
+const registerMessageBox = document.getElementById('registerMessageBox');
+
 
 const loginFormContainer = document.getElementById('loginFormContainer');
 const registerFormContainer = document.getElementById('registerFormContainer');
@@ -48,7 +50,7 @@ loginForm.addEventListener('submit', async (e) => {
                     width: 600,
                     padding: "3em",
                     color: "#000",
-                    background: "rgba(255, 255, 255, 0.61)",
+                    background: '#004346b4', 
                     backdrop: `
                       rgb(48, 48, 51)
                       url("/images/nyan-cat.gif")
@@ -66,17 +68,28 @@ loginForm.addEventListener('submit', async (e) => {
                     }
                 }, 800); // Espera 800 milisegundos antes de redirigir
             } else {
-                messageBox.textContent = 'Contraseña incorrecta.';
-                messageBox.style.color = 'red';
+              loginMessageBox.textContent = 'Contraseña incorrecta.';
+              loginMessageBox.style.color = 'red';
+
+              setTimeout(() => {
+                  loginMessageBox.textContent = '';
+              }, 1000);
             }
         } else {
-            messageBox.textContent = 'Usuario incorrecto.';
-            messageBox.style.color = 'red';
+          loginMessageBox.textContent = 'Usuario incorrecto.';
+          loginMessageBox.style.color = 'red';
+
+          setTimeout(() => {
+              loginMessageBox.textContent = '';
+          }, 1000);
         }
     } catch (error) {
         console.error('Error al hacer login:', error);
         messageBox.textContent = 'Hubo un problema con la conexión al servidor.';
         messageBox.style.color = 'red';
+        setTimeout(() => {
+          messageBox.textContent = '';
+      }, 1000);
     }
 });
 
@@ -95,8 +108,13 @@ registerForm.addEventListener('submit', async (e) => {
     const userExists = users.find((user) => user.username === newUsername);
 
     if (userExists) {
-      messageBox.textContent = 'El usuario ya existe.';
-      messageBox.style.color = 'red';
+      registerMessageBox.textContent = 'El usuario ya existe.';
+      registerMessageBox.style.color = 'red';
+
+      setTimeout(() => {
+          registerMessageBox.textContent = '';
+      }, 2000);
+     
     } else {
       const newUser = {
         username: newUsername,
@@ -113,20 +131,33 @@ registerForm.addEventListener('submit', async (e) => {
       });
 
       if (postResponse.ok) {
-        messageBox.textContent = 'Usuario registrado exitosamente. ¡Inicia sesión!';
-        messageBox.style.color = 'green';
-        registerForm.reset();
-        loginFormContainer.style.display = 'block';
-        registerFormContainer.style.display = 'none';
+        registerMessageBox.textContent = 'Usuario registrado exitosamente. ¡Inicia sesión!';
+                registerMessageBox.style.color = 'green';
+
+                setTimeout(() => {
+                    registerMessageBox.textContent = '';
+                }, 3000);
+
+                registerForm.reset();
+                loginFormContainer.style.display = 'block';
+                registerFormContainer.style.display = 'none';
       } else {
-        messageBox.textContent = 'Hubo un problema al registrar al usuario.';
-        messageBox.style.color = 'red';
+        registerMessageBox.textContent = 'Hubo un problema al registrar al usuario.';
+        registerMessageBox.style.color = 'red';
+
+        setTimeout(() => {
+            registerMessageBox.textContent = '';
+        }, 1000);
       }
     }
   } catch (error) {
     console.error('Error al registrar usuario:', error);
-    messageBox.textContent = 'Hubo un problema con la conexión al servidor.';
-    messageBox.style.color = 'red';
+    registerMessageBox.textContent = 'Hubo un problema con la conexión al servidor.';
+    registerMessageBox.style.color = 'red';
+
+    setTimeout(() => {
+        registerMessageBox.textContent = '';
+    }, 1000);
   }
 });
 

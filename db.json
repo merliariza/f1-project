@@ -59,17 +59,47 @@
       "username": "usuario10",
       "password": "12345",
       "role": "admin"
+    },
+    {
+      "id": "d312",
+      "username": "123",
+      "password": "123",
+      "role": ""
+    },
+    {
+      "id": "e583",
+      "username": "usuario100",
+      "password": "123",
+      "role": "usuario"
+    },
+    {
+      "id": "3833",
+      "username": "usuario",
+      "password": "123123",
+      "role": "admin"
+    },
+    {
+      "id": "747e",
+      "username": "asd",
+      "password": "asd",
+      "role": ""
+    },
+    {
+      "id": "61be",
+      "username": "asdasd",
+      "password": "asd",
+      "role": "usuario"
     }
   ],
   "circuitos": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Circuito de Mónaco",
       "length": 3.337,
       "location": "Mónaco"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Circuito de Silverstone",
       "length": 5.891,
       "location": "Reino Unido"

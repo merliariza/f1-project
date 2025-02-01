@@ -2,20 +2,79 @@
 *{
   font-family: "Orbitron", serif;
     box-sizing: content-box;
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+   
+    text-align: center;}
+/* Estilos generales */
+.bg-custom{
+  background: linear-gradient(45deg, #01434b, #470202) !important;
+}
 
+/* Sombra para el navbar */
+.navbar {
+  
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para enlaces en el menú lateral */
+.nav-hover {
+  transition: all 0.3s ease;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+.navbar-brand:hover{
+  color: #8de8ff;
+  text-shadow:2px 2px 8px #00f7ff;
+}
+.nav-hover:hover {
+  color: #8de8ff;
+  text-shadow:2px 2px 8px #00f7ff;
+  padding: 10px 20px; /* Color del texto */
+  background-color: rgba(75, 71, 71, 0.2); /* Fondo semitransparente */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: all 0.2s ease-in-out; /* Suaviza la animación */
+}
+
+/* Estilo para el botón del menú hamburguesa */
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+/* Offcanvas (Menú lateral) */
+.offcanvas {
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+/* Offcanvas (Menú lateral) */
+.offcanvas-header {
+  color: #bbd7da;
+}
+.offcanvas-header:hover {
+  color: #aeeffa;
+  text-shadow:2px 2px 8px #00f7ff;
 }
 
 
+.bg-custom {
+  background: linear-gradient(45deg, #004346, #470202) !important;
+}
+.bg-custom2{
+  background-color: #00434665 !important;
+
+}
     
         /* Fondo de las celdas */
 #table-custom td, th {
-     color: rgb(186, 221, 224);
+            color: rgb(186, 221, 224);
             padding: 10px;
             text-align: center;
             background-color: #0b3136ea; /* Fondo de las celdas */
-            border: 1px solid #cccccc80;
+            border: 1px solid #126a8056;
 
         }
 
@@ -41,9 +100,7 @@
         }
       
 
-.bg-custom{
-    background-color: #00434665 !important;
-  }
+
 
 .btn-neon{
   background-color: #00434665;
@@ -215,14 +272,17 @@ button:hover{
   border: 2px solid rgb(80, 82, 85);
 }
 .form-control:focus{
-  background-color: #0a3a4288;
-  border: none;
-  color: white;
+  background-color: #0a3a4288 !important;
+  border: 1px solid white;
+  color: white !important;
 }
 .form-control::placeholder {
   color: #ffffffa6 !important; /* Cambia a cualquier color que desees */
   }
-
+.form-control:not(:placeholder-shown) {
+  color: rgba(255, 255, 255, 0.63);
+  background-color: #f1f1f1;  /* Fondo más claro cuando ya hay texto */
+}
 /* Capa adicional de borde interno */
 .card::before {
   content: '';
@@ -262,10 +322,7 @@ button:hover{
 }
 
 body {
-    margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+ 
 	background: linear-gradient(-45deg, #000000, #012c2e, #002122, #000000);
 	background-size: 400% 400%;
 	animation: gradient 30s ease infinite;
@@ -288,7 +345,7 @@ body {
 
 
 .card-admin {
-   
+  margin: auto;
   box-shadow: 0 0 8px 2px rgba(0, 229, 255, 0.6), 
   0 0 20px 4px rgba(255, 0, 0, 0.5); /* Box-shadow combinado */
   text-align: center;
@@ -296,20 +353,45 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 400px;
-  height: 500px;
+  width: 80%;
+  height: auto;
   background: #061f25 ;
   border: 2px solid #0a383d;
   border-radius: 8px;
   overflow: hidden;
 }
+
+.card-table {
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 8px 2px rgba(0, 229, 255, 0.6), 
+  0 0 20px 4px rgba(255, 0, 0, 0.5); /* Box-shadow combinado */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: auto;
+  background: #061f25 ;
+  border: 2px solid #0a383d77;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-body{
+  padding: 20px !important;
+ 
+}
 /* Estilos del dropdown */
 .dropdown {
   position: relative;
+ 
   width: 300px;  /* Para que ocupe el mismo ancho que otros campos */
 }
 
 .dropdown-button {
+  
   background-color: #f5f5f52f;
   border: 1px solid rgb(56, 63, 71);
   color: rgba(255, 255, 255, 0.733);
