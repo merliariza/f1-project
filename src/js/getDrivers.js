@@ -1,4 +1,4 @@
-export default async function getPilots() {
+export default async function getDrivers() {
     try {
         const response = await fetch('http://localhost:5003/drivers');
         const data = await response.json(); 

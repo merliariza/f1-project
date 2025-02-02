@@ -3,9 +3,9 @@ import VehicleModel from '../../../Models/vehicleModel.js';
 */
 
 import getTeams from '../js/getTeams.js';
-import getPilots from '../js/getPilots.js';
+import getDrivers from '../js/getDrivers.js';
 import getVehicles from '../js/getVehicles.js';
-import getPilotsByTeamId from '../js/getPilotsByTeamId.js';
+import getDriversByTeamId from '../js/getDriversByTeamId.js';
 import getVehiclesByTeamId from '../js/getVehiclesByTeamId.js';
 export class VehiclesComponent extends HTMLElement {
   constructor() {
@@ -16,11 +16,11 @@ export class VehiclesComponent extends HTMLElement {
   connectedCallback() {
     this.render();
     const vehicleTeamSelect = this.shadowRoot?.querySelector('#vehicleTeam');
-    const vehiclePilotSelect = this.shadowRoot?.querySelector('#vehiclePilot');
+    const vehicleDriverSelect = this.shadowRoot?.querySelector('#vehicleDriver');
     const vehicleSelect = this.shadowRoot?.querySelector('#vehicleSelect');
 
     vehicleTeamSelect.onchange = (event) => {
-      this.vehicleTeamSelectHandleChange(event, vehiclePilotSelect, vehicleSelect);
+      this.vehicleTeamSelectHandleChange(event, vehicleDriverSelect, vehicleSelect);
     }
 
     //this.saveData();
@@ -284,7 +284,7 @@ export class VehiclesComponent extends HTMLElement {
 
               <!-- Piloto del vehículo -->
               <div class="form-floating mb-3">
-                <select class="form-control select-disabled" id="vehiclePilot" required disabled>
+                <select class="form-control select-disabled" id="vehicleDriver" required disabled>
                   <option value="" disabled selected>Piloto</option>
                 </select>
               </div>
@@ -349,9 +349,9 @@ export class VehiclesComponent extends HTMLElement {
     `;
   }
 
-  vehicleTeamSelectHandleChange(event, vehiclePilotSelect, vehicleSelect) {
+  vehicleTeamSelectHandleChange(event, vehicleDriverSelect, vehicleSelect) {
     const teamId = event.target.value;
-    this.setVehiclePilotOptions(teamId, vehiclePilotSelect);
+    this.setVehicleDriverOptions(teamId, vehicleDriverSelect);
     this.setVehicleOptions(teamId, vehicleSelect)
   }
 
@@ -377,27 +377,27 @@ export class VehiclesComponent extends HTMLElement {
     }
   }
 
-  async setVehiclePilotOptions(teamId, vehiclePilotSelect) {
+  async setVehicleDriverOptions(teamId, vehicleDriverSelect) {
     try {
-      if (!vehiclePilotSelect) {
-        console.error('Elemento #vehiclePilot no encontrado');
+      if (!vehicleDriverSelect) {
+        console.error('Elemento #vehicleDriver no encontrado');
         return;
       }
-      vehiclePilotSelect.disabled = false;
-      vehiclePilotSelect.classList.remove('select-disabled');
-      let allPilots = await getPilots();
-      if (!Array.isArray(allPilots)) {
-        console.error('Error: La respuesta de getPilots() no es un array');
+      vehicleDriverSelect.disabled = false;
+      vehicleDriverSelect.classList.remove('select-disabled');
+      let allDrivers = await getDrivers();
+      if (!Array.isArray(allDrivers)) {
+        console.error('Error: La respuesta de getDrivers() no es un array');
         return;
       }
 
-      let teamPilots = getPilotsByTeamId(allPilots, teamId);
+      let teamDrivers = getDriversByTeamId(allDrivers, teamId);
 
-      teamPilots.forEach(pilot => {
+      teamDrivers.forEach(Driver => {
         const option = document.createElement('option');
-        option.value = pilot.id;
-        option.textContent = pilot.name;
-        vehiclePilotSelect.appendChild(option);
+        option.value = Driver.id;
+        option.textContent = Driver.name;
+        vehicleDriverSelect.appendChild(option);
       });
     } catch (error) {
       console.error('Error al obtener equipos:', error);
@@ -423,7 +423,7 @@ export class VehiclesComponent extends HTMLElement {
       teamVehicles.forEach(vehicle => {
         const option = document.createElement('option');
         option.value = vehicle.id;
-        option.textContent = vehicle.motor + ' ' + vehicle.model;
+        option.textContent = vehicle.engine + ' ' + vehicle.model;
         vehicleSelect.appendChild(option);
       });
     } catch (error) {
@@ -437,13 +437,13 @@ export class VehiclesComponent extends HTMLElement {
 
       const vehicleSelect = this.shadowRoot.querySelector('#vehicleSelect').value;
       const vehicleDescription = this.shadowRoot.querySelector('#vehicleDescription').value;
-      const vehiclePilot = this.shadowRoot.querySelector('#vehiclePilot').value;
+      const vehicleDriver = this.shadowRoot.querySelector('#vehicleDriver').value;
       const vehicleTeam = this.shadowRoot.querySelector('#vehicleTeam').value;
 
       const vehicleData = {
         name: vehicleSelect,
         description: vehicleDescription,
-        pilot: vehiclePilot,
+        Driver: vehicleDriver,
         team: vehicleTeam,
         id: Date.now()
       };
@@ -468,7 +468,7 @@ export class VehiclesComponent extends HTMLElement {
         <div class="card">
           <h3>${vehicleData.name}</h3>
           <p>${vehicleData.description}</p>
-          <p>Piloto: ${vehicleData.pilot}</p>
+          <p>Drivero: ${vehicleData.Driver}</p>
           <p>Equipo: ${vehicleData.team}</p>
           <button class="edit-btn">Editar</button>
           <button class="delete-btn">Eliminar</button>
