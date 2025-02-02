@@ -468,7 +468,7 @@ export class VehiclesComponent extends HTMLElement {
         <div class="card">
           <h3>${vehicleData.name}</h3>
           <p>${vehicleData.description}</p>
-          <p>Drivero: ${vehicleData.Driver}</p>
+          <p>Piloto: ${vehicleData.Driver}</p>
           <p>Equipo: ${vehicleData.team}</p>
           <button class="edit-btn">Editar</button>
           <button class="delete-btn">Eliminar</button>
