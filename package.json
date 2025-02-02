@@ -1,14 +1,16 @@
 {
-  "name": "f1-project",
+  "name": "vehicles-vite",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "json-server": "json-server --watch db.json --port 5004"
   },
   "devDependencies": {
+    "json-server": "^1.0.0-beta.3",
     "vite": "^6.0.5"
   }
 }
