@@ -194,7 +194,7 @@
           "pilot": 1
         }
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Monza_track_map.svg",
+      "image": "media/circuitos/monza.webp",
       "difficulty": "Media"
     },
     {
@@ -295,33 +295,14 @@
       "id": "8"
     },
     {
-      "id": "9",
       "name": "Circuito de Zandvoort",
-      "country": "Países Bajos",
-      "lengthKm": 4.25,
+      "difficulty": "Baja",
+      "lengthKm": 44,
       "laps": 72,
+      "country": "Países Bajos",
       "description": "Circuito con muchas curvas cerradas y un trazado que exige alta precisión, pero más accesible comparado con otros más técnicos.",
-      "lapRecord": {
-        "time": "1:08.622",
-        "pilot": "Max Verstappen",
-        "year": 2021
-      },
-      "winners": [
-        {
-          "season": 2021,
-          "pilot": 1
-        },
-        {
-          "season": 2022,
-          "pilot": 1
-        },
-        {
-          "season": 2023,
-          "pilot": 1
-        }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Zandvoort_2020.png",
-      "difficulty": "Baja"
+      "image": "",
+      "id": "9"
     }
   ],
   "vehicles": [
