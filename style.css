@@ -1,9 +1,10 @@
 body {
-    background: #15151e;  /* Color oscuro sólido en lugar del degradado */
+    background: linear-gradient(135deg, #15151e 0%, #1a1a24 100%);
     font-family: 'Titillium Web', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    color: #ffffff;
 }
 
 :root {
@@ -18,8 +19,6 @@ body {
 .navbar {
     background: var(--f1-black) !important;
     border-bottom: 2px solid var(--f1-red);
-    box-shadow: var(--neon-glow);
-    animation: neonPulse 2s infinite;
     z-index: 1030;
 }
 
@@ -114,9 +113,9 @@ body {
 }
 
 @keyframes neonPulse {
-    0% { box-shadow: 0 0 5px rgba(225, 6, 0, 0.5); }
-    50% { box-shadow: 0 0 15px rgba(225, 6, 0, 0.8); }
-    100% { box-shadow: 0 0 5px rgba(225, 6, 0, 0.5); }
+    0% { box-shadow: none; }
+    50% { box-shadow: none; }
+    100% { box-shadow: none; }
 }
 
 .offcanvas-header {
@@ -280,6 +279,10 @@ body {
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
+    background: #1a1a24;
+    border-radius: 20px;
+    margin: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .section.active {
@@ -310,7 +313,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 15px rgba(255, 0, 0, 0.2);
 }
 
 .nav-container {
@@ -394,6 +396,25 @@ body {
 .content-sections {
     padding: 2rem;
     min-height: calc(100vh - 80px);
+    position: relative;
+    overflow: hidden;
+}
+
+.content-sections::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.03) 10px,
+        rgba(255, 255, 255, 0.03) 20px
+    );
+    z-index: -1;
 }
 
 .home-content {
@@ -450,6 +471,9 @@ body {
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    background: #1a1a24;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-options {
@@ -460,7 +484,7 @@ body {
 }
 
 .option-card {
-    background: rgba(30, 30, 30, 0.9);
+    background: #1f1f27;
     border: 1px solid rgba(255, 0, 0, 0.3);
     border-radius: 12px;
     padding: 2rem;
@@ -471,8 +495,8 @@ body {
 
 .option-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
     border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
 }
 
 .option-card i {
@@ -492,19 +516,34 @@ body {
 }
 
 .back-button {
-    background: rgba(255, 0, 0, 0.2);
-    border: 1px solid #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff0000;
     color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-button i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
 }
 
 .back-button:hover {
-    background: rgba(255, 0, 0, 0.4);
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    transform: translateX(-5px);
+}
+
+.back-button:hover i {
+    transform: translateX(-3px);
 }
 
 /* Estilos para la búsqueda de pilotos */
@@ -573,4 +612,11 @@ body {
 .stat-box i {
     font-size: 1.5rem;
     color: #ff0000;
+}
+
+/* Mejorar la visibilidad del contenido */
+.dashboard-view {
+    padding: 2rem;
+    border-radius: 15px;
+    background: #1a1a24;
 }

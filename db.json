@@ -5,6 +5,8 @@
       "name": "Max Verstappen",
       "team": "Red Bull Racing",
       "role": "Leader",
+      "number": 1,
+      "country": "Netherlands",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png"
     },
     {
@@ -12,6 +14,8 @@
       "name": "Sergio Pérez",
       "team": "Red Bull Racing",
       "role": "Support",
+      "number": 11,
+      "country": "Mexico",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png"
     },
     {
@@ -19,6 +23,8 @@
       "name": "Lewis Hamilton",
       "team": "Mercedes-AMG Petronas",
       "role": "Leader",
+      "number": 44,
+      "country": "United Kingdom",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png"
     },
     {
@@ -26,6 +32,8 @@
       "name": "George Russell",
       "team": "Mercedes-AMG Petronas",
       "role": "Support",
+      "number": 63,
+      "country": "United Kingdom",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png"
     },
     {
@@ -33,6 +41,8 @@
       "name": "Charles Leclerc",
       "team": "Ferrari",
       "role": "Leader",
+      "number": 16,
+      "country": "Monaco",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png"
     },
     {
@@ -40,6 +50,8 @@
       "name": "Carlos Sainz",
       "team": "Ferrari",
       "role": "Support",
+      "number": 55,
+      "country": "Spain",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png"
     },
     {
@@ -47,6 +59,8 @@
       "name": "Lando Norris",
       "team": "McLaren",
       "role": "Leader",
+      "number": 4,
+      "country": "United Kingdom",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png"
     },
     {
@@ -54,6 +68,8 @@
       "name": "Oscar Piastri",
       "team": "McLaren",
       "role": "Support",
+      "number": 21,
+      "country": "Australia",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/2col/image.png"
     },
     {
@@ -61,6 +77,8 @@
       "name": "Fernando Alonso",
       "team": "Aston Martin",
       "role": "Leader",
+      "number": 14,
+      "country": "Spain",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png"
     },
     {
@@ -68,6 +86,8 @@
       "name": "Lance Stroll",
       "team": "Aston Martin",
       "role": "Support",
+      "number": 18,
+      "country": "Canada",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/2col/image.png"
     },
     {
@@ -75,6 +95,8 @@
       "name": "Esteban Ocon",
       "team": "Alpine",
       "role": "Leader",
+      "number": 31,
+      "country": "France",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/2col/image.png"
     },
     {
@@ -82,6 +104,8 @@
       "name": "Pierre Gasly",
       "team": "Alpine",
       "role": "Support",
+      "number": 10,
+      "country": "France",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/2col/image.png"
     },
     {
@@ -89,6 +113,8 @@
       "name": "Valtteri Bottas",
       "team": "Alfa Romeo",
       "role": "Leader",
+      "number": 77,
+      "country": "Finland",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/2col/image.png"
     },
     {
@@ -96,6 +122,8 @@
       "name": "Zhou Guanyu",
       "team": "Alfa Romeo",
       "role": "Support",
+      "number": 24,
+      "country": "China",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png.transform/2col/image.png"
     },
     {
@@ -103,6 +131,8 @@
       "name": "Kevin Magnussen",
       "team": "Haas",
       "role": "Leader",
+      "number": 20,
+      "country": "Denmark",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png.transform/2col/image.png"
     },
     {
@@ -110,6 +140,8 @@
       "name": "Nico Hülkenberg",
       "team": "Haas",
       "role": "Support",
+      "number": 27,
+      "country": "Germany",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/2col/image.png"
     },
     {
@@ -117,6 +149,8 @@
       "name": "Yuki Tsunoda",
       "team": "AlphaTauri",
       "role": "Leader",
+      "number": 22,
+      "country": "Japan",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png.transform/2col/image.png"
     },
     {
@@ -124,6 +158,8 @@
       "name": "Daniel Ricciardo",
       "team": "AlphaTauri",
       "role": "Support",
+      "number": 3,
+      "country": "Australia",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png.transform/2col/image.png"
     },
     {
@@ -131,6 +167,8 @@
       "name": "Alexander Albon",
       "team": "Williams",
       "role": "Leader",
+      "number": 23,
+      "country": "Thailand",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col/image.png"
     },
     {
@@ -138,7 +176,17 @@
       "name": "Logan Sargeant",
       "team": "Williams",
       "role": "Support",
+      "number": 6,
+      "country": "United States",
       "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png.transform/2col/image.png"
+    },
+    {
+      "name": "Kodigo",
+      "number": 21,
+      "country": "Colombia",
+      "photo": "https://img.redbull.com/images/c_crop,x_1004,y_0,h_2196,w_2196/c_fill,w_192,h_192/q_auto,f_auto/redbullcom/2021/9/9/uqgo2p6s7youycfwwn65/kodigo",
+      "team": "Red Bull Racing",
+      "id": 21
     }
   ],
   "teams": [
@@ -354,7 +402,7 @@
         "normal_driving": {
           "average_speed_kmh": 318,
           "fuel_consumption": {
-            "dry": 2.0,
+            "dry": 2,
             "wet": 2.2,
             "extreme": 2.5
           },
@@ -440,7 +488,7 @@
           },
           "tire_wear": {
             "dry": 1.7,
-            "wet": 1.0,
+            "wet": 1,
             "extreme": 2.7
           }
         },
@@ -608,7 +656,7 @@
           "average_speed_kmh": 333,
           "fuel_consumption": {
             "dry": 2.8,
-            "wet": 3.0,
+            "wet": 3,
             "extreme": 3.4
           },
           "tire_wear": {
@@ -665,7 +713,7 @@
       "model": "VF-24",
       "engine": "Ferrari 066/10",
       "max_speed_kmh": 347,
-      "acceleration_0_100": 3.0,
+      "acceleration_0_100": 3,
       "drivers": [
         15,
         16
@@ -679,9 +727,9 @@
             "extreme": 2.9
           },
           "tire_wear": {
-            "dry": 2.0,
+            "dry": 2,
             "wet": 1.3,
-            "extreme": 3.0
+            "extreme": 3
           }
         },
         "aggressive_driving": {
@@ -694,7 +742,7 @@
           "tire_wear": {
             "dry": 2.7,
             "wet": 1.7,
-            "extreme": 4.0
+            "extreme": 4
           }
         }
       },
