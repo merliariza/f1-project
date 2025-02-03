@@ -6,6 +6,11 @@ async function loadCircuits() {
     try {
         const response = await fetch('http://localhost:3000/circuits');
         const circuits = await response.json();
+        circuits.forEach( (circuit) => {
+            if (circuit.id === '4c12') {
+                console.log(circuit)
+            }
+        })
         displayCircuits(circuits);
     } catch (error) {
         console.error('Error al cargar los circuitos:', error);
@@ -23,13 +28,15 @@ function displayCircuits(circuits) {
             <td>${circuit.difficulty}</td>
             <td><img src="${circuit.image}" alt="Imagen de ${circuit.name}" style="width: 100px; height: auto;"></td>
             <td>
-                <button class="btn btn-danger" onclick="deleteCircuit(${circuit.id})">Eliminar</button>
-                <button class="btn btn-secondary" onclick="editCircuit(${circuit.id})">Editar</button>
+                <button class="btn btn-danger" onclick="deleteCircuit('${circuit.id}')">Eliminar</button>
+                <button class="btn btn-secondary" onclick="editCircuit('${circuit.id}')">Editar</button>
             </td>
         `;
         circuitList.appendChild(row);
+       
     });
 }
+
 
 // Función para agregar o editar un circuito
 addCircuitForm.addEventListener('submit', async (e) => {
@@ -118,7 +125,8 @@ window.editCircuit = async function (id) {
 };
 
 // Eliminar circuito
-window.deleteCircuit = async function (id) {
+deleteCircuit = async function (id) {
+  
     const confirmDelete = await Swal.fire({
         title: '¿Estás seguro?',
         text: "Esta acción no se puede deshacer.",
