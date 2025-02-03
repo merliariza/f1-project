@@ -42,7 +42,8 @@ async handleSubmit(event) {
                     dry: formData.get('tireWearDryNormal'),
                     rainy: formData.get('tireWearRainyNormal'),
                     extreme: formData.get('tireWearExtremeNormal')
-                }
+                },
+                
             }
         }
     };
@@ -315,30 +316,13 @@ render() {
         
         <!-- Velocidad Promedio -->
 <div class="form-group mb-3">
-  <label for="averageSpeed">Velocidad Promedio</label>
+  <label for="averageSpeed" name="averageSpeedNormal">Velocidad Promedio</label>
   <div class="d-flex justify-content-between">
     
-    <!-- Columna Seco -->
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedDry" placeholder="Seco" required>
-        <label for="averageSpeedDry">Seco</label>
-      </div>
-    </div>
-    
-    <!-- Columna Húmedo -->
-    <div class="col-md-4">
-      <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedRainy" placeholder="Húmedo" required>
-        <label for="averageSpeedRainy">Húmedo</label>
-      </div>
-    </div>
-
-    <!-- Columna Extremo -->
-    <div class="col-md-4">
-      <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedExtreme" placeholder="Extremo" required>
-        <label for="averageSpeedExtreme">Extremo</label>
+        <input type="number" class="form-control" id="averageSpeedNormal"" name="averageSpeedNormal" placeholder="Velocidad promedio" required>
+        <label for="averageSpeedNormal">Velocidad promedio</label>
       </div>
     </div>
 
@@ -353,24 +337,24 @@ render() {
     <!-- Columna Seco -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionDry" placeholder="Seco" required>
-        <label for="fuelConsumptionDry">Seco</label>
+        <input type="number" class="form-control" id="fuelConsumptionDryNormal" name="fuelConsumptionDryNormal" placeholder="Seco" required>
+        <label for="fuelConsumptionDryNormal">Seco</label>
       </div>
     </div>
     
     <!-- Columna Húmedo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionRainy" placeholder="Húmedo" required>
-        <label for="fuelConsumptionRainy">Húmedo</label>
+        <input type="number" class="form-control" id="fuelConsumptionRainyNormal" name="fuelConsumptionRainyNormal" placeholder="Húmedo" required>
+        <label for="fuelConsumptionRainyNormal">Húmedo</label>
       </div>
     </div>
 
     <!-- Columna Extremo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionExtreme" placeholder="Extremo" required>
-        <label for="fuelConsumptionExtreme">Extremo</label>
+        <input type="number" class="form-control" id="fuelConsumptionExtremeNormal" name="fuelConsumptionExtremeNormal" placeholder="Extremo" required>
+        <label for="fuelConsumptionExtremeNormal">Extremo</label>
       </div>
     </div>
 
@@ -386,24 +370,24 @@ render() {
     <!-- Columna Seco -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearDry" placeholder="Seco" required>
-        <label for="tireWearDry">Seco</label>
+        <input type="number" class="form-control" id="tireWearDryNormal" name="tireWearDryNormal" placeholder="Seco" required>
+        <label for="tireWearDryNormal">Seco</label>
       </div>
     </div>
     
     <!-- Columna Húmedo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearRainy" placeholder="Húmedo" required>
-        <label for="tireWearRainy">Húmedo</label>
+        <input type="number" class="form-control" id="tireWearRainyNormal" name="tireWearRainyNormal" placeholder="Húmedo" required>
+        <label for="tireWearRainyNormal">Húmedo</label>
       </div>
     </div>
 
     <!-- Columna Extremo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearExtreme" placeholder="Extremo" required>
-        <label for="tireWearExtreme">Extremo</label>
+        <input type="number" class="form-control" id="tireWearExtremeNormal" name="tireWearExtremeNormal" placeholder="Extremo" required>
+        <label for="tireWearExtremeNormal">Extremo</label>
       </div>
     </div>
 

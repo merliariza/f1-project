@@ -4,14 +4,74 @@ export class SavingDrivingComponent extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-  }
+    this.vehicles = [];
+    this.editingVehicle = null;
+}
 
-  connectedCallback() {
-    this.render();
-    
-  }
-  render() {
+connectedCallback() {
+    this.loadVehicles();
+}
 
+async loadVehicles() {
+    try {
+        const response = await fetch('http://localhost:3000/vehicles');
+        this.vehicles = await response.json();
+        this.render();
+    } catch (error) {
+        console.error('Error cargando vehículos:', error);
+    }
+}
+
+async handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const vehicleData = {
+        model: formData.get('model'),
+        engine: formData.get('engine'),
+        maxSpeedKmh: formData.get('maxSpeedKmh'),
+        acceleration: formData.get('acceleration'),
+        performance: {
+          fuelSaving: {
+                averageSpeedKmh: formData.get('averageSpeedSaving'),
+                fuelConsumption: {
+                    dry: formData.get('fuelConsumptionDrySaving'),
+                    rainy: formData.get('fuelConsumptionRainySaving'),
+                    extreme: formData.get('fuelConsumptionExtremeSaving')
+                },
+                tireWear: {
+                    dry: formData.get('tireWearDrySaving'),
+                    rainy: formData.get('tireWearRainySaving'),
+                    extreme: formData.get('tireWearExtremeSaving')
+                },
+                
+            }
+        }
+    };
+
+    try {
+        let url = 'http://localhost:3000/vehicles';
+        let method = 'POST';
+        if (this.editingVehicle) {
+            url += `/${this.editingVehicle.id}`;
+            method = 'PUT';
+        }
+
+        const response = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(vehicleData)
+        });
+
+        if (response.ok) {
+            this.loadVehicles();
+            event.target.reset();
+            this.editingVehicle = null;
+        }
+    } catch (error) {
+        console.error('Error guardando vehículo:', error);
+    }
+}
+render() {
     this.shadowRoot.innerHTML = `
      <style>
      .form-container {
@@ -259,29 +319,12 @@ export class SavingDrivingComponent extends HTMLElement {
   <label for="averageSpeed">Velocidad Promedio</label>
   <div class="d-flex justify-content-between">
     
-    <!-- Columna Seco -->
-    <div class="col-md-4">
-      <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedDry" placeholder="Seco" required>
-        <label for="averageSpeedDry">Seco</label>
-      </div>
-    </div>
-    
-    <!-- Columna Húmedo -->
-    <div class="col-md-4">
-      <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedRainy" placeholder="Húmedo" required>
-        <label for="averageSpeedRainy">Húmedo</label>
-      </div>
-    </div>
-
-    <!-- Columna Extremo -->
-    <div class="col-md-4">
-      <div class="form-floating">
-        <input type="number" class="form-control" id="averageSpeedExtreme" placeholder="Extremo" required>
-        <label for="averageSpeedExtreme">Extremo</label>
-      </div>
-    </div>
+  <div class="col-md-12">
+  <div class="form-floating">
+    <input type="number" class="form-control" id="averageSpeedSaving"" name="averageSpeedSaving" placeholder="Velocidad promedio" required>
+    <label for="averageSpeedSaving">Velocidad promedio</label>
+  </div>
+</div>
 
   </div>
 </div>
@@ -294,24 +337,24 @@ export class SavingDrivingComponent extends HTMLElement {
     <!-- Columna Seco -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionDry" placeholder="Seco" required>
-        <label for="fuelConsumptionDry">Seco</label>
+        <input type="number" class="form-control" id="fuelConsumptionDrySaving" name="fuelConsumptionDrySaving" placeholder="Seco" required>
+        <label for="fuelConsumptionDrySaving">Seco</label>
       </div>
     </div>
     
     <!-- Columna Húmedo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionRainy" placeholder="Húmedo" required>
-        <label for="fuelConsumptionRainy">Húmedo</label>
+        <input type="number" class="form-control" id="fuelConsumptionRainySaving" name="fuelConsumptionRainySaving" placeholder="Húmedo" required>
+        <label for="fuelConsumptionRainySaving">Húmedo</label>
       </div>
     </div>
 
     <!-- Columna Extremo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="fuelConsumptionExtreme" placeholder="Extremo" required>
-        <label for="fuelConsumptionExtreme">Extremo</label>
+        <input type="number" class="form-control" id="fuelConsumptionExtremeSaving" name="fuelConsumptionExtremeSaving" placeholder="Extremo" required>
+        <label for="fuelConsumptionExtremeSaving">Extremo</label>
       </div>
     </div>
 
@@ -327,24 +370,24 @@ export class SavingDrivingComponent extends HTMLElement {
     <!-- Columna Seco -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearDry" placeholder="Seco" required>
-        <label for="tireWearDry">Seco</label>
+        <input type="number" class="form-control" id="tireWearDrySaving" name="tireWearDrySaving" placeholder="Seco" required>
+        <label for="tireWearDrySaving">Seco</label>
       </div>
     </div>
     
     <!-- Columna Húmedo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearRainy" placeholder="Húmedo" required>
-        <label for="tireWearRainy">Húmedo</label>
+        <input type="number" class="form-control" id="tireWearRainySaving" name="tireWearRainySaving" placeholder="Húmedo" required>
+        <label for="tireWearRainySaving">Húmedo</label>
       </div>
     </div>
 
     <!-- Columna Extremo -->
     <div class="col-md-4">
       <div class="form-floating">
-        <input type="number" class="form-control" id="tireWearExtreme" placeholder="Extremo" required>
-        <label for="tireWearExtreme">Extremo</label>
+        <input type="number" class="form-control" id="tireWearExtremeSaving" name="tireWearExtremeSaving" placeholder="Extremo" required>
+        <label for="tireWearExtremeSaving">Extremo</label>
       </div>
     </div>
 
@@ -370,8 +413,7 @@ export class SavingDrivingComponent extends HTMLElement {
 
 
     `;
+    this.shadowRoot.querySelector('#vehicle-performance-form').addEventListener('submit', (e) => this.handleSubmit(e));
   }
-
 }
-
 customElements.define('saving-driving-component', SavingDrivingComponent);
