@@ -4,14 +4,73 @@ export class NormalDrivingComponent extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-  }
+    this.vehicles = [];
+    this.editingVehicle = null;
+}
 
-  connectedCallback() {
-    this.render();
+connectedCallback() {
+    this.loadVehicles();
+}
 
-  }
-  render() {
+async loadVehicles() {
+    try {
+        const response = await fetch('http://localhost:3000/vehicles');
+        this.vehicles = await response.json();
+        this.render();
+    } catch (error) {
+        console.error('Error cargando vehículos:', error);
+    }
+}
 
+async handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const vehicleData = {
+        model: formData.get('model'),
+        engine: formData.get('engine'),
+        maxSpeedKmh: formData.get('maxSpeedKmh'),
+        acceleration: formData.get('acceleration'),
+        performance: {
+            normalDriving: {
+                averageSpeedKmh: formData.get('averageSpeedNormal'),
+                fuelConsumption: {
+                    dry: formData.get('fuelConsumptionDryNormal'),
+                    rainy: formData.get('fuelConsumptionRainyNormal'),
+                    extreme: formData.get('fuelConsumptionExtremeNormal')
+                },
+                tireWear: {
+                    dry: formData.get('tireWearDryNormal'),
+                    rainy: formData.get('tireWearRainyNormal'),
+                    extreme: formData.get('tireWearExtremeNormal')
+                }
+            }
+        }
+    };
+
+    try {
+        let url = 'http://localhost:3000/vehicles';
+        let method = 'POST';
+        if (this.editingVehicle) {
+            url += `/${this.editingVehicle.id}`;
+            method = 'PUT';
+        }
+
+        const response = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(vehicleData)
+        });
+
+        if (response.ok) {
+            this.loadVehicles();
+            event.target.reset();
+            this.editingVehicle = null;
+        }
+    } catch (error) {
+        console.error('Error guardando vehículo:', error);
+    }
+}
+render() {
     this.shadowRoot.innerHTML = `
      <style>
      .form-container {
@@ -370,8 +429,10 @@ export class NormalDrivingComponent extends HTMLElement {
 
 
     `;
-  }
 
+
+    this.shadowRoot.querySelector('#vehicle-performance-form').addEventListener('submit', (e) => this.handleSubmit(e));
+  }
 }
 
 customElements.define('normal-driving-component', NormalDrivingComponent);

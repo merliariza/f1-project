@@ -1,4 +1,4 @@
-import '../components/vehiclesMenuComponent.js'; // Importar antes de usar
+import '../components/vehiclesMenuComponent.js'; 
 
 export function setupVehicleClickListener() {
   document.getElementById('show-vehicles').addEventListener('click', function(event) {
@@ -7,7 +7,6 @@ export function setupVehicleClickListener() {
     const contentArea = document.getElementById('content-area');
     contentArea.innerHTML = '';  
 
-    // Crear correctamente el elemento personalizado
     const vehiclesMenuComponent = document.createElement('vehicles-menu-component');
     
     if (vehiclesMenuComponent instanceof HTMLElement) { 
