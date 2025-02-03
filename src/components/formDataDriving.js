@@ -419,7 +419,7 @@ a:hover{
        </div>
      </div>
    </div>
-
+   <h2 class="text-center mb-4">Conducción normal</h2>
    <!-- Velocidad Promedio -->
    <div class="form-group mb-3">
      <label for="averageSpeed" name="averageSpeedNormal">Velocidad Promedio</label>
@@ -499,7 +499,7 @@ a:hover{
    
      </div>
    </div>
-
+   <h2 class="text-center mb-4">Conducción agresiva</h2>
    <!-- Velocidad Promedio -->
    <div class="form-group mb-3">
      <label for="averageSpeed">Velocidad Promedio</label>
@@ -579,7 +579,7 @@ a:hover{
    
      </div>
    </div>
-
+   <h2 class="text-center mb-4">Conducción de ahorro</h2>
    <!-- Velocidad Promedio -->
    <div class="form-group mb-3">
      <label for="averageSpeed">Velocidad Promedio</label>
