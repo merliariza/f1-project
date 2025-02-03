@@ -23,10 +23,15 @@ export class VehiclesComponent extends HTMLElement {
       this.vehicleTeamSelectHandleChange(event, vehicleDriverSelect, vehicleSelect);
     }
 
+    //this.saveData();
     this.loadVehicles();
     this.setVehicleTeamOptions(vehicleTeamSelect);
   }
   render() {
+    /* let vehicles;
+     getVehicles().then(data => {
+      vehicles = data;
+    }); */
 
 
     this.shadowRoot.innerHTML = `
@@ -438,12 +443,37 @@ export class VehiclesComponent extends HTMLElement {
     }
   }
 
+  saveData() {
+    this.shadowRoot.querySelector('#btnGuardar').addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const vehicleSelect = this.shadowRoot.querySelector('#vehicleSelect').value;
+      const vehicleDescription = this.shadowRoot.querySelector('#vehicleDescription').value;
+      const vehicleDriver = this.shadowRoot.querySelector('#vehicleDriver').value;
+      const vehicleTeam = this.shadowRoot.querySelector('#vehicleTeam').value;
+
+      const vehicleData = {
+        name: vehicleSelect,
+        description: vehicleDescription,
+        Driver: vehicleDriver,
+        team: vehicleTeam,
+        id: Date.now()
+      };
+
+      let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+      vehicles.push(vehicleData);
+      localStorage.setItem('vehicles', JSON.stringify(vehicles));
+
+      this.createVehicleCard(vehicleData);
+    });
+  }
+
   loadVehicles() {
     let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
     vehicles.forEach(vehicle => this.createVehicleCard(vehicle));
   }
 
- /* createVehicleCard(vehicleData) {
+  createVehicleCard(vehicleData) {
     const vehicleContainer = this.shadowRoot.querySelector('#vehicleContainer');
     const card = document.createElement('div');
     card.innerHTML = `
@@ -490,7 +520,7 @@ export class VehiclesComponent extends HTMLElement {
       card.querySelector('h3').innerText = newName;
       card.querySelector('p').innerText = newDescription;
     }
-  }*/
+  }
 }
 
 customElements.define('vehicles-component', VehiclesComponent);

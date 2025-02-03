@@ -2,6 +2,7 @@ import './vehiclesComponent.js';
 import './normalDrivingComponent.js';
 import './agressiveDrivingComponent.js'
 import './savingDrivingComponent.js'
+import './formDataDriving.js'
 export class VehiclesMenuComponent extends HTMLElement {
   constructor() {
     super();
@@ -43,7 +44,10 @@ export class VehiclesMenuComponent extends HTMLElement {
 
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active mnuVehicle" data-section="vehicleComponent">Datos Vehículo</a>
+          <a class="nav-link active mnuVehicle" data-section="form-data-driving-component">Agregar Vehículo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mnuVehicle" data-section="vehiclesComponent">Conducción de ahorro</a>
         </li>
         <li class="nav-item">
           <a class="nav-link mnuVehicle" data-section="normalDrivingComponent">Conducción normal</a>
@@ -56,7 +60,10 @@ export class VehiclesMenuComponent extends HTMLElement {
         </li>
       </ul>
 
-      <div class="container active" id="vehicleComponent">
+      <div class="container active" id="form-data-driving-component">
+        <form-data-driving-component></form-data-driving-component>
+      </div>
+      <div class="container" id="vehiclesComponent">
         <vehicles-component></vehicles-component>
       </div>
       <div class="container" id="normalDrivingComponent">
