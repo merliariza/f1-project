@@ -25,15 +25,19 @@ body {
 }
 
 .container {
-  padding-top: 20rem; 
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;  
   z-index: 1000;  
 }
 
+@media (max-width: 670px) {
+  .container {
+    padding-top: 15rem; 
+  }
+}
+
 .content-area {
-  padding: 20px;
   background: rgba(0, 0, 0, 0.7); 
   border-radius: 8px;
   color: white;

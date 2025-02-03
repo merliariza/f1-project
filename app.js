@@ -1,3 +1,4 @@
+import './src/components/vehiclesMenuComponent.js'
 import './src/components/vehiclesComponent.js'
 import './Models/vehicleModel.js'
 import './src/js/gestor.js'

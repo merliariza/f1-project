@@ -97,12 +97,14 @@ export class VehiclesComponent extends HTMLElement {
       position: relative;
       display: inline-block;
       padding: 15px 30px;
+      background: transparent;
       color: rgb(205,39,38);
       letter-spacing: 4px;
       text-decoration: none;
       font-size: 20px;
       overflow: hidden;
       transition: 0.2s;
+      border: transparent;
       }
     .btn-neon:hover{
       background: #cd2726;
@@ -267,85 +269,95 @@ export class VehiclesComponent extends HTMLElement {
 
       </style>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-      <div class="container d-flex justify-content-center align-items-center">
-      <div class="card">
-      <div class="card-glow"></div>
-      <div class="card-content">
-      <h2 class="text-center mb-4" >Administración de Vehículos</h2>
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="card">
+    <div class="card-glow"></div>
+    <div class="card-content">
+      <h2 class="text-center mb-4">Datos del vehículo</h2>
       <form id="add-vehicle-form">
-      
-              <!-- Equipo del vehículo -->
-              <div class="form-floating mb-3">
-                <select class="form-control" id="vehicleTeam" required>
-                  <option value="" disabled selected>Equipo</option>
-
-                </select>
-              </div>
-
-              <!-- Piloto del vehículo -->
-              <div class="form-floating mb-3">
-                <select class="form-control select-disabled" id="vehicleDriver" required disabled>
-                  <option value="" disabled selected>Piloto</option>
-                </select>
-              </div>
-              
-              <!-- Selección de vehículo -->
-              <div class="form-floating mb-3">
-                <select class="form-control select-disabled" id="vehicleSelect" required>
-                  <option value="" disabled selected>Selecciona tu vehículo</option>
-                  
-                </select>
-              </div>
         
-              <!-- Desgaste de neumáticos -->
-              <div class="form-floating mb-3">
-              <select class="form-control" id="tireWear" required>
-              <option value="" disabled selected>Desgaste de Neumáticos</option>
-                  <option value="low">Bajo</option>
-                  <option value="medium">Medio</option>
-                  <option value="high">Alto</option>
-                </select>
-              </div>
-              
-              <!-- Consumo de combustible -->
-              <div class="form-floating mb-3">
-                <select class="form-control" id="fuelConsumption" required>
-                <option value="" disabled selected>Consumo de combustible</option>
-                  <option value="low">Bajo</option>
-                  <option value="medium">Medio</option>
-                  <option value="high">Alto</option>
-                </select>
-              </div>
-  
-              <!-- Velocidad máxima -->
-              <div class="form-floating mb-3">
-                <input type="number" class="form-control" id="vehicleSpeed" placeholder="Velocidad máxima" required>
-                <label class="label" for="vehicleSpeed">Velocidad Máxima (km/h)</label>
-              </div>
-  
-              <!-- Aceleración -->
-              <div class="form-floating mb-3">
-                <input type="number" class="form-control" id="vehicleAcceleration" placeholder="Aceleración (0-100 km/h)" required>
-                <label class="label" for="vehicleAcceleration">Aceleración (segundos)</label>
-              </div>
-  
-              <a href="#" class="btn-neon">
-              <span id="span1"></span>
-              <span id="span2"></span>
-              <span id="span3"></span>
-              <span id="span4"></span>
-              AGREGAR VEHÍCULO
-          </a>
-  
-        </div>
-        <div class="corner top-left"></div>
-        <div class="corner top-right"></div>
-        <div class="corner bottom-left"></div>
-        <div class="corner bottom-right"></div>
-      </div>
+        <div class="row">
+          <!-- Equipo del vehículo -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <select class="form-control" id="vehicleTeam" required>
+                <option value="" disabled selected>Equipo</option>
+              </select>
 
+            </div>
+          </div>
+
+          <!-- Piloto del vehículo -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <select class="form-control select-disabled" id="vehicleDriver" required disabled>
+                <option value="" disabled selected>Piloto</option>
+              </select>
+
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="row">
+          <!-- Motor del vehículo -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <textarea class="form-control" id="engine" required placeholder="Motor del vehículo"></textarea>
+              <label for="engine">Motor del Vehículo</label>
+            </div>
+          </div>
+
+          <!-- Modelo del vehículo -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <textarea class="form-control" id="model" required placeholder="Modelo del vehículo"></textarea>
+              <label for="model">Modelo del Vehículo</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- URL de la imagen del vehículo -->
+        <div class="form-floating mb-3">
+          <input type="url" class="form-control" id="vehicleImageUrl" required placeholder="URL de la imagen del vehículo">
+          <label for="vehicleImageUrl">URL de la Imagen del Vehículo</label>
+        </div>
+
+        <div class="row">
+          <!-- Velocidad máxima -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <input type="number" class="form-control" id="vehicleSpeed" placeholder="Velocidad máxima" required>
+              <label for="vehicleSpeed">Velocidad Máxima (km/h)</label>
+            </div>
+          </div>
+
+          <!-- Aceleración -->
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <input type="number" class="form-control" id="vehicleAcceleration" placeholder="Aceleración (0-100 km/h)" required>
+              <label for="vehicleAcceleration">Aceleración (segundos)</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón de agregar vehículo -->
+        <button type="submit" class="btn-neon">
+          <span id="span1"></span>
+          <span id="span2"></span>
+          <span id="span3"></span>
+          <span id="span4"></span>
+          AGREGAR VEHÍCULO
+        </button>
+
+      </form>
+    </div>
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+    <div class="corner bottom-left"></div>
+    <div class="corner bottom-right"></div>
+  </div>
+</div>
+
     `;
   }
 
