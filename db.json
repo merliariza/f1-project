@@ -1,0 +1,437 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "usuario1",
+      "password": "12345",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "usuario2",
+      "password": "67890",
+      "role": "admin"
+    },
+    {
+      "id": "f2b9",
+      "username": "admin",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": "1278",
+      "username": "usuario7",
+      "password": "1234567",
+      "role": "usuario"
+    },
+    {
+      "id": "340f",
+      "username": "usuario9",
+      "password": "123456789",
+      "role": "admin"
+    },
+    {
+      "id": "a4e9",
+      "username": "usuario10",
+      "password": "12345",
+      "role": "admin"
+    },
+    {
+      "id": "e583",
+      "username": "usuario100",
+      "password": "123",
+      "role": "usuario"
+    },
+    {
+      "id": "3833",
+      "username": "usuario",
+      "password": "123123",
+      "role": "admin"
+    },
+    {
+      "id": "61be",
+      "username": "asdasd",
+      "password": "asd",
+      "role": "usuario"
+    }
+  ],
+  "pilots": [
+    {
+      "id": "1",
+      "name": "Max Verstappen",
+      "teamId": "1",
+      "rol": "Líder"
+    },
+    {
+      "id": "2",
+      "name": "Sergio Pérez",
+      "teamId": "1",
+      "rol": "Escudero"
+    },
+    {
+      "id": "3",
+      "name": "Lewis Hamilton",
+      "teamId": "2",
+      "rol": "Líder"
+    },
+    {
+      "id": "4",
+      "name": "George Russell",
+      "teamId": "2",
+      "rol": "Escudero"
+    },
+    {
+      "id": "5",
+      "name": "Charles Leclerc",
+      "teamId": "3",
+      "rol": "Líder"
+    },
+    {
+      "id": "6",
+      "name": "Carlos Sainz",
+      "teamId": "3",
+      "rol": "Escudero"
+    }
+  ],
+  "teams": [
+    {
+      "id": "1",
+      "name": "Red Bull Racing",
+      "country": "Austria",
+      "motor": "Honda",
+      "pilots": [
+        1,
+        2
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Red_Bull_Racing_Logo.svg"
+    },
+    {
+      "id": "2",
+      "name": "Mercedes-AMG Petronas",
+      "country": "Alemania",
+      "motor": "Mercedes",
+      "pilots": [
+        3,
+        4
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/Mercedes_AMG_Petronas_F1_Team_logo.svg"
+    },
+    {
+      "id": "3",
+      "name": "Ferrari",
+      "country": "Italia",
+      "motor": "Ferrari",
+      "pilots": [
+        5,
+        6
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/en/d/d4/Scuderia_Ferrari_Logo.svg"
+    }
+  ],
+  "circuits": [
+    {
+      "name": "Circuito de Mónaco",
+      "difficulty": "Baja",
+      "lengthKm": 34,
+      "laps": 78,
+      "country": "Mónaco",
+      "description": "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
+      "image": "",
+      "id": "1"
+    },
+    {
+      "id": "3",
+      "name": "Circuito de Spa-Francorchamps",
+      "country": "Bélgica",
+      "lengthKm": 7,
+      "laps": 44,
+      "description": "Famoso por la curva Eau Rouge y la larga recta de Kemmel, un circuito donde la potencia del motor es clave.",
+      "lapRecord": {
+        "time": "1:46.286",
+        "pilot": "Valtteri Bottas",
+        "year": 2018
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 1
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Circuit_Spa_2018.png",
+      "difficulty": "Alta"
+    },
+    {
+      "id": "4",
+      "name": "Circuito de Monza",
+      "country": "Italia",
+      "lengthKm": 5.79,
+      "laps": 53,
+      "description": "Conocido como 'El Templo de la Velocidad', Monza es el circuito más rápido del calendario con largas rectas y chicanes icónicas.",
+      "lapRecord": {
+        "time": "1:21.046",
+        "pilot": "Rubens Barrichello",
+        "year": 2004
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 2
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Monza_track_map.svg",
+      "difficulty": "Media"
+    },
+    {
+      "id": "5",
+      "name": "Interlagos",
+      "country": "Brasil",
+      "lengthKm": 4.31,
+      "laps": 71,
+      "description": "Interlagos es un circuito legendario con cambios de elevación y un trazado técnico que ha sido sede de algunas de las carreras más emocionantes de la historia.",
+      "lapRecord": {
+        "time": "1:10.540",
+        "pilot": "Valtteri Bottas",
+        "year": 2018
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 3
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/2/23/Aut%C3%B3dromo_Jos%C3%A9_Carlos_Pace_%28Interlagos%29.svg",
+      "difficulty": "Alta"
+    },
+    {
+      "id": "6",
+      "name": "Circuito de Yas Marina",
+      "country": "Emiratos Árabes Unidos",
+      "lengthKm": 5.28,
+      "laps": 58,
+      "description": "Ubicado en Abu Dhabi, es famoso por ser el circuito donde se definen muchos campeonatos, con un diseño moderno y una espectacular carrera nocturna.",
+      "lapRecord": {
+        "time": "1:39.283",
+        "pilot": "Lewis Hamilton",
+        "year": 2019
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 1
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 3
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Yas_Marina_Circuit_2021_layout.svg",
+      "difficulty": "Media"
+    },
+    {
+      "id": "7",
+      "name": "Circuito de Suzuka",
+      "country": "Japón",
+      "lengthKm": 5.81,
+      "laps": 53,
+      "description": "Un circuito desafiante con un diseño en forma de ocho, famoso por sus curvas de alta velocidad como 130R y la 'S' de Senna.",
+      "lapRecord": {
+        "time": "1:30.983",
+        "pilot": "Lewis Hamilton",
+        "year": 2019
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 1
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Suzuka_circuit_map--2005.svg",
+      "difficulty": "Alta"
+    },
+    {
+      "name": "Circuito de Bahrein",
+      "difficulty": "Media",
+      "lengthKm": 200,
+      "laps": 5,
+      "country": "Manama",
+      "description": "Un circuito moderno con rectas largas y curvas desafiantes, famoso por su variabilidad en las condiciones climáticas.",
+      "image": "",
+      "id": "8"
+    },
+    {
+      "id": "9",
+      "name": "Circuito de Zandvoort",
+      "country": "Países Bajos",
+      "lengthKm": 4.25,
+      "laps": 72,
+      "description": "Circuito con muchas curvas cerradas y un trazado que exige alta precisión, pero más accesible comparado con otros más técnicos.",
+      "lapRecord": {
+        "time": "1:08.622",
+        "pilot": "Max Verstappen",
+        "year": 2021
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "pilot": 1
+        },
+        {
+          "season": 2022,
+          "pilot": 1
+        },
+        {
+          "season": 2023,
+          "pilot": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Zandvoort_2020.png",
+      "difficulty": "Baja"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "1",
+      "teamId": 1,
+      "model": "RB20",
+      "motor": "Honda",
+      "maxSpeedKmh": 360,
+      "aceleration": 2.5,
+      "pilots": [
+        1,
+        2
+      ],
+      "performance": {
+        "normalDriving": {
+          "averageSpeedKmh": 320,
+          "fuelConsumption": {
+            "dry": 1.9,
+            "rainy": 2.1,
+            "extreme": 2.4
+          },
+          "tireWear": {
+            "dry": 1.5,
+            "rainy": 0.8,
+            "extreme": 2.5
+          }
+        },
+        "aggressiveDriving": {
+          "averageSpeedKmh": 340,
+          "fuelConsumption": {
+            "dry": 2.4,
+            "rainy": 2.6,
+            "extreme": 3
+          },
+          "tireWear": {
+            "dry": 2.2,
+            "rainy": 1.2,
+            "extreme": 3.5
+          }
+        },
+        "fuelSaving": {
+          "averageSpeedKmh": 300,
+          "fuelConsumption": {
+            "dry": 1.6,
+            "rainy": 1.8,
+            "extreme": 2.1
+          },
+          "tireWear": {
+            "dry": 1,
+            "rainy": 0.5,
+            "extreme": 1.8
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Max_Verstappen_2023_Austria_FP2_%28cropped%29.jpg"
+    },
+    {
+      "id": "2",
+      "teamId": 2,
+      "model": "W15",
+      "motor": "Mercedes",
+      "maxSpeedKmh": 355,
+      "aceleration": 2.6,
+      "pilots": [
+        3,
+        4
+      ],
+      "performance": {
+        "normalDriving": {
+          "averageSpeedKmh": 315,
+          "fuelConsumption": {
+            "dry": 2,
+            "rainy": 2.2,
+            "extreme": 2.5
+          },
+          "tireWear": {
+            "dry": 1.6,
+            "rainy": 0.9,
+            "extreme": 2.6
+          }
+        },
+        "aggressiveDriving": {
+          "averageSpeedKmh": 335,
+          "fuelConsumption": {
+            "dry": 2.6,
+            "rainy": 2.8,
+            "extreme": 3.2
+          },
+          "tireWear": {
+            "dry": 2.3,
+            "rainy": 1.4,
+            "extreme": 3.8
+          }
+        },
+        "fuelSaving": {
+          "averageSpeedKmh": 295,
+          "fuelConsumption": {
+            "dry": 1.7,
+            "rainy": 1.9,
+            "extreme": 2.2
+          },
+          "tireWear": {
+            "dry": 1.1,
+            "rainy": 0.6,
+            "extreme": 1.9
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    }
+  ]
+}
