@@ -25,17 +25,11 @@ body {
 }
 
 .container {
-  padding-top: 40rem; 
+  padding-top: 140rem; 
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;  
   z-index: 1000;  
-}
-
-@media (max-width: 670px) {
-  .container {
-    padding-top: 15rem; 
-  }
 }
 
 .content-area {

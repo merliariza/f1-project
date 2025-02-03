@@ -387,58 +387,54 @@
       "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Max_Verstappen_2023_Austria_FP2_%28cropped%29.jpg"
     },
     {
-      "id": "2",
-      "teamId": 2,
-      "model": "W15",
-      "engine": "Mercedes",
-      "maxSpeedKmh": 355,
-      "aceleration": 2.6,
-      "drivers": [
-        3,
-        4
-      ],
+      "id": "41de",
+      "model": "aaaaa",
+      "engine": "aaaa",
+      "maxSpeedKmh": "12",
+      "acceleration": "12",
+      "model3dLink": "https://sketchfab.com/models/1152c136adb84bf28e388dd9de1ef5bf/embed",
       "performance": {
         "normalDriving": {
-          "averageSpeedKmh": 315,
+          "averageSpeedKmh": "12",
           "fuelConsumption": {
-            "dry": 2,
-            "rainy": 2.2,
-            "extreme": 2.5
+            "dry": "12",
+            "rainy": "12",
+            "extreme": "12"
           },
           "tireWear": {
-            "dry": 1.6,
-            "rainy": 0.9,
-            "extreme": 2.6
+            "dry": "12",
+            "rainy": "12",
+            "extreme": "12"
           }
         },
         "aggressiveDriving": {
-          "averageSpeedKmh": 335,
+          "averageSpeedKmh": "12",
           "fuelConsumption": {
-            "dry": 2.6,
-            "rainy": 2.8,
-            "extreme": 3.2
+            "dry": "12",
+            "rainy": "12",
+            "extreme": "12"
           },
           "tireWear": {
-            "dry": 2.3,
-            "rainy": 1.4,
-            "extreme": 3.8
+            "dry": "12",
+            "rainy": "12",
+            "extreme": "12"
           }
         },
         "fuelSaving": {
-          "averageSpeedKmh": 295,
+          "averageSpeedKmh": "12",
           "fuelConsumption": {
-            "dry": 1.7,
-            "rainy": 1.9,
-            "extreme": 2.2
+            "dry": "12",
+            "rainy": "12.5",
+            "extreme": "12.5"
           },
           "tireWear": {
-            "dry": 1.1,
-            "rainy": 0.6,
-            "extreme": 1.9
+            "dry": "12",
+            "rainy": "12",
+            "extreme": "12"
           }
         }
       },
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+      "image": null
     }
   ]
 }

@@ -1,4 +1,5 @@
 export default async function getDrivers() {
+    console.log("drivers")
     try {
         const response = await fetch('http://localhost:3000/drivers');
         const data = await response.json(); 

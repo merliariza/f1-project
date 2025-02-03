@@ -47,7 +47,7 @@ export class VehiclesMenuComponent extends HTMLElement {
           <a class="nav-link active mnuVehicle" data-section="form-data-driving-component">Agregar Vehículo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mnuVehicle" data-section="vehiclesComponent">Conducción de ahorro</a>
+          <a class="nav-link mnuVehicle" data-section="vehiclesComponent">Ver vehículos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link mnuVehicle" data-section="normalDrivingComponent">Conducción normal</a>
