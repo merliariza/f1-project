@@ -130,62 +130,14 @@
   ],
   "circuits": [
     {
-      "id": "1",
       "name": "Circuito de Mónaco",
-      "country": "Mónaco",
-      "lengthKm": 3.34,
+      "difficulty": "Baja",
+      "lengthKm": 34,
       "laps": 78,
+      "country": "Mónaco",
       "description": "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
-      "lapRecord": {
-        "time": "1:10.166",
-        "pilot": "Lewis Hamilton",
-        "year": 2019
-      },
-      "winners": [
-        {
-          "season": 2021,
-          "pilot": 1
-        },
-        {
-          "season": 2022,
-          "pilot": 2
-        },
-        {
-          "season": 2023,
-          "pilot": 1
-        }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Monte_Carlo_Formula_1_track_map.svg",
-      "difficulty": "Alta"
-    },
-    {
-      "id": "2",
-      "name": "Silverstone",
-      "country": "Reino Unido",
-      "lengthKm": 5.89,
-      "laps": 52,
-      "description": "Uno de los circuitos más rápidos del calendario, con curvas de alta velocidad como Maggotts y Becketts.",
-      "lapRecord": {
-        "time": "1:27.097",
-        "pilot": "Max Verstappen",
-        "year": 2020
-      },
-      "winners": [
-        {
-          "season": 2021,
-          "pilot": 3
-        },
-        {
-          "season": 2022,
-          "pilot": 5
-        },
-        {
-          "season": 2023,
-          "pilot": 1
-        }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Silverstone_Circuit_2020_layout.png",
-      "difficulty": "Media"
+      "image": "",
+      "id": "1"
     },
     {
       "id": "3",
@@ -333,33 +285,14 @@
       "difficulty": "Alta"
     },
     {
-      "id": "8",
       "name": "Circuito de Bahrein",
-      "country": "Bahrein",
-      "lengthKm": 5.41,
-      "laps": 57,
+      "difficulty": "Media",
+      "lengthKm": 200,
+      "laps": 5,
+      "country": "Manama",
       "description": "Un circuito moderno con rectas largas y curvas desafiantes, famoso por su variabilidad en las condiciones climáticas.",
-      "lapRecord": {
-        "time": "1:31.447",
-        "pilot": "Charles Leclerc",
-        "year": 2019
-      },
-      "winners": [
-        {
-          "season": 2021,
-          "pilot": 3
-        },
-        {
-          "season": 2022,
-          "pilot": 1
-        },
-        {
-          "season": 2023,
-          "pilot": 2
-        }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/66/Bahrain_Grand_Prix_Layout_2020.jpg",
-      "difficulty": "Baja"
+      "image": "",
+      "id": "8"
     },
     {
       "id": "9",
@@ -389,16 +322,6 @@
       ],
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Zandvoort_2020.png",
       "difficulty": "Baja"
-    },
-    {
-      "id": 1738516412372,
-      "name": "asd",
-      "country": "asd",
-      "lengthKm": "12",
-      "laps": "12",
-      "description": "asdasdasdasd",
-      "difficulty": "Media",
-      "image": "blob:http://localhost:5173/005a6897-02e3-4f26-85d4-a553696bd91f"
     }
   ],
   "vehicles": [
