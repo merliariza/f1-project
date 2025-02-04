@@ -2,7 +2,10 @@ class TeamComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.apiUrl = this.getAttribute('api-url') || 'http://localhost:3000/db';
+        this.teams = [];
+        this.filteredTeams = [];
+        this.drivers = [];
+        this.vehicles = [];
     }
 
     connectedCallback() {
@@ -11,26 +14,33 @@ class TeamComponent extends HTMLElement {
 
     async loadData() {
         try {
-            console.log('Intentando cargar datos desde:', this.apiUrl);
-            const response = await fetch(this.apiUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
+            const [teamsResponse, driversResponse, vehiclesResponse] = await Promise.all([
+                fetch('http://localhost:3000/teams'),
+                fetch('http://localhost:3000/drivers'),
+                fetch('http://localhost:3000/vehicles')
+            ]);
+
+            const teamsData = await teamsResponse.json();
+            const driversData = await driversResponse.json();
+            const vehiclesData = await vehiclesResponse.json();
             
-            if (!data.teams || !data.drivers || !data.vehicles) {
-                throw new Error('Datos incompletos en la respuesta');
-            }
+            this.teams = teamsData.map(team => ({
+                ...team,
+                id: team.id || team.name
+            }));
             
-            // Combinar los datos de equipos con sus vehículos correspondientes
-            this.teams = data.teams.map(team => {
-                const vehicle = data.vehicles.find(v => v.team === team.name);
-                return {
-                    ...team,
-                    vehicles: vehicle
-                };
-            });
-            this.drivers = data.drivers;
+            this.drivers = driversData.map(driver => ({
+                ...driver,
+                teamId: driver.teamId || this.teams.find(t => t.name === driver.team)?.id
+            }));
+            
+            this.vehicles = vehiclesData.map(vehicle => ({
+                ...vehicle,
+                team: vehicle.team || this.teams.find(t => t.id === vehicle.teamId)?.name
+            }));
+            
+            this.filteredTeams = [...this.teams];
+            
             this.render();
         } catch (error) {
             console.error('Error cargando los datos:', error);
@@ -40,15 +50,15 @@ class TeamComponent extends HTMLElement {
                     <br>
                     Asegúrate de que json-server está corriendo y la URL es correcta.
                     <br>
-                    URL actual: ${this.apiUrl}
+                    URL actual: http://localhost:3000/teams
                     <br>
                     Intenta: json-server --watch db.json
                 </p>`;
         }
     }
 
-    getDriversByTeam(teamDriverIds) {
-        return this.drivers.filter(driver => teamDriverIds.includes(driver.id));
+    getDriversByTeam(teamId) {
+        return this.drivers.filter(driver => driver.teamId === teamId);
     }
 
     handleImageError(event) {
@@ -280,7 +290,7 @@ class TeamComponent extends HTMLElement {
         `;
 
         const teamsHTML = this.teams.map(team => {
-            const teamDrivers = this.getDriversByTeam(team.drivers);
+            const teamDrivers = this.getDriversByTeam(team.name);
             const driversHTML = teamDrivers.map(driver => `
                 <div class="driver-card">
                     <img class="driver-photo" 
@@ -291,6 +301,8 @@ class TeamComponent extends HTMLElement {
                     <p class="driver-role">${driver.role}</p>
                 </div>
             `).join('');
+
+            const vehicle = this.vehicles.find(v => v.team === team.name);
 
             return `
                 <div class="team-card">
@@ -310,29 +322,29 @@ class TeamComponent extends HTMLElement {
 
                     <!-- Información del Vehículo -->
                     <div class="vehicle-info">
-                        <h3><i class="fas fa-car"></i> ${team.vehicles?.model}</h3>
+                        <h3><i class="fas fa-car"></i> Modelo: ${vehicle?.model || 'No disponible'}</h3>
                         <div class="vehicle-stats">
                             <div class="stat">
                                 <span>Velocidad Máxima:</span>
-                                <span>${team.vehicles?.max_speed_kmh} km/h</span>
+                                <span>${vehicle?.max_speed_kmh || 'No disponible'} km/h</span>
                             </div>
                             <div class="stat">
                                 <span>0-100 km/h:</span>
-                                <span>${team.vehicles?.acceleration_0_100}s</span>
+                                <span>${vehicle?.acceleration_0_100 || 'No disponible'}s</span>
                             </div>
                         </div>
                         <div class="performance-modes">
                             <div class="mode">
                                 <h4>Modo Normal</h4>
-                                <p>Velocidad Promedio: ${team.vehicles?.performance?.normal_driving?.average_speed_kmh} km/h</p>
-                                <p>Consumo: ${team.vehicles?.performance?.normal_driving?.fuel_consumption?.dry} L/vuelta</p>
-                                <p>Desgaste: ${team.vehicles?.performance?.normal_driving?.tire_wear?.dry}%/vuelta</p>
+                                <p>Velocidad Promedio: ${vehicle?.performance?.normal_driving?.average_speed_kmh || 'No disponible'} km/h</p>
+                                <p>Consumo: ${vehicle?.performance?.normal_driving?.fuel_consumption?.dry || 'No disponible'} L/vuelta</p>
+                                <p>Desgaste: ${vehicle?.performance?.normal_driving?.tire_wear?.dry || 'No disponible'}%/vuelta</p>
                             </div>
                             <div class="mode">
                                 <h4>Modo Agresivo</h4>
-                                <p>Velocidad Promedio: ${team.vehicles?.performance?.aggressive_driving?.average_speed_kmh} km/h</p>
-                                <p>Consumo: ${team.vehicles?.performance?.aggressive_driving?.fuel_consumption?.dry} L/vuelta</p>
-                                <p>Desgaste: ${team.vehicles?.performance?.aggressive_driving?.tire_wear?.dry}%/vuelta</p>
+                                <p>Velocidad Promedio: ${vehicle?.performance?.aggressive_driving?.average_speed_kmh || 'No disponible'} km/h</p>
+                                <p>Consumo: ${vehicle?.performance?.aggressive_driving?.fuel_consumption?.dry || 'No disponible'} L/vuelta</p>
+                                <p>Desgaste: ${vehicle?.performance?.aggressive_driving?.tire_wear?.dry || 'No disponible'}%/vuelta</p>
                             </div>
                         </div>
                     </div>
@@ -358,4 +370,3 @@ class TeamComponent extends HTMLElement {
 if (!customElements.get('team-component')) {
     customElements.define('team-component', TeamComponent);
 }
-

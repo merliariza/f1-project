@@ -13,11 +13,25 @@ class DriversComponent extends HTMLElement {
     async loadDrivers() {
         try {
             const response = await fetch('http://localhost:3000/drivers');
-            this.drivers = await response.json();
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('Datos de pilotos recibidos:', data);
+            
+            if (!Array.isArray(data)) {
+                throw new Error('Los datos recibidos no son un array');
+            }
+
+            this.drivers = data;
             this.filteredDrivers = [...this.drivers];
             this.render();
         } catch (error) {
             console.error('Error cargando pilotos:', error);
+            this.drivers = [];
+            this.filteredDrivers = [];
+            this.render();
         }
     }
 
@@ -26,12 +40,19 @@ class DriversComponent extends HTMLElement {
             this.filteredDrivers = [...this.drivers];
         } else {
             searchTerm = searchTerm.toLowerCase();
-            this.filteredDrivers = this.drivers.filter(driver => 
-                driver.name.toLowerCase().includes(searchTerm) ||
-                driver.team.toLowerCase().includes(searchTerm) ||
-                driver.country.toLowerCase().includes(searchTerm) ||
-                driver.number.toString().includes(searchTerm)
-            );
+            this.filteredDrivers = this.drivers.filter(driver => {
+                if (!driver) return false;
+                
+                const nombre = String(driver.name || '');
+                const equipo = String(driver.team || '');
+                const pais = String(driver.country || '');
+                const numero = String(driver.number || '');
+                
+                return nombre.toLowerCase().includes(searchTerm) ||
+                       equipo.toLowerCase().includes(searchTerm) ||
+                       pais.toLowerCase().includes(searchTerm) ||
+                       numero.includes(searchTerm);
+            });
         }
         
         const driversContainer = this.shadowRoot.querySelector('.drivers-container');
@@ -258,36 +279,76 @@ class DriversComponent extends HTMLElement {
     }
 
     renderDrivers() {
+        if (!this.filteredDrivers.length) {
+            return '<p style="color: white; text-align: center; grid-column: 1/-1;">No se encontraron pilotos</p>';
+        }
+
         return this.filteredDrivers.map(driver => `
             <div class="driver-card">
-                <img src="${driver.photo}" 
-                     alt="${driver.name}" 
+                <img src="${driver.photo || ''}" 
+                     alt="${driver.name || 'Piloto'}" 
                      class="driver-photo"
                      loading="lazy"
                      onerror="this.onerror=null; this.src='https://www.formula1.com/etc/designs/fom-website/images/driver-silhouette.png';">
                 <div class="driver-info">
-                    <h3>${driver.name}</h3>
+                    <h3>${driver.name || 'Sin nombre'}</h3>
                     <div class="driver-stats">
                         <div class="stat-item">
                             <span>Equipo:</span>
-                            <span>${driver.team}</span>
+                            <span>${driver.team || 'No asignado'}</span>
                         </div>
                         <div class="stat-item">
                             <span>Rol:</span>
-                            <span>${driver.role}</span>
+                            <span>${driver.role || 'No especificado'}</span>
                         </div>
                         <div class="stat-item">
                             <span><i class="fas fa-flag"></i> País:</span>
-                            <span>${driver.country}</span>
+                            <span>${driver.country || 'No especificado'}</span>
                         </div>
                         <div class="stat-item">
                             <span><i class="fas fa-hashtag"></i> Número:</span>
-                            <span>${driver.number}</span>
+                            <span>${driver.number || 'N/A'}</span>
                         </div>
                     </div>
                 </div>
             </div>
         `).join('');
+    }
+
+    async actualizarPilotosSinEquipo() {
+        try {
+            const pilotos = await this.obtenerPilotos();
+            const pilotosSinEquipo = pilotos.filter(piloto => !piloto.team || piloto.team.trim() === '');
+            const container = this.shadowRoot.getElementById('pilotosSinEquipoList');
+            if (container) {
+                container.innerHTML = pilotosSinEquipo.length > 0
+                    ? `<ul>${pilotosSinEquipo.map(p => `<li>${p.name} - ${p.country}</li>`).join('')}</ul>`
+                    : '<p>No hay pilotos sin equipo</p>';
+            }
+        } catch (error) {
+            console.error('Error al actualizar pilotos sin equipo:', error);
+        }
+    }
+
+    mostrarPanel(panelId) {
+        // Ocultar todos los paneles
+        this.shadowRoot.querySelectorAll('.operation-panel, #mainPanel').forEach(panel => {
+            panel.classList.add('hidden');
+        });
+
+        // Mostrar el panel seleccionado
+        if (panelId === 'main') {
+            this.shadowRoot.getElementById('mainPanel').classList.remove('hidden');
+        } else {
+            const panelElement = this.shadowRoot.getElementById(`${panelId}Panel`);
+            if (panelElement) {
+                panelElement.classList.remove('hidden');
+            }
+            // Si se muestra el panel para agregar equipo, actualizar la lista de pilotos sin equipo.
+            if (panelId === 'agregarEquipo') {
+                this.actualizarPilotosSinEquipo();
+            }
+        }
     }
 }
 
