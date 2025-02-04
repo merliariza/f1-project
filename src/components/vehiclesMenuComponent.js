@@ -1,7 +1,3 @@
-import './vehiclesComponent.js';
-import './normalDrivingComponent.js';
-import './agressiveDrivingComponent.js'
-import './savingDrivingComponent.js'
 import './formDataDriving.js'
 export class VehiclesMenuComponent extends HTMLElement {
   constructor() {
@@ -49,15 +45,6 @@ export class VehiclesMenuComponent extends HTMLElement {
         <li class="nav-item">
           <a class="nav-link mnuVehicle" data-section="vehiclesComponent">Ver vehículos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link mnuVehicle" data-section="normalDrivingComponent">Conducción normal</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link mnuVehicle" data-section="aggressiveDrivingComponent">Conducción agresiva</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link mnuVehicle" data-section="savingDrivingComponent">Conducción de ahorro</a>
-        </li>
       </ul>
 
       <div class="container active" id="form-data-driving-component">
@@ -65,15 +52,6 @@ export class VehiclesMenuComponent extends HTMLElement {
       </div>
       <div class="container" id="vehiclesComponent">
         <vehicles-component></vehicles-component>
-      </div>
-      <div class="container" id="normalDrivingComponent">
-        <normal-driving-component></normal-driving-component>
-      </div>
-      <div class="container" id="aggressiveDrivingComponent">
-        <aggressive-driving-component></aggressive-driving-component>
-      </div>
-      <div class="container" id="savingDrivingComponent">
-        <saving-driving-component></saving-driving-component>
       </div>
     `;
 

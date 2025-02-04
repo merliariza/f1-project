@@ -36,15 +36,52 @@ export class FormDataDrivingComponent extends HTMLElement {
     }
     const formData = new FormData(form);
     const vehicleData = {
-      team: formData.get('vehicleTeam'),
-      driver: formData.get('vehicleDriver'),
       model: formData.get('model'),
       engine: formData.get('engine'),
-      model3dLink: formData.get('model3dLink'),
       maxSpeedKmh: formData.get('maxSpeedKmh'),
       acceleration: formData.get('acceleration'),
-      maxFuel: formData.get('maxFuel'),
-      fuelConsumption: formData.get('fuelConsumption')
+      model3dLink: formData.get('model3dLink'),
+      performance: {
+        normalDriving: {
+          averageSpeedKmh: formData.get('averageSpeedNormal'),
+          fuelConsumption: {
+            dry: formData.get('fuelConsumptionDryNormal'),
+            rainy: formData.get('fuelConsumptionRainyNormal'),
+            extreme: formData.get('fuelConsumptionExtremeNormal')
+          },
+          tireWear: {
+            dry: formData.get('tireWearDryNormal'),
+            rainy: formData.get('tireWearRainyNormal'),
+            extreme: formData.get('tireWearExtremeNormal')
+          }
+        },
+        aggressiveDriving: {
+          averageSpeedKmh: formData.get('averageSpeedAggressive'),
+          fuelConsumption: {
+            dry: formData.get('fuelConsumptionDryAggressive'),
+            rainy: formData.get('fuelConsumptionRainyAggressive'),
+            extreme: formData.get('fuelConsumptionExtremeAggressive')
+          },
+          tireWear: {
+            dry: formData.get('tireWearDryAggressive'),
+            rainy: formData.get('tireWearRainyAggressive'),
+            extreme: formData.get('tireWearExtremeAggressive')
+          }
+        },
+        fuelSaving: {
+          averageSpeedKmh: formData.get('averageSpeedSaving'),
+          fuelConsumption: {
+            dry: formData.get('fuelConsumptionDrySaving'),
+            rainy: formData.get('fuelConsumptionRainySaving'),
+            extreme: formData.get('fuelConsumptionExtremeSaving')
+          },
+          tireWear: {
+            dry: formData.get('tireWearDrySaving'),
+            rainy: formData.get('tireWearRainySaving'),
+            extreme: formData.get('tireWearExtremeSaving')
+          }
+        }
+      },
     };
 
     try {
@@ -145,16 +182,18 @@ export class FormDataDrivingComponent extends HTMLElement {
     }
   }
 
+
   getVehicleCardHTML(vehicle) {
     return `
       <div class="card mb-3 vehicle-card">
         <div class="card-embed">
-          ${vehicle.model3dLink
-        ? `<div class="sketchfab-embed-wrapper" id="sketchfab-${vehicle.id}">
+          ${
+            vehicle.model3dLink
+              ? `<div class="sketchfab-embed-wrapper" id="sketchfab-${vehicle.id}">
                    <p style="color:#fff; text-align:center; padding-top: 40%;">Cargando modelo 3D...</p>
                  </div>`
-        : `<img src="${vehicle.image}" class="card-img-top" alt="${vehicle.model}">`
-      }
+              : `<img src="${vehicle.image}" class="card-img-top" alt="${vehicle.model}">`
+          }
         </div>
         <div class="card-body">
           <h5 class="card-title">${vehicle.model}</h5>
@@ -181,34 +220,38 @@ export class FormDataDrivingComponent extends HTMLElement {
     });
   }
 
-  async editVehicle(e) {
+  editVehicle(e) {
     const id = e.target.dataset.id;
     const vehicle = this.vehicles.find(v => v.id == id);
     if (vehicle) {
       const form = this.shadowRoot.querySelector('#vehicle-performance-form');
       form.querySelector('[name="model"]').value = vehicle.model;
       form.querySelector('[name="engine"]').value = vehicle.engine;
-      form.querySelector('[name="image"]').value = vehicle.image;
-      form.querySelector('[name="model3dLink"]').value = vehicle.model3dLink || '';
       form.querySelector('[name="maxSpeedKmh"]').value = vehicle.maxSpeedKmh;
       form.querySelector('[name="acceleration"]').value = vehicle.acceleration;
-      form.querySelector('[name="maxFuel"]').value = vehicle.maxFuel;
-      form.querySelector('[name="fuelConsumption"]').value = vehicle.fuelConsumption;
-
-      const teamSelect = this.shadowRoot.querySelector('[name="vehicleTeam"]');
-      const driverSelect = this.shadowRoot.querySelector('[name="vehicleDriver"]');
-      if (vehicle.team) {
-        teamSelect.value = vehicle.team;
-        await this.setVehicleDriverOptions(vehicle.team, driverSelect);
-        if (vehicle.driver) {
-          driverSelect.value = vehicle.driver;
-        }
-      } else {
-        teamSelect.value = "";
-        driverSelect.innerHTML = '<option value="" disabled selected>Seleccione un piloto</option>';
-        driverSelect.disabled = true;
-        driverSelect.classList.add('select-disabled');
-      }
+      form.querySelector('[name="vehicleImageUrl"]').value = vehicle.image;
+      form.querySelector('[name="model3dLink"]').value = vehicle.model3dLink || '';
+      form.querySelector('[name="averageSpeedNormal"]').value = vehicle.performance.normalDriving.averageSpeedKmh;
+      form.querySelector('[name="fuelConsumptionDryNormal"]').value = vehicle.performance.normalDriving.fuelConsumption.dry;
+      form.querySelector('[name="fuelConsumptionRainyNormal"]').value = vehicle.performance.normalDriving.fuelConsumption.rainy;
+      form.querySelector('[name="fuelConsumptionExtremeNormal"]').value = vehicle.performance.normalDriving.fuelConsumption.extreme;
+      form.querySelector('[name="tireWearDryNormal"]').value = vehicle.performance.normalDriving.tireWear.dry;
+      form.querySelector('[name="tireWearRainyNormal"]').value = vehicle.performance.normalDriving.tireWear.rainy;
+      form.querySelector('[name="tireWearExtremeNormal"]').value = vehicle.performance.normalDriving.tireWear.extreme;
+      form.querySelector('[name="averageSpeedAggressive"]').value = vehicle.performance.aggressiveDriving.averageSpeedKmh;
+      form.querySelector('[name="fuelConsumptionDryAggressive"]').value = vehicle.performance.aggressiveDriving.fuelConsumption.dry;
+      form.querySelector('[name="fuelConsumptionRainyAggressive"]').value = vehicle.performance.aggressiveDriving.fuelConsumption.rainy;
+      form.querySelector('[name="fuelConsumptionExtremeAggressive"]').value = vehicle.performance.aggressiveDriving.fuelConsumption.extreme;
+      form.querySelector('[name="tireWearDryAggressive"]').value = vehicle.performance.aggressiveDriving.tireWear.dry;
+      form.querySelector('[name="tireWearRainyAggressive"]').value = vehicle.performance.aggressiveDriving.tireWear.rainy;
+      form.querySelector('[name="tireWearExtremeAggressive"]').value = vehicle.performance.aggressiveDriving.tireWear.extreme;
+      form.querySelector('[name="averageSpeedSaving"]').value = vehicle.performance.fuelSaving.averageSpeedKmh;
+      form.querySelector('[name="fuelConsumptionDrySaving"]').value = vehicle.performance.fuelSaving.fuelConsumption.dry;
+      form.querySelector('[name="fuelConsumptionRainySaving"]').value = vehicle.performance.fuelSaving.fuelConsumption.rainy;
+      form.querySelector('[name="fuelConsumptionExtremeSaving"]').value = vehicle.performance.fuelSaving.fuelConsumption.extreme;
+      form.querySelector('[name="tireWearDrySaving"]').value = vehicle.performance.fuelSaving.tireWear.dry;
+      form.querySelector('[name="tireWearRainySaving"]').value = vehicle.performance.fuelSaving.tireWear.rainy;
+      form.querySelector('[name="tireWearExtremeSaving"]').value = vehicle.performance.fuelSaving.tireWear.extreme;
       this.editingVehicle = vehicle;
     }
   }
@@ -264,7 +307,7 @@ export class FormDataDrivingComponent extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        /* Estilos (sin cambios) */
+
         .form-container {
           background: rgba(0, 0, 0, 0.5) !important;
           border: 2px solid rgb(205,39,38);
@@ -387,6 +430,7 @@ export class FormDataDrivingComponent extends HTMLElement {
           transition: 1s;
           transition-delay: 0.75s;
         }
+
         .vehicle-card {
           width: 100%;
           max-width: 540px;
@@ -505,29 +549,206 @@ export class FormDataDrivingComponent extends HTMLElement {
                   <label for="model3dLink">Link del Modelo 3D</label>
                 </div>
                 <div class="row">
-                  <!-- Velocidad máxima y Aceleración -->
-                  <div class="col-md-6 mb-3">
-                    <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="vehicleSpeed" name="maxSpeedKmh" placeholder="Velocidad máxima" required>
-                      <label for="vehicleSpeed">Velocidad Máxima (km/h)</label>
+                <!-- Velocidad máxima y Aceleración -->
+                <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                <input type="number" step="any" class="form-control" id="vehicleSpeed" name="maxSpeedKmh" placeholder="Velocidad máxima" required>
+                <label for="vehicleSpeed">Velocidad Máxima (km/h)</label>
+                </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                <input type="number" step="any" class="form-control" id="vehicleAcceleration" name="acceleration" placeholder="Aceleración (0-100 km/h)" required>
+                <label for="vehicleAcceleration">Aceleración (segundos)</label>
+                </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input type="number" step="any" class="form-control" id="maxFuel" name="maxFuel" placeholder="Combustible máximo" required>
+                    <label for="maxFuel">Combustible máximo</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input type="number" step="any" class="form-control" id=" fuelConsumption" name=" fuelConsumption" placeholder="Consumo de combustible" required>
+                    <label for=" fuelConsumption">Consumo de combustible</label>
+                  </div>
+                </div>
+                <h2 class="text-center mb-4">Conducción normal</h2>
+                <!-- Campos de performance normal -->
+                <div class="form-group mb-3">
+                <label for="averageSpeedNormal">Velocidad Promedio</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="averageSpeedNormal" name="averageSpeedNormal" placeholder="Velocidad promedio" required>
+                        <label for="averageSpeedNormal">Velocidad promedio</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="vehicleAcceleration" name="acceleration" placeholder="Aceleración (0-100 km/h)" required>
-                      <label for="vehicleAcceleration">Aceleración (segundos)</label>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fuelConsumption">Consumo de Combustible</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionDryNormal" name="fuelConsumptionDryNormal" placeholder="Seco" required>
+                        <label for="fuelConsumptionDryNormal">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionRainyNormal" name="fuelConsumptionRainyNormal" placeholder="Húmedo" required>
+                        <label for="fuelConsumptionRainyNormal">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionExtremeNormal" name="fuelConsumptionExtremeNormal" placeholder="Extremo" required>
+                        <label for="fuelConsumptionExtremeNormal">Extremo</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="maxFuel" name="maxFuel" placeholder="Combustible máximo" required>
-                      <label for="maxFuel">Combustible máximo</label>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="tireWearNormal">Desgaste de Neumáticos</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearDryNormal" name="tireWearDryNormal" placeholder="Seco" required>
+                        <label for="tireWearDryNormal">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearRainyNormal" name="tireWearRainyNormal" placeholder="Húmedo" required>
+                        <label for="tireWearRainyNormal">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearExtremeNormal" name="tireWearExtremeNormal" placeholder="Extremo" required>
+                        <label for="tireWearExtremeNormal">Extremo</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="fuelConsumption" name="fuelConsumption" placeholder="Consumo de combustible" required>
-                      <label for="fuelConsumption">Consumo de combustible</label>
+                </div>
+                <h2 class="text-center mb-4">Conducción agresiva</h2>
+                <!-- Campos de performance agresiva -->
+                <div class="form-group mb-3">
+                  <label for="averageSpeedAggressive">Velocidad Promedio</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="averageSpeedAggressive" name="averageSpeedAggressive" placeholder="Velocidad promedio" required>
+                        <label for="averageSpeedAggressive">Velocidad promedio</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fuelConsumptionAggressive">Consumo de Combustible</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionDryAggressive" name="fuelConsumptionDryAggressive" placeholder="Seco" required>
+                        <label for="fuelConsumptionDryAggressive">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionRainyAggressive" name="fuelConsumptionRainyAggressive" placeholder="Húmedo" required>
+                        <label for="fuelConsumptionRainyAggressive">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionExtremeAggressive" name="fuelConsumptionExtremeAggressive" placeholder="Extremo" required>
+                        <label for="fuelConsumptionExtremeAggressive">Extremo</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="tireWearAggressive">Desgaste de Neumáticos</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearDryAggressive" name="tireWearDryAggressive" placeholder="Seco" required>
+                        <label for="tireWearDryAggressive">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearRainyAggressive" name="tireWearRainyAggressive" placeholder="Húmedo" required>
+                        <label for="tireWearRainyAggressive">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearExtremeAggressive" name="tireWearExtremeAggressive" placeholder="Extremo" required>
+                        <label for="tireWearExtremeAggressive">Extremo</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h2 class="text-center mb-4">Conducción de ahorro</h2>
+                <!-- Campos de performance de ahorro -->
+                <div class="form-group mb-3">
+                  <label for="averageSpeedSaving">Velocidad Promedio</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="averageSpeedSaving" name="averageSpeedSaving" placeholder="Velocidad promedio" required>
+                        <label for="averageSpeedSaving">Velocidad promedio</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fuelConsumptionSaving">Consumo de Combustible</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionDrySaving" name="fuelConsumptionDrySaving" placeholder="Seco" required>
+                        <label for="fuelConsumptionDrySaving">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionRainySaving" name="fuelConsumptionRainySaving" placeholder="Húmedo" required>
+                        <label for="fuelConsumptionRainySaving">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="fuelConsumptionExtremeSaving" name="fuelConsumptionExtremeSaving" placeholder="Extremo" required>
+                        <label for="fuelConsumptionExtremeSaving">Extremo</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="tireWearSaving">Desgaste de Neumáticos</label>
+                  <div class="d-flex justify-content-between">
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearDrySaving" name="tireWearDrySaving" placeholder="Seco" required>
+                        <label for="tireWearDrySaving">Seco</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearRainySaving" name="tireWearRainySaving" placeholder="Húmedo" required>
+                        <label for="tireWearRainySaving">Húmedo</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" step="any" class="form-control" id="tireWearExtremeSaving" name="tireWearExtremeSaving" placeholder="Extremo" required>
+                        <label for="tireWearExtremeSaving">Extremo</label>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
