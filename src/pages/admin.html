@@ -75,12 +75,28 @@
                     <label for="circuitLocation" class="form-label">Ubicación del Circuito</label>
                     <input class="form-control" type="text" id="circuitLocation" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="circuitImage" class="form-label">Imagen del Circuito</label>
                     <input class="form-control" type="file" id="circuitImage" accept="image/*">
                 </div>
-
+                <h3>Registrar nuevo Record</h3>
+                <div class="md-6">
+                <label  class="form-label" for="">Registrar tiempo</label>
+                <input type="text" id="recordTime" class="form-control" required>
+                <label  class="form-label" for="">Piloto</label>
+                <input  class="form-control" type="text" id="recordPilot">
+                <label  class="form-label"  class="form-label" for="">Año</label>
+                <input   class="form-control" type="number" id="recordYear">
+                </div>
+                <h3>Ganadores</h3>
+                <div class="md-6">
+                    <label  class="form-label" for="">Sesion</label>
+                    <input   class="form-control" type="numer" id="winnerSeason">
+                    <label  class="form-label" for="piloto">Piloto</label>
+                    <input   class="form-control" type="number" id="winnerPilot">
+                </div>
+                
+                <div class="md-6"></div>
                 <br>
                 <button type="submit" class="btn-neon">
                     Agregar Circuito
@@ -91,33 +107,22 @@
 
     <!-- Lista de Circuitos -->
     <div class="bg-custom2 card-table mt-4">
-        <div class="responsive-table">
-            <h5 class="card-title" style="color: rgba(141, 179, 180, 0.973);">Lista de Circuitos</h5>
-            <table id="circuitList" style="margin: auto;">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ubicación</th>
-                        <th>Dificultad</th>
-                        <th>Imagen</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="table-custom">
-                    <!-- Los circuitos se agregarán aquí mediante JavaScript -->
-                </tbody>
-            </table>
+
+        <div class="card">
+            <div class="card-body" id="circuitList">
+
+            </div>
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/admin.js"></script>
     <script>
       function selectDifficulty(value) {
-    document.getElementById('difficulty').value = value;
-    document.getElementById('selectedDifficulty').innerText = `Dificultad seleccionada: ${value}`;
-}
-
+        document.getElementById('difficulty').value = value;
+        document.getElementById('selectedDifficulty').innerText = `Dificultad seleccionada: ${value}`;
+      }
     </script>
 </body>
 </html>

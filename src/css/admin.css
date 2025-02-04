@@ -1,42 +1,88 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
-*{
-  font-family: "Orbitron", serif;
-    box-sizing: content-box;
-    padding: 0px;
-   
-    text-align: center;}
-/* Estilos generales */
-.bg-custom{
-  background: linear-gradient(45deg, #01434b, #470202) !important;
+
+* {
+  font-family: "Orbitron", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: #ffffff; /* Letras blancas */
 }
 
-/* Sombra para el navbar */
+/* Fondo general */
+body {
+  background: #000000 !important; /* Fondo oscuro */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1.5s ease-in-out; /* Animación de entrada */
+}
+
+.card-body{
+  color: rgb(155, 143, 143);
+  background-color: rgb(46, 41, 41);
+}
+  /* Tablas */
+#circuitList img {
+  color: #b9b9b9; /* Texto blanco */
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 8px rgba(107, 96, 96, 0.781); /* Sombra roja oscura */
+ 
+}
+
+#circuitList img:hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: rgb(194, 183, 183);
+  box-shadow: 2px 2px 8px rgba(255, 0, 0, 0.959); /* Sombra roja oscura */
+  transition: all 0.3s ease;
+  transform: scale(1.05); /* Efecto de escala */
+ 
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Navbar */
 .navbar {
-  
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  background: #0e0b0b !important; /* Fondo gris oscuro */
+  box-shadow: 0px 4px 10px rgba(139, 0, 0, 0.5); /* Sombra roja oscura */
 }
 
-/* Estilo para enlaces en el menú lateral */
+.navbar-brand {
+  color: rgb(194, 183, 183) !important; /* Texto blanco */
+  font-weight: bold;
+  transition: color 0.3s ease; /* Transición suave */
+}
+
+.navbar-brand:hover {
+  color: #8b0000 !important; /* Rojo oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de escala */
+}
+
 .nav-hover {
   transition: all 0.3s ease;
   padding: 8px;
   font-size: 1rem;
   border-radius: 5px;
-}
-.navbar-brand:hover{
-  color: #8de8ff;
-  text-shadow:2px 2px 8px #00f7ff;
-}
-.nav-hover:hover {
-  color: #8de8ff;
-  text-shadow:2px 2px 8px #00f7ff;
-  padding: 10px 20px; /* Color del texto */
-  background-color: rgba(75, 71, 71, 0.2); /* Fondo semitransparente */
-  border-radius: 5px; /* Bordes redondeados */
-  transition: all 0.2s ease-in-out; /* Suaviza la animación */
+  color: #ffffff; /* Texto blanco */
 }
 
-/* Estilo para el botón del menú hamburguesa */
+.nav-hover:hover {
+  color: #8b0000 !important; /* Rojo oscuro al pasar el mouse */
+  background-color: rgba(139, 0, 0, 0.1); /* Fondo rojo oscuro semitransparente */
+}
+
+/* Botón del menú hamburguesa */
 .navbar-toggler {
   border: none !important;
   outline: none !important;
@@ -48,380 +94,129 @@
 
 /* Offcanvas (Menú lateral) */
 .offcanvas {
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  background: #131212 !important; /* Fondo gris oscuro */
+  border-left: 2px solid #8b0000; /* Borde rojo oscuro */
 }
-/* Offcanvas (Menú lateral) */
+
 .offcanvas-header {
-  color: #bbd7da;
+  color: #ffffff; /* Texto blanco */
 }
+
 .offcanvas-header:hover {
-  color: #aeeffa;
-  text-shadow:2px 2px 8px #00f7ff;
+  color: #8b0000; /* Rojo oscuro al pasar el mouse */
 }
 
 
-.bg-custom {
-  background: linear-gradient(45deg, #004346, #470202) !important;
+
+
+/* Botones */
+.btn-danger {
+  background-color: #8b0000 !important; /* Fondo rojo oscuro */
+  border: none !important;
+  color: #ffffff; /* Texto blanco */
+  transition: background-color 0.3s ease; /* Transición suave */
 }
-.bg-custom2{
-  background-color: #00434665 !important;
 
+.btn-danger:hover {
+  background-color: #660000 !important; /* Rojo más oscuro al pasar el mouse */
 }
-    
-        /* Fondo de las celdas */
-#table-custom td, th {
-            color: rgb(186, 221, 224);
-            padding: 10px;
-            text-align: center;
-            background-color: #0b3136ea; /* Fondo de las celdas */
-            border: 1px solid #126a8056;
 
-        }
-
-      .btn-danger{
-        background-color: #ff000065 !important;
-        border: none !important;
-      }
-    
-        /* Fondo alternado para las filas */
-     #table-custom tr:nth-child() {
-            background-color: #d0d0d0; /* Fondo para filas pares */
-        }
-    
-        #table-custom tr:nth-child(odd) {
-            background-color: #ffffff; /* Fondo para filas impares */
-          
-        }
-    
-        /* Fondo de la tabla con gradiente */
-        #table-custom  {
-          
-            background: linear-gradient(45deg, #ff6600, #ff0000); /* Gradiente de fondo */
-        }
-      
-
-
-
-.btn-neon{
-  background-color: #00434665;
-  border: none;
-  position: relative;
-  display: inline-block;
-  padding: 15px 30px;
-  color: #fff;
-  letter-spacing: 4px;
-  text-decoration: none;
+.btn-neon {
+  background-color: #262626; /* Fondo gris más claro */
+  border: 1px solid #8b0000; /* Borde rojo oscuro */
+  color: #ffffff; /* Texto blanco */
+  padding: 10px 20px;
   font-size: 14px;
-  overflow: hidden;
-  transition: 0.1s;
   border-radius: 5px;
-}
-.btn-neon:hover{
-  background: #353a3b;
-  color: white;
-  box-shadow: 0 0 4px #ffffff, 0 0 40px #04eeff, 0 0 80px #0594ad;
-  transition-delay: 0.8s;
-}
-.btn-neon span{
-  position: absolute;
-  display: block;
-}
-#span1{
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent,#ff0808);
-}
-.btn-neon:hover #span1{
-  left: 100%;
-  transition: 1s;
-}
-#span3{
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent,#04e2ff);
-}
-.btn-neon:hover #span3{
-  right: 100%;
-  transition: 1s;
-  transition-delay: 0.5s;
-}
-#span2{
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg,transparent,#cc1515);
-}
-.btn-neon:hover #span2{
-  top: 100%;
-  transition: 1s;
-  transition-delay: 0.25s;
-}
-#span4{
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg,transparent,#1e8fac);
-}
-.btn-neon:hover #span4{
-  bottom: 100%;
-  transition: 1s;
-  transition-delay: 0.75s;
-}
-
-
-
-/* Efecto de brillo */
-.card-glow {
-  position: absolute;
-  inset: 0;
-  background: transparent;
-  border: 2px solid rgba(0, 229, 255, 0.3);
-  border-radius: 6px;
-  margin: 2px;
-  pointer-events: none;
-}
-
-/* Contenido de la tarjeta */
-.card-content {
-  position: relative;
-  height: 100%;
-  z-index: 1;
-  padding: 16px;
-  color: #26c8ce;
-}
-
-/* Esquinas decorativas */
-.corner {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 5px solid #00e5ff;
-}
-.corner-btn {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 4px solid #00e5ff;
-}
-
-
-.top-left {
-  top: -1px;
-  left: -1px;
-  border-right: 0;
-  border-bottom: 0;
-}
-
-.top-right {
-  top: -1px;
-  right: -1px;
-  border-left: 0;
-  border-bottom: 0;
-}
-
-.bottom-left {
-  bottom: -1px;
-  left: -1px;
-  border-right: 0;
-  border-top: 0;
-}
-
-button{
-  text-decoration: none;
-  color: #cbdbdd;
-}
-button:hover{
-  text-decoration: none;
-  color: #054c55;
-}
-
-
-.bottom-right {
-  bottom: -1px;
-  right: -1px;
-  border-left: 0;
-  border-top: 0;
-}
-.card:hover {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-  transform: scale(1);
-}
-/* Efecto hover */
-.card:hover .card-glow {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-  transform: scale(1);
-}
-
-.form-control{
-  background-color: #f5f5f52f !important ;
-  box-shadow: 1px 1px 8px  rgba(122, 167, 173, 0.616);
-  width: 300px;
-  
-  border: 1px solid rgb(56, 63, 71) !important;
-}
-.form-control:hover{
-  background-color: #f5f5f52f;
-  box-shadow: 1px 1px 8px  rgba(122, 167, 173, 0.616);
-  width: 300px;
-  border: 2px solid rgb(80, 82, 85);
-}
-.form-control:focus{
-  background-color: #0a3a4288 !important;
-  border: 1px solid white;
-  color: white !important;
-}
-.form-control::placeholder {
-  color: #ffffffa6 !important; /* Cambia a cualquier color que desees */
-  }
-.form-control:not(:placeholder-shown) {
-  color: rgba(255, 255, 255, 0.63);
-  background-color: #f1f1f1;  /* Fondo más claro cuando ya hay texto */
-}
-/* Capa adicional de borde interno */
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 6px;
-  pointer-events: none;
-}
-
-.futuristic-button {
-  position: relative;
-  box-shadow: 1px 1px 8px  rgba(4, 155, 175, 0.808);
-  padding: 10px 50px;
-  font-size: 18px;
-  color: #00e5ff;
-  background-color: transparent;
-  border: 1px solid #014247;
-  border-radius: 5px;
-  cursor: pointer;
-  overflow: hidden;
   transition: all 0.3s ease;
 }
-.button-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.616) 0%, rgba(0,229,255,0) 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+
+.btn-neon:hover {
+  background-color: #660909; /* Fondo rojo oscuro al pasar el mouse */
+  color: #ffffff; /* Texto blanco */
+  transform: scale(1.05); /* Efecto de escala */
 }
 
-.futuristic-button:hover .button-glow {
-  opacity: 1;
-}
-
-body {
- 
-	background: linear-gradient(-45deg, #000000, #012c2e, #002122, #000000);
-	background-size: 400% 400%;
-	animation: gradient 30s ease infinite;
-	height: 100vh;
-  z-index: 1;
-}
-
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-
-.card-admin {
-  margin: auto;
-  box-shadow: 0 0 8px 2px rgba(0, 229, 255, 0.6), 
-  0 0 20px 4px rgba(255, 0, 0, 0.5); /* Box-shadow combinado */
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 80%;
-  height: auto;
-  background: #061f25 ;
-  border: 2px solid #0a383d;
+/* Cards */
+.card-admin, .card-table {
+  background: #1a1717; /* Fondo gris más claro */
+  border: 2px solid rgb(49, 45, 45); /* Borde rojo oscuro */
   border-radius: 8px;
-  overflow: hidden;
-}
-
-.card-table {
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5); /* Sombra roja oscura */
   margin: auto;
-  padding: 20px;
-  box-shadow: 0 0 8px 2px rgba(0, 229, 255, 0.6), 
-  0 0 20px 4px rgba(255, 0, 0, 0.5); /* Box-shadow combinado */
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  padding: 50px;
   width: 80%;
-  height: auto;
-  background: #061f25 ;
-  border: 2px solid #0a383d77;
-  border-radius: 8px;
-  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
 }
 
-.card-body{
+.card-admin:hover, .card-table:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.7); /* Sombra más intensa */
+  
+}
+
+.card-body {
   padding: 20px !important;
- 
+
 }
-/* Estilos del dropdown */
+
+/* Formularios */
+.form-control {
+  background-color: #383535 !important; /* Fondo gris más claro */
+  border: 1px solid #5e52527a !important; /* Borde rojo oscuro */
+  color: #ffffff !important; /* Texto blanco */
+  box-shadow: 1px 1px 8px rgba(139, 0, 0, 0.3); /* Sombra roja oscura */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+.form-control:hover {
+  border: 2px solid #8b0000; /* Borde rojo oscuro más grueso al pasar el mouse */
+  transform: scale(1.02); /* Efecto de escala */
+}
+
+.form-control:focus {
+  background-color: #404040 !important; /* Fondo gris más claro al enfocar */
+  border: 1px solid #8b0000; /* Borde rojo oscuro */
+  color: #ffffff !important; /* Texto blanco */
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5); /* Sombra más intensa */
+}
+
+.form-control::placeholder {
+  color: #ffffffa6 !important; /* Placeholder semitransparente */
+}
+
+/* Dropdown */
 .dropdown {
   position: relative;
- 
-  width: 300px;  /* Para que ocupe el mismo ancho que otros campos */
+  width: 300px;
 }
 
 .dropdown-button {
-  
-  background-color: #f5f5f52f;
-  border: 1px solid rgb(56, 63, 71);
-  color: rgba(255, 255, 255, 0.733);
+  background-color: #929292; /* Fondo gris más claro */
+  border: 1px solid #8b0000; /* Borde rojo oscuro */
+  color: #ffffff; /* Texto blanco */
   font-size: 15px;
   padding: 10px;
-  width: 100%;  /* Asegura que el botón tenga el mismo ancho que los inputs */
+  width: 100%;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 1px 1px 8px rgba(122, 167, 173, 0.616);
+  box-shadow: 1px 1px 8px rgba(139, 0, 0, 0.3); /* Sombra roja oscura */
   text-align: left;
   transition: background-color 0.3s ease;
 }
 
-.dropdown-button:hover {
-  background-color: #0a3a42b0;
-  box-shadow: 1px 1px 8px rgba(30, 41, 43, 0.575);
-  border: 1px solid rgba(5, 77, 82, 0.466);
-}
-.dropdown-button:focus {
-  background-color: #0a3a42b0;
-  box-shadow: 1px 1px 8px rgba(30, 41, 43, 0.575);
-  border: 1px solid rgba(5, 77, 82, 0.466);
+
+.dropdown:hover {
+  background-color: #8b0000; /* Fondo rojo oscuro al pasar el mouse */
+  color: #ffffff; /* Texto blanco */
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #07333a !important;  
-  width: 100%;  
-  box-shadow: 1px 1px 8px rgba(122, 167, 173, 0.616);
+  background-color: #262626 !important; /* Fondo gris más claro */
+  width: 100%;
+  box-shadow: 1px 1px 8px rgba(139, 0, 0, 0.3); /* Sombra roja oscura */
   z-index: 1;
   border-radius: 5px;
   margin-top: 5px;
@@ -435,17 +230,17 @@ body {
   padding: 10px;
   text-decoration: none;
   display: block;
-  color: #26c8ce;  /* Color similar al del texto en el formulario */
+  color: #ffffff; /* Texto blanco */
   font-size: 16px;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+  border-bottom: 1px solid #8b0000; /* Borde rojo oscuro */
+  transition: background-color 0.3s ease;
 }
 
 .dropdown-content a:hover {
-  background-color: #0a3a4288;
-  color: #ffffff;
-  border-bottom: none;
+  background-color: #8b0000; /* Fondo rojo oscuro al pasar el mouse */
+  color: #ffffff; /* Texto blanco */
 }
 
 .dropdown-content a:last-child {
-  border-bottom: none;  /* Eliminar borde en el último item */
+  border-bottom: none;
 }
