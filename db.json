@@ -55,77 +55,323 @@
       "role": "usuario"
     }
   ],
-  "pilots": [
+  "drivers": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Max Verstappen",
-      "teamId": "1",
-      "rol": "Líder"
+      "team": "Red Bull Racing",
+      "role": "Leader",
+      "number": 1,
+      "country": "Netherlands",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Sergio Pérez",
-      "teamId": "1",
-      "rol": "Escudero"
+      "team": "Red Bull Racing",
+      "role": "Support",
+      "number": 11,
+      "country": "Mexico",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Lewis Hamilton",
-      "teamId": "2",
-      "rol": "Líder"
+      "team": "Mercedes-AMG Petronas",
+      "role": "Leader",
+      "number": 44,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "George Russell",
-      "teamId": "2",
-      "rol": "Escudero"
+      "team": "Mercedes-AMG Petronas",
+      "role": "Support",
+      "number": 63,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Charles Leclerc",
-      "teamId": "3",
-      "rol": "Líder"
+      "team": "Ferrari",
+      "role": "Leader",
+      "number": 16,
+      "country": "Monaco",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Carlos Sainz",
-      "teamId": "3",
-      "rol": "Escudero"
+      "team": "Ferrari",
+      "role": "Support",
+      "number": 55,
+      "country": "Spain",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png"
+    },
+    {
+      "id": 7,
+      "name": "Lando Norris",
+      "team": "McLaren",
+      "role": "Leader",
+      "number": 4,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png"
+    },
+    {
+      "id": 8,
+      "name": "Oscar Piastri",
+      "team": "McLaren",
+      "role": "Support",
+      "number": 21,
+      "country": "Australia",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/2col/image.png"
+    },
+    {
+      "id": 9,
+      "name": "Fernando Alonso",
+      "team": "Aston Martin",
+      "role": "Leader",
+      "number": 14,
+      "country": "Spain",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png"
+    },
+    {
+      "id": 10,
+      "name": "Lance Stroll",
+      "team": "Aston Martin",
+      "role": "Support",
+      "number": 18,
+      "country": "Canada",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/2col/image.png"
+    },
+    {
+      "id": 11,
+      "name": "Esteban Ocon",
+      "team": "Alpine",
+      "role": "Leader",
+      "number": 31,
+      "country": "France",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/2col/image.png"
+    },
+    {
+      "id": 12,
+      "name": "Pierre Gasly",
+      "team": "Alpine",
+      "role": "Support",
+      "number": 10,
+      "country": "France",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/2col/image.png"
+    },
+    {
+      "id": 13,
+      "name": "Valtteri Bottas",
+      "team": "Alfa Romeo",
+      "role": "Leader",
+      "number": 77,
+      "country": "Finland",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/2col/image.png"
+    },
+    {
+      "id": 14,
+      "name": "Zhou Guanyu",
+      "team": "Alfa Romeo",
+      "role": "Support",
+      "number": 24,
+      "country": "China",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png.transform/2col/image.png"
+    },
+    {
+      "id": 15,
+      "name": "Kevin Magnussen",
+      "team": "Haas",
+      "role": "Leader",
+      "number": 20,
+      "country": "Denmark",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png.transform/2col/image.png"
+    },
+    {
+      "id": 16,
+      "name": "Nico Hülkenberg",
+      "team": "Haas",
+      "role": "Support",
+      "number": 27,
+      "country": "Germany",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/2col/image.png"
+    },
+    {
+      "id": 17,
+      "name": "Yuki Tsunoda",
+      "team": "AlphaTauri",
+      "role": "Leader",
+      "number": 22,
+      "country": "Japan",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png.transform/2col/image.png"
+    },
+    {
+      "id": 18,
+      "name": "Daniel Ricciardo",
+      "team": "AlphaTauri",
+      "role": "Support",
+      "number": 3,
+      "country": "Australia",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png.transform/2col/image.png"
+    },
+    {
+      "id": 19,
+      "name": "Alexander Albon",
+      "team": "Williams",
+      "role": "Leader",
+      "number": 23,
+      "country": "Thailand",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col/image.png"
+    },
+    {
+      "id": 20,
+      "name": "Logan Sargeant",
+      "team": "Williams",
+      "role": "Support",
+      "number": 6,
+      "country": "United States",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png.transform/2col/image.png"
+    },
+    {
+      "name": "Kodigo",
+      "number": 21,
+      "country": "Colombia",
+      "photo": "https://img.redbull.com/images/c_crop,x_1004,y_0,h_2196,w_2196/c_fill,w_192,h_192/q_auto,f_auto/redbullcom/2021/9/9/uqgo2p6s7youycfwwn65/kodigo",
+      "team": "Red Bull Racing",
+      "id": 21
+    },
+    {
+      "name": "Kevinho",
+      "photo": "https://khc-sistema-v2.s3.amazonaws.com/users/estudiantes/66027920566e0ab5fa7ed50.537899850.687835001725999967.jpeg",
+      "country": "Venezuela",
+      "number": 40,
+      "role": "Top",
+      "teamId": null,
+      "id": 22
+    },
+    {
+      "name": "Juan Carlos Fc",
+      "photo": "https://camper-stories.s3.us-east-2.amazonaws.com/campers/64/1737047708434-IMG_5040.jpeg",
+      "country": "Brazil",
+      "number": 5,
+      "role": "Líder",
+      "teamId": null,
+      "id": 23
+    },
+    {
+      "name": "Juancho",
+      "photo": "https://camper-stories.s3.us-east-2.amazonaws.com/campers/74/1737485636033-WhatsApp-Image-2025-01-21-at-10.54.21-AM.jpeg",
+      "country": "Portugal",
+      "number": 99,
+      "role": "Líder",
+      "teamId": null,
+      "id": 24
     }
   ],
   "teams": [
     {
-      "id": "1",
       "name": "Red Bull Racing",
       "country": "Austria",
-      "motor": "Honda",
-      "pilots": [
+      "engine": "Honda",
+      "drivers": [
         1,
         2
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Red_Bull_Racing_Logo.svg"
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/red%20bull.jpg"
     },
     {
-      "id": "2",
       "name": "Mercedes-AMG Petronas",
-      "country": "Alemania",
-      "motor": "Mercedes",
-      "pilots": [
+      "country": "Germany",
+      "engine": "Mercedes",
+      "drivers": [
         3,
         4
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/Mercedes_AMG_Petronas_F1_Team_logo.svg"
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mercedes.jpg"
     },
     {
-      "id": "3",
       "name": "Ferrari",
-      "country": "Italia",
-      "motor": "Ferrari",
-      "pilots": [
+      "country": "Italy",
+      "engine": "Ferrari",
+      "drivers": [
         5,
         6
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/en/d/d4/Scuderia_Ferrari_Logo.svg"
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/ferrari.jpg"
+    },
+    {
+      "name": "McLaren",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        7,
+        8
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mclaren.jpg"
+    },
+    {
+      "name": "Aston Martin",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        9,
+        10
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/aston%20martin.jpg"
+    },
+    {
+      "name": "Alpine",
+      "country": "France",
+      "engine": "Renault",
+      "drivers": [
+        11,
+        12
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alpine.jpg"
+    },
+    {
+      "name": "Williams",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        19,
+        20
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/williams.jpg"
+    },
+    {
+      "name": "AlphaTauri",
+      "country": "Italy",
+      "engine": "Honda",
+      "drivers": [
+        17,
+        18
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alphatauri.jpg"
+    },
+    {
+      "name": "Alfa Romeo",
+      "country": "Switzerland",
+      "engine": "Ferrari",
+      "drivers": [
+        13,
+        14
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alfa%20romeo.jpg"
+    },
+    {
+      "name": "Haas F1 Team",
+      "country": "United States",
+      "engine": "Ferrari",
+      "drivers": [
+        15,
+        16
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/haas.jpg"
     }
   ],
   "circuits": [
@@ -300,112 +546,112 @@
   ],
   "vehicles": [
     {
-      "id": "1",
-      "teamId": 1,
-      "model": "RB20",
-      "motor": "Honda",
-      "maxSpeedKmh": 360,
-      "aceleration": 2.5,
-      "pilots": [
-        1,
-        2
-      ],
-      "performance": {
-        "normalDriving": {
-          "averageSpeedKmh": 320,
-          "fuelConsumption": {
-            "dry": 1.9,
-            "rainy": 2.1,
-            "extreme": 2.4
-          },
-          "tireWear": {
-            "dry": 1.5,
-            "rainy": 0.8,
-            "extreme": 2.5
-          }
-        },
-        "aggressiveDriving": {
-          "averageSpeedKmh": 340,
-          "fuelConsumption": {
-            "dry": 2.4,
-            "rainy": 2.6,
-            "extreme": 3
-          },
-          "tireWear": {
-            "dry": 2.2,
-            "rainy": 1.2,
-            "extreme": 3.5
-          }
-        },
-        "fuelSaving": {
-          "averageSpeedKmh": 300,
-          "fuelConsumption": {
-            "dry": 1.6,
-            "rainy": 1.8,
-            "extreme": 2.1
-          },
-          "tireWear": {
-            "dry": 1,
-            "rainy": 0.5,
-            "extreme": 1.8
-          }
-        }
+      "team": "1",
+      "drivers": "2",
+      "model": "2024",
+      "engine": "RB-20",
+      "model3dLink": "https://sketchfab.com/models/0c9e188ef67b49f1bafd4b9e290a410c/embed",
+      "acceleration": 2.5,
+      "maxSpeedKmh": 350,
+      "maxFuel": 110,
+      "fuelConsumption": 2.5,
+      "savingDriving": {
+        "acceleration": 2.37,
+        "fuelConsumption": 1.98,
+        "tireWear": 0.2
       },
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Max_Verstappen_2023_Austria_FP2_%28cropped%29.jpg"
+      "normalDriving": {
+        "acceleration": 2.5,
+        "fuelConsumption": 2.5,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 2.73,
+        "fuelConsumption": 2.99,
+        "tireWear": 0.8
+      },
+      "id": "e5a9"
     },
     {
-      "id": "2",
-      "teamId": 2,
-      "model": "W15",
-      "motor": "Mercedes",
-      "maxSpeedKmh": 355,
-      "aceleration": 2.6,
-      "pilots": [
-        3,
-        4
-      ],
-      "performance": {
-        "normalDriving": {
-          "averageSpeedKmh": 315,
-          "fuelConsumption": {
-            "dry": 2,
-            "rainy": 2.2,
-            "extreme": 2.5
-          },
-          "tireWear": {
-            "dry": 1.6,
-            "rainy": 0.9,
-            "extreme": 2.6
-          }
-        },
-        "aggressiveDriving": {
-          "averageSpeedKmh": 335,
-          "fuelConsumption": {
-            "dry": 2.6,
-            "rainy": 2.8,
-            "extreme": 3.2
-          },
-          "tireWear": {
-            "dry": 2.3,
-            "rainy": 1.4,
-            "extreme": 3.8
-          }
-        },
-        "fuelSaving": {
-          "averageSpeedKmh": 295,
-          "fuelConsumption": {
-            "dry": 1.7,
-            "rainy": 1.9,
-            "extreme": 2.2
-          },
-          "tireWear": {
-            "dry": 1.1,
-            "rainy": 0.6,
-            "extreme": 1.9
-          }
-        }
+      "id": "169d",
+      "team": "2",
+      "drivers": "3",
+      "model": "2024",
+      "engine": "W14",
+      "model3dLink": "https://sketchfab.com/models/5428653841f548408c2abdc236cd8fb8/embed",
+      "acceleration": 2,
+      "maxSpeedKmh": 360,
+      "maxFuel": 110,
+      "fuelConsumption": 3,
+      "savingDriving": {
+        "acceleration": 1.85,
+        "fuelConsumption": 2.34,
+        "tireWear": 0.2
       },
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+      "normalDriving": {
+        "acceleration": 2,
+        "fuelConsumption": 3,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 2.11,
+        "fuelConsumption": 3.73,
+        "tireWear": 0.8
+      }
+    },
+    {
+      "id": "3b78",
+      "team": "3",
+      "drivers": "5",
+      "model": "2024",
+      "engine": " SF-24",
+      "model3dLink": "https://sketchfab.com/models/1f6c17dda59a49e78de6a8b788566ea7/embed",
+      "acceleration": 2,
+      "maxSpeedKmh": 370,
+      "maxFuel": 110,
+      "fuelConsumption": 2.5,
+      "savingDriving": {
+        "acceleration": 1.76,
+        "fuelConsumption": 2.05,
+        "tireWear": 0.2
+      },
+      "normalDriving": {
+        "acceleration": 2,
+        "fuelConsumption": 2.5,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 2.12,
+        "fuelConsumption": 2.83,
+        "tireWear": 0.8
+      }
+    },
+    {
+      "id": "8142",
+      "team": "4",
+      "drivers": "7",
+      "model": "2020",
+      "engine": "MCL20",
+      "model3dLink": "https://sketchfab.com/models/c30fc70979b94fa1ac2e7d8bb1325bc6/embed",
+      "acceleration": 2,
+      "maxSpeedKmh": 360,
+      "maxFuel": 100,
+      "fuelConsumption": 2.5,
+      "savingDriving": {
+        "acceleration": 1.79,
+        "fuelConsumption": 2,
+        "tireWear": 0.2
+      },
+      "normalDriving": {
+        "acceleration": 2,
+        "fuelConsumption": 2.5,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 2.23,
+        "fuelConsumption": 3.08,
+        "tireWear": 0.8
+      }
     }
   ]
 }

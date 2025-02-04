@@ -347,15 +347,24 @@
         "fuelConsumption": 1.98,
         "tireWear": 0.2
       },
+      
       "normalDriving": {
         "acceleration": 2.5,
         "fuelConsumption": 2.5,
-        "tireWear": 0.5
+          "tire_wear": {
+            "dry": 1.5,
+            "wet": 0.8,
+            "extreme": 2.5
+          }
       },
       "aggressiveDriving": {
         "acceleration": 2.73,
         "fuelConsumption": 2.99,
-        "tireWear": 0.8
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "id": "e5a9"
     },
@@ -373,7 +382,11 @@
       "savingDriving": {
         "acceleration": 1.85,
         "fuelConsumption": 2.34,
-        "tireWear": 0.2
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "normalDriving": {
         "acceleration": 2,
@@ -383,7 +396,11 @@
       "aggressiveDriving": {
         "acceleration": 2.11,
         "fuelConsumption": 3.73,
-        "tireWear": 0.8
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       }
     },
     {
@@ -400,17 +417,29 @@
       "savingDriving": {
         "acceleration": 1.76,
         "fuelConsumption": 2.05,
-        "tireWear": 0.2
+          "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "normalDriving": {
         "acceleration": 2,
         "fuelConsumption": 2.5,
-        "tireWear": 0.5
+        "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "aggressiveDriving": {
         "acceleration": 2.12,
         "fuelConsumption": 2.83,
-        "tireWear": 0.8
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       }
     },
     {
@@ -427,17 +456,29 @@
       "savingDriving": {
         "acceleration": 1.79,
         "fuelConsumption": 2,
-        "tireWear": 0.2
+          "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "normalDriving": {
         "acceleration": 2,
         "fuelConsumption": 2.5,
-        "tireWear": 0.5
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       },
       "aggressiveDriving": {
         "acceleration": 2.23,
         "fuelConsumption": 3.08,
-        "tireWear": 0.8
+         "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
       }
     }
   ]
