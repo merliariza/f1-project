@@ -1,0 +1,779 @@
+{
+  "drivers": [
+    {
+      "id": 1,
+      "name": "Max Verstappen",
+      "team": "Red Bull Racing",
+      "role": "Leader",
+      "number": 1,
+      "country": "Netherlands",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png"
+    },
+    {
+      "id": 2,
+      "name": "Sergio Pérez",
+      "team": "Red Bull Racing",
+      "role": "Support",
+      "number": 11,
+      "country": "Mexico",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png"
+    },
+    {
+      "id": 3,
+      "name": "Lewis Hamilton",
+      "team": "Mercedes-AMG Petronas",
+      "role": "Leader",
+      "number": 44,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png"
+    },
+    {
+      "id": 4,
+      "name": "George Russell",
+      "team": "Mercedes-AMG Petronas",
+      "role": "Support",
+      "number": 63,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png"
+    },
+    {
+      "id": 5,
+      "name": "Charles Leclerc",
+      "team": "Ferrari",
+      "role": "Leader",
+      "number": 16,
+      "country": "Monaco",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png"
+    },
+    {
+      "id": 6,
+      "name": "Carlos Sainz",
+      "team": "Ferrari",
+      "role": "Support",
+      "number": 55,
+      "country": "Spain",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png"
+    },
+    {
+      "id": 7,
+      "name": "Lando Norris",
+      "team": "McLaren",
+      "role": "Leader",
+      "number": 4,
+      "country": "United Kingdom",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png"
+    },
+    {
+      "id": 8,
+      "name": "Oscar Piastri",
+      "team": "McLaren",
+      "role": "Support",
+      "number": 21,
+      "country": "Australia",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/2col/image.png"
+    },
+    {
+      "id": 9,
+      "name": "Fernando Alonso",
+      "team": "Aston Martin",
+      "role": "Leader",
+      "number": 14,
+      "country": "Spain",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png"
+    },
+    {
+      "id": 10,
+      "name": "Lance Stroll",
+      "team": "Aston Martin",
+      "role": "Support",
+      "number": 18,
+      "country": "Canada",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/2col/image.png"
+    },
+    {
+      "id": 11,
+      "name": "Esteban Ocon",
+      "team": "Alpine",
+      "role": "Leader",
+      "number": 31,
+      "country": "France",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/2col/image.png"
+    },
+    {
+      "id": 12,
+      "name": "Pierre Gasly",
+      "team": "Alpine",
+      "role": "Support",
+      "number": 10,
+      "country": "France",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/2col/image.png"
+    },
+    {
+      "id": 13,
+      "name": "Valtteri Bottas",
+      "team": "Alfa Romeo",
+      "role": "Leader",
+      "number": 77,
+      "country": "Finland",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/2col/image.png"
+    },
+    {
+      "id": 14,
+      "name": "Zhou Guanyu",
+      "team": "Alfa Romeo",
+      "role": "Support",
+      "number": 24,
+      "country": "China",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png.transform/2col/image.png"
+    },
+    {
+      "id": 15,
+      "name": "Kevin Magnussen",
+      "team": "Haas",
+      "role": "Leader",
+      "number": 20,
+      "country": "Denmark",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png.transform/2col/image.png"
+    },
+    {
+      "id": 16,
+      "name": "Nico Hülkenberg",
+      "team": "Haas",
+      "role": "Support",
+      "number": 27,
+      "country": "Germany",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/2col/image.png"
+    },
+    {
+      "id": 17,
+      "name": "Yuki Tsunoda",
+      "team": "AlphaTauri",
+      "role": "Leader",
+      "number": 22,
+      "country": "Japan",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png.transform/2col/image.png"
+    },
+    {
+      "id": 18,
+      "name": "Daniel Ricciardo",
+      "team": "AlphaTauri",
+      "role": "Support",
+      "number": 3,
+      "country": "Australia",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png.transform/2col/image.png"
+    },
+    {
+      "id": 19,
+      "name": "Alexander Albon",
+      "team": "Williams",
+      "role": "Leader",
+      "number": 23,
+      "country": "Thailand",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col/image.png"
+    },
+    {
+      "id": 20,
+      "name": "Logan Sargeant",
+      "team": "Williams",
+      "role": "Support",
+      "number": 6,
+      "country": "United States",
+      "photo": "https://www.formula1.com/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png.transform/2col/image.png"
+    },
+    {
+      "name": "Kodigo",
+      "number": 21,
+      "country": "Colombia",
+      "photo": "https://img.redbull.com/images/c_crop,x_1004,y_0,h_2196,w_2196/c_fill,w_192,h_192/q_auto,f_auto/redbullcom/2021/9/9/uqgo2p6s7youycfwwn65/kodigo",
+      "team": "Red Bull Racing",
+      "id": 21
+    },
+    {
+      "name": "Kevinho",
+      "photo": "https://khc-sistema-v2.s3.amazonaws.com/users/estudiantes/66027920566e0ab5fa7ed50.537899850.687835001725999967.jpeg",
+      "country": "Venezuela",
+      "number": 40,
+      "role": "Top",
+      "teamId": null,
+      "id": 22
+    },
+    {
+      "name": "Juan Carlos Fc",
+      "photo": "https://camper-stories.s3.us-east-2.amazonaws.com/campers/64/1737047708434-IMG_5040.jpeg",
+      "country": "Brazil",
+      "number": 5,
+      "role": "Líder",
+      "teamId": null,
+      "id": 23
+    },
+    {
+      "name": "Juancho",
+      "photo": "https://camper-stories.s3.us-east-2.amazonaws.com/campers/74/1737485636033-WhatsApp-Image-2025-01-21-at-10.54.21-AM.jpeg",
+      "country": "Portugal",
+      "number": 99,
+      "role": "Líder",
+      "teamId": null,
+      "id": 24
+    }
+  ],
+  "teams": [
+    {
+      "name": "Red Bull Racing",
+      "country": "Austria",
+      "engine": "Honda",
+      "drivers": [
+        1,
+        2
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/red%20bull.jpg"
+    },
+    {
+      "name": "Mercedes-AMG Petronas",
+      "country": "Germany",
+      "engine": "Mercedes",
+      "drivers": [
+        3,
+        4
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mercedes.jpg"
+    },
+    {
+      "name": "Ferrari",
+      "country": "Italy",
+      "engine": "Ferrari",
+      "drivers": [
+        5,
+        6
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/ferrari.jpg"
+    },
+    {
+      "name": "McLaren",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        7,
+        8
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mclaren.jpg"
+    },
+    {
+      "name": "Aston Martin",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        9,
+        10
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/aston%20martin.jpg"
+    },
+    {
+      "name": "Alpine",
+      "country": "France",
+      "engine": "Renault",
+      "drivers": [
+        11,
+        12
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alpine.jpg"
+    },
+    {
+      "name": "Williams",
+      "country": "United Kingdom",
+      "engine": "Mercedes",
+      "drivers": [
+        19,
+        20
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/williams.jpg"
+    },
+    {
+      "name": "AlphaTauri",
+      "country": "Italy",
+      "engine": "Honda",
+      "drivers": [
+        17,
+        18
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alphatauri.jpg"
+    },
+    {
+      "name": "Alfa Romeo",
+      "country": "Switzerland",
+      "engine": "Ferrari",
+      "drivers": [
+        13,
+        14
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/alfa%20romeo.jpg"
+    },
+    {
+      "name": "Haas F1 Team",
+      "country": "United States",
+      "engine": "Ferrari",
+      "drivers": [
+        15,
+        16
+      ],
+      "image": "https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/haas.jpg"
+    }
+  ],
+  "circuits": [
+    {
+      "name": "Monaco Circuit",
+      "country": "Monaco",
+      "length_km": 3.34,
+      "laps": 78,
+      "description": "One of the most prestigious and challenging circuits on the calendar, known for its narrow streets and lack of overtaking zones.",
+      "lap_record": {
+        "time": "1:10.166",
+        "driver": "Lewis Hamilton",
+        "year": 2019
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "driver": 1
+        },
+        {
+          "season": 2022,
+          "driver": 2
+        },
+        {
+          "season": 2023,
+          "driver": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Monte_Carlo_Formula_1_track_map.svg"
+    },
+    {
+      "name": "Silverstone",
+      "country": "United Kingdom",
+      "length_km": 5.89,
+      "laps": 52,
+      "description": "One of the fastest circuits on the calendar, featuring high-speed corners like Maggotts and Becketts.",
+      "lap_record": {
+        "time": "1:27.097",
+        "driver": "Max Verstappen",
+        "year": 2020
+      },
+      "winners": [
+        {
+          "season": 2021,
+          "driver": 3
+        },
+        {
+          "season": 2022,
+          "driver": 5
+        },
+        {
+          "season": 2023,
+          "driver": 1
+        }
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Silverstone_Circuit_2020_layout.png"
+    }
+  ],
+  "vehicles": [
+    {
+      "team": "Red Bull Racing",
+      "model": "RB20",
+      "engine": "Honda RBPT",
+      "max_speed_kmh": 360,
+      "acceleration_0_100": 2.5,
+      "drivers": [
+        1,
+        2
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 320,
+          "fuel_consumption": {
+            "dry": 1.9,
+            "wet": 2.1,
+            "extreme": 2.4
+          },
+          "tire_wear": {
+            "dry": 1.5,
+            "wet": 0.8,
+            "extreme": 2.5
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 340,
+          "fuel_consumption": {
+            "dry": 2.4,
+            "wet": 2.6,
+            "extreme": 3
+          },
+          "tire_wear": {
+            "dry": 2.2,
+            "wet": 1.2,
+            "extreme": 3.5
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Max_Verstappen_2023_Austria_FP2_%28cropped%29.jpg"
+    },
+    {
+      "team": "Ferrari",
+      "model": "SF-24",
+      "engine": "Ferrari 066/10",
+      "max_speed_kmh": 355,
+      "acceleration_0_100": 2.6,
+      "drivers": [
+        3,
+        4
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 318,
+          "fuel_consumption": {
+            "dry": 2,
+            "wet": 2.2,
+            "extreme": 2.5
+          },
+          "tire_wear": {
+            "dry": 1.6,
+            "wet": 0.9,
+            "extreme": 2.6
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 338,
+          "fuel_consumption": {
+            "dry": 2.5,
+            "wet": 2.7,
+            "extreme": 3.1
+          },
+          "tire_wear": {
+            "dry": 2.3,
+            "wet": 1.3,
+            "extreme": 3.6
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Mercedes-AMG Petronas",
+      "model": "W15",
+      "engine": "Mercedes-AMG F1 M15",
+      "max_speed_kmh": 358,
+      "acceleration_0_100": 2.6,
+      "drivers": [
+        5,
+        6
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 319,
+          "fuel_consumption": {
+            "dry": 1.95,
+            "wet": 2.15,
+            "extreme": 2.45
+          },
+          "tire_wear": {
+            "dry": 1.55,
+            "wet": 0.85,
+            "extreme": 2.55
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 339,
+          "fuel_consumption": {
+            "dry": 2.45,
+            "wet": 2.65,
+            "extreme": 3.05
+          },
+          "tire_wear": {
+            "dry": 2.25,
+            "wet": 1.25,
+            "extreme": 3.55
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "McLaren",
+      "model": "MCL38",
+      "engine": "Mercedes-AMG F1 M15",
+      "max_speed_kmh": 354,
+      "acceleration_0_100": 2.7,
+      "drivers": [
+        7,
+        8
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 317,
+          "fuel_consumption": {
+            "dry": 2.1,
+            "wet": 2.3,
+            "extreme": 2.6
+          },
+          "tire_wear": {
+            "dry": 1.7,
+            "wet": 1,
+            "extreme": 2.7
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 337,
+          "fuel_consumption": {
+            "dry": 2.6,
+            "wet": 2.8,
+            "extreme": 3.2
+          },
+          "tire_wear": {
+            "dry": 2.4,
+            "wet": 1.4,
+            "extreme": 3.7
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Aston Martin",
+      "model": "AMR24",
+      "engine": "Mercedes-AMG F1 M15",
+      "max_speed_kmh": 352,
+      "acceleration_0_100": 2.7,
+      "drivers": [
+        9,
+        10
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 316,
+          "fuel_consumption": {
+            "dry": 2.15,
+            "wet": 2.35,
+            "extreme": 2.65
+          },
+          "tire_wear": {
+            "dry": 1.75,
+            "wet": 1.05,
+            "extreme": 2.75
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 336,
+          "fuel_consumption": {
+            "dry": 2.65,
+            "wet": 2.85,
+            "extreme": 3.25
+          },
+          "tire_wear": {
+            "dry": 2.45,
+            "wet": 1.45,
+            "extreme": 3.75
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Alpine",
+      "model": "A524",
+      "engine": "Renault E-Tech RE24",
+      "max_speed_kmh": 351,
+      "acceleration_0_100": 2.8,
+      "drivers": [
+        11,
+        12
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 315,
+          "fuel_consumption": {
+            "dry": 2.2,
+            "wet": 2.4,
+            "extreme": 2.7
+          },
+          "tire_wear": {
+            "dry": 1.8,
+            "wet": 1.1,
+            "extreme": 2.8
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 335,
+          "fuel_consumption": {
+            "dry": 2.7,
+            "wet": 2.9,
+            "extreme": 3.3
+          },
+          "tire_wear": {
+            "dry": 2.5,
+            "wet": 1.5,
+            "extreme": 3.8
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Williams",
+      "model": "FW46",
+      "engine": "Mercedes-AMG F1 M15",
+      "max_speed_kmh": 350,
+      "acceleration_0_100": 2.8,
+      "drivers": [
+        19,
+        20
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 314,
+          "fuel_consumption": {
+            "dry": 2.25,
+            "wet": 2.45,
+            "extreme": 2.75
+          },
+          "tire_wear": {
+            "dry": 1.85,
+            "wet": 1.15,
+            "extreme": 2.85
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 334,
+          "fuel_consumption": {
+            "dry": 2.75,
+            "wet": 2.95,
+            "extreme": 3.35
+          },
+          "tire_wear": {
+            "dry": 2.55,
+            "wet": 1.55,
+            "extreme": 3.85
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "AlphaTauri",
+      "model": "VCARB 01",
+      "engine": "Honda RBPT",
+      "max_speed_kmh": 349,
+      "acceleration_0_100": 2.9,
+      "drivers": [
+        17,
+        18
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 313,
+          "fuel_consumption": {
+            "dry": 2.3,
+            "wet": 2.5,
+            "extreme": 2.8
+          },
+          "tire_wear": {
+            "dry": 1.9,
+            "wet": 1.2,
+            "extreme": 2.9
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 333,
+          "fuel_consumption": {
+            "dry": 2.8,
+            "wet": 3,
+            "extreme": 3.4
+          },
+          "tire_wear": {
+            "dry": 2.6,
+            "wet": 1.6,
+            "extreme": 3.9
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Alfa Romeo",
+      "model": "C44",
+      "engine": "Ferrari 066/10",
+      "max_speed_kmh": 348,
+      "acceleration_0_100": 2.9,
+      "drivers": [
+        13,
+        14
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 312,
+          "fuel_consumption": {
+            "dry": 2.35,
+            "wet": 2.55,
+            "extreme": 2.85
+          },
+          "tire_wear": {
+            "dry": 1.95,
+            "wet": 1.25,
+            "extreme": 2.95
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 332,
+          "fuel_consumption": {
+            "dry": 2.85,
+            "wet": 3.05,
+            "extreme": 3.45
+          },
+          "tire_wear": {
+            "dry": 2.65,
+            "wet": 1.65,
+            "extreme": 3.95
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    },
+    {
+      "team": "Haas F1 Team",
+      "model": "VF-24",
+      "engine": "Ferrari 066/10",
+      "max_speed_kmh": 347,
+      "acceleration_0_100": 3,
+      "drivers": [
+        15,
+        16
+      ],
+      "performance": {
+        "normal_driving": {
+          "average_speed_kmh": 311,
+          "fuel_consumption": {
+            "dry": 2.4,
+            "wet": 2.6,
+            "extreme": 2.9
+          },
+          "tire_wear": {
+            "dry": 2,
+            "wet": 1.3,
+            "extreme": 3
+          }
+        },
+        "aggressive_driving": {
+          "average_speed_kmh": 331,
+          "fuel_consumption": {
+            "dry": 2.9,
+            "wet": 3.1,
+            "extreme": 3.5
+          },
+          "tire_wear": {
+            "dry": 2.7,
+            "wet": 1.7,
+            "extreme": 4
+          }
+        }
+      },
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Lewis_Hamilton_2022_Imola.jpg"
+    }
+  ]
+}

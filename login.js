@@ -62,7 +62,7 @@ loginForm.addEventListener('submit', async (e) => {
                 // Redirigir según el rol del usuario
                 setTimeout(() => {
                     if (user.role === "admin") {
-                        window.location.href = 'src/pages/admin.html'; // Página para administradores
+                        window.location.href = 'src/pages/index3.html'; // Página para administradores
                     } else {
                         window.location.href = 'src/pages/inicio.html'; // Página para usuarios normales
                     }
