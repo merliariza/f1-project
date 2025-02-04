@@ -4,9 +4,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // Importar los componentes dinámicamente
     await Promise.all([
-        import('./components3/teamComponent.js'),
-        import('./components3/adminTeamComponent.js'),
-        import('./components3/driversComponent.js')
+        import('./src/components/teamComponent.js'),
+        import('./src/components/adminTeamComponent.js'),
+        import('./src/components/driversComponent.js')
     ]);
     
     const navLinks = document.querySelectorAll('.nav-link');
