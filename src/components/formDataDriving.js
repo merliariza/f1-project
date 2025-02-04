@@ -62,8 +62,10 @@ export class FormDataDrivingComponent extends HTMLElement {
       model: formData.get('model'),
       engine: formData.get('engine'),
       model3dLink: formData.get('model3dLink'),
+      acceleration: parseFloat(formData.get('acceleration')),
       maxSpeedKmh: parseFloat(formData.get('maxSpeedKmh')),
       maxFuel: parseFloat(formData.get('maxFuel')),
+      fuelConsumption: parseFloat(formData.get('fuelConsumption')),
       savingDriving: {
         acceleration: parseFloat(calcDrivingTypeAcceleration("saving", baseAcceleration)),
         fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("saving", baseFuelConsumption)),

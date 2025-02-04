@@ -1,4 +1,5 @@
 import './formDataDriving.js'
+import './userComponent.js'
 export class VehiclesMenuComponent extends HTMLElement {
   constructor() {
     super();
@@ -51,7 +52,7 @@ export class VehiclesMenuComponent extends HTMLElement {
         <form-data-driving-component></form-data-driving-component>
       </div>
       <div class="container" id="vehiclesComponent">
-        <vehicles-component></vehicles-component>
+        <vehicle-gallery-component></vehicle-gallery-component>
       </div>
     `;
 
