@@ -1,0 +1,1 @@
+import "../f1-project-1/src/components/userComponent.js";
