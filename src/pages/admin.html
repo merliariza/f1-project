@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>F1 - Administración de Circuitos</title>
+    <link rel="stylesheet" href="/src/css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="body">
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-dark bg-custom shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-uppercase" href="#">F1 Management</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end bg-custom text-light" id="offcanvasDarkNavbar">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title fw-bold text-uppercase">Opciones de Administrador</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link text-white nav-hover" href="#">Equipos</a></li>
+                        <li class="nav-item"><a class="nav-link text-white nav-hover" href="#">Vehículos</a></li>
+                        <li class="nav-item"><a class="nav-link text-white nav-hover" href="#">Circuitos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Formulario para agregar un circuito -->
+    <div class="card-admin mt-4">
+        <div class="card-content">
+            <h5 class="card-title">Agregar Nuevo Circuito</h5>
+            <form id="addCircuitForm">
+                <hr>
+                <div class="mb-3">
+                    <label for="circuitName" class="form-label">Nombre del Circuito</label>
+                    <input class="form-control" type="text" id="circuitName" required>
+                </div>
+
+                <!-- Dropdown para dificultad -->
+                <div class="mb-3">
+                    <label for="difficultyDropdown" class="form-label">Dificultad del Circuito</label>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="difficultyDropdown" data-bs-toggle="dropdown">
+                        Seleccionar dificultad
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" data-dff onclick="selectDifficulty('Baja')">Baja</a></li>
+                        <li><a class="dropdown-item" href="#" data-dff onclick="selectDifficulty('Media')">Media</a></li>
+                        <li><a class="dropdown-item" href="#" data-dff onclick="selectDifficulty('Alta')">Alta</a></li>
+                    </ul>
+                    <input type="hidden" id="difficulty">
+                    <p id="selectedDifficulty" class="mt-2"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="circuitLength" class="form-label">Longitud del Circuito (km)</label>
+                    <input class="form-control" type="number" id="circuitLength" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="circuitLaps" class="form-label">Cantidad de Vueltas</label>
+                    <input class="form-control" type="number" id="circuitLaps" required>
+                </div>
+                <div class="mb-3">
+                  <label for="circuitDescription" class="form-label">Descripcion</label>
+                  <input class="form-control" type="text" id="circuitDescription" required>
+              </div>
+                <div class="mb-3">
+                    <label for="circuitLocation" class="form-label">Ubicación del Circuito</label>
+                    <input class="form-control" type="text" id="circuitLocation" required>
+                </div>
+                <div class="mb-3">
+                    <label for="circuitImage" class="form-label">Imagen del Circuito</label>
+                    <input class="form-control" type="file" id="circuitImage" accept="image/*">
+                </div>
+                <h3>Registrar nuevo Record</h3>
+                <div class="md-6">
+                <label  class="form-label" for="">Registrar tiempo</label>
+                <input type="text" id="recordTime" class="form-control" required>
+                <label  class="form-label" for="">Piloto</label>
+                <input  class="form-control" type="text" id="recordPilot">
+                <label  class="form-label"  class="form-label" for="">Año</label>
+                <input   class="form-control" type="number" id="recordYear">
+                </div>
+                <h3>Ganadores</h3>
+                <div class="md-6">
+                    <label  class="form-label" for="">Sesion</label>
+                    <input   class="form-control" type="numer" id="winnerSeason">
+                    <label  class="form-label" for="piloto">Piloto</label>
+                    <input   class="form-control" type="number" id="winnerPilot">
+                </div>
+                
+                <div class="md-6"></div>
+                <br>
+                <button type="submit" class="btn-neon">
+                    Agregar Circuito
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de Circuitos -->
+    <div class="bg-custom2 card-table mt-4">
+
+        <div class="card">
+            <div class="card-body" id="circuitList">
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+      function selectDifficulty(value) {
+        document.getElementById('difficulty').value = value;
+        document.getElementById('selectedDifficulty').innerText = `Dificultad seleccionada: ${value}`;
+      }
+    </script>
+</body>
+</html>
