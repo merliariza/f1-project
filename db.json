@@ -331,5 +331,81 @@
       "id": "b0dc"
     }
   ],
-  "vehicles": []
+  "vehicles": [
+    {
+      "team": "1",
+      "drivers": "1",
+      "model": "12",
+      "engine": "12",
+      "model3dLink": "https://sketchfab.com/models/1152c136adb84bf28e388dd9de1ef5bf/embed",
+      "maxSpeedKmh": 123,
+      "maxFuel": 12,
+      "savingDriving": {
+        "acceleration": 11.29,
+        "fuelConsumption": 9.27,
+        "tireWear": 0.2
+      },
+      "normalDriving": {
+        "acceleration": 12,
+        "fuelConsumption": 12,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 13.65,
+        "fuelConsumption": 14.82,
+        "tireWear": 0.8
+      },
+      "id": "81a7"
+    },
+    {
+      "id": "3f25",
+      "team": "1",
+      "drivers": "1",
+      "model": "MODEL",
+      "engine": "MOTOR",
+      "model3dLink": "https://sketchfab.com/models/1152c136adb84bf28e388dd9de1ef5bf/embed",
+      "maxSpeedKmh": 360,
+      "maxFuel": 120,
+      "savingDriving": {
+        "acceleration": "2.14",
+        "fuelConsumption": "1.82",
+        "tireWear": "0.20"
+      },
+      "normalDriving": {
+        "acceleration": "2.50",
+        "fuelConsumption": "2.30",
+        "tireWear": "0.50"
+      },
+      "aggressiveDriving": {
+        "acceleration": "2.69",
+        "fuelConsumption": "2.65",
+        "tireWear": "0.80"
+      }
+    },
+    {
+      "id": "ab97",
+      "team": "1",
+      "drivers": "1",
+      "model": "MODEL2",
+      "engine": "MOTOR2",
+      "model3dLink": "https://sketchfab.com/3d-models/f1-aston-martin-amr-24-2024-1152c136adb84bf28e388dd9de1ef5bf",
+      "maxSpeedKmh": 350,
+      "maxFuel": 110,
+      "savingDriving": {
+        "acceleration": 1.97,
+        "fuelConsumption": 1.52,
+        "tireWear": 0.2
+      },
+      "normalDriving": {
+        "acceleration": 2.3,
+        "fuelConsumption": 2,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 2.63,
+        "fuelConsumption": 2.47,
+        "tireWear": 0.8
+      }
+    }
+  ]
 }

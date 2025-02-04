@@ -3,6 +3,9 @@ import getDrivers from '../js/getDrivers.js';
 import getVehicles from '../js/getVehicles.js';
 import getDriversByTeamId from '../js/getDriversByTeamId.js';
 import getVehiclesByTeamId from '../js/getVehiclesByTeamId.js';
+import calcDrivingTypeAcceleration from '../js/calcDrivingTypeAcceleration.js';
+import calcDrivingTypeFuelConsumption from '../js/calcDrivingTypeFuelConsumption.js';
+import defineDrivingTypeTireWear from '../js/defineDrivingTypeTireWear.js';
 
 export class FormDataDrivingComponent extends HTMLElement {
   constructor() {
@@ -35,18 +38,50 @@ export class FormDataDrivingComponent extends HTMLElement {
       return;
     }
     const formData = new FormData(form);
+
+    let baseAcceleration = parseFloat(formData.get('acceleration'));
+    let baseFuelConsumption = parseFloat(formData.get('fuelConsumption'));
+    
+    if (isNaN(parseFloat(formData.get('maxSpeedKmh')))){
+      return "Velocidad máxima no valida.";
+    }
+    if (isNaN(baseAcceleration)){
+      return "Aceleración no valida.";
+    }
+    
+    if (isNaN(parseFloat(formData.get('maxFuel')))){
+      return "Combustible máximo no valido.";
+    }
+    if (isNaN(baseFuelConsumption)){
+      return "Consumo de combustible no valido.";
+    }
+
     const vehicleData = {
       team: formData.get('vehicleTeam'),
-      driver: formData.get('vehicleDriver'),
+      drivers: formData.get('vehicleDriver'),
       model: formData.get('model'),
       engine: formData.get('engine'),
       model3dLink: formData.get('model3dLink'),
-      maxSpeedKmh: formData.get('maxSpeedKmh'),
-      acceleration: formData.get('acceleration'),
-      maxFuel: formData.get('maxFuel'),
-      fuelConsumption: formData.get('fuelConsumption')
+      maxSpeedKmh: parseFloat(formData.get('maxSpeedKmh')),
+      maxFuel: parseFloat(formData.get('maxFuel')),
+      savingDriving: {
+        acceleration: parseFloat(calcDrivingTypeAcceleration("saving", baseAcceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("saving", baseFuelConsumption)),
+        tireWear: parseFloat(defineDrivingTypeTireWear("saving"))
+      },
+      normalDriving: {
+        acceleration: parseFloat(calcDrivingTypeAcceleration("normal", baseAcceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("normal", baseFuelConsumption)),
+        tireWear: parseFloat(defineDrivingTypeTireWear("normal"))
+      },
+      aggressiveDriving: {
+        acceleration: parseFloat(calcDrivingTypeAcceleration("aggressive", baseAcceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("aggressive", baseFuelConsumption)),
+        tireWear: parseFloat(defineDrivingTypeTireWear("aggressive"))
+      },
     };
 
+   
     try {
       let url = 'http://localhost:3000/vehicles';
       let method = 'POST';
@@ -188,7 +223,6 @@ export class FormDataDrivingComponent extends HTMLElement {
       const form = this.shadowRoot.querySelector('#vehicle-performance-form');
       form.querySelector('[name="model"]').value = vehicle.model;
       form.querySelector('[name="engine"]').value = vehicle.engine;
-      form.querySelector('[name="image"]').value = vehicle.image;
       form.querySelector('[name="model3dLink"]').value = vehicle.model3dLink || '';
       form.querySelector('[name="maxSpeedKmh"]').value = vehicle.maxSpeedKmh;
       form.querySelector('[name="acceleration"]').value = vehicle.acceleration;
