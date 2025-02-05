@@ -3,33 +3,20 @@ class VehicleGalleryComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.vehicles = [];
-    this.configurations = JSON.parse(localStorage.getItem('vehicleConfigurations')) || [];
-    this.searchTerm = ""; 
+    this.searchTerm = "";
   }
 
   connectedCallback() {
+    // Inyectamos el template completo (barra de búsqueda, galería, sección de configuraciones y modal)
+    this.shadowRoot.innerHTML = this.getTemplate();
     this.fetchVehicles();
+    this.setupStaticEventListeners();
+    this.setupConfigEventListeners();
   }
 
-  async fetchVehicles() {
-    try {
-      const response = await fetch('http://localhost:3000/vehicles');
-      this.vehicles = await response.json();
-      this.render();
-    } catch (error) {
-      console.error("Error al cargar vehículos:", error);
-      this.shadowRoot.innerHTML = `<p>Error al cargar vehículos.</p>`;
-    }
-  }
-
-  render() {
-   
-    const filteredVehicles = this.vehicles.filter(vehicle => {
-    
-      const fullName = `${vehicle.team} - ${vehicle.engine} - ${vehicle.model}`.toLowerCase();
-      return fullName.includes(this.searchTerm.toLowerCase());
-    });
-    this.shadowRoot.innerHTML = `
+  // Retorna el template estático del componente
+  getTemplate() {
+    return `
       <style>
         :host {
           display: block;
@@ -71,11 +58,9 @@ class VehicleGalleryComponent extends HTMLElement {
         .card:hover {
           transform: scale(1.05);
         }
-
         .model3d-container {
           height: 180px;
           overflow: hidden;
-          
         }
         .model3d-container iframe {
           width: 100%;
@@ -212,33 +197,23 @@ class VehicleGalleryComponent extends HTMLElement {
         }
       </style>
       <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar vehículo...">
+        <input type="text" id="searchInput" placeholder="Buscar vehículo..." value="${this.searchTerm}">
       </div>
-      <div class="gallery">
-        ${filteredVehicles.map(vehicle => `
-          <div class="card" data-id="${vehicle.id}">
-            <div class="model3d-container">
-              ${vehicle.model3dLink 
-                ? `<iframe src="${vehicle.model3dLink}" title="Modelo 3D" allowfullscreen></iframe>`
-                : `<p style="color:#fff; text-align:center; padding-top: 40%;">No hay modelo 3D disponible.</p>`
-              }
-            </div>
-            <div class="card-body">
-              <!-- El nombre se compone del equipo, motor y modelo -->
-              <h3>${vehicle.team} - ${vehicle.engine} - ${vehicle.model}</h3>
-              <p><strong>Motor:</strong> ${vehicle.engine}</p>
-              <p><strong>Velocidad:</strong> ${vehicle.maxSpeedKmh} km/h</p>
-            </div>
-          </div>
-        `).join('')}
+      <div class="gallery" id="galleryContainer">
+        <!-- Aquí se inyectará la galería de vehículos -->
       </div>
-      <!-- Modal para detalles y configuración -->
+      <!-- Sección de configuraciones guardadas -->
+      <div class="configurations" id="configurationsContainer">
+        <h2>Configuraciones Guardadas</h2>
+        <!-- Aquí se inyectarán las configuraciones de los vehículos -->
+      </div>
+      <!-- Modal para ver detalles y configurar un vehículo -->
       <div class="modal" id="modal">
         <div class="modal-content">
           <span class="close" id="modalClose">&times;</span>
           <h2>Detalles del Vehículo</h2>
           <div id="modalDetails"></div>
-          <h3>Configuración</h3>
+          <h3>Configurar Vehículo</h3>
           <form id="configForm" class="config-form">
             <label for="drivingMode">Modo de Conducción:</label>
             <select id="drivingMode" required>
@@ -265,37 +240,117 @@ class VehicleGalleryComponent extends HTMLElement {
           </form>
         </div>
       </div>
-      <!-- Sección de configuraciones guardadas -->
-      <div class="configurations">
-        <h2>Configuraciones Guardadas</h2>
-        ${this.configurations.length 
-          ? this.configurations.map((config, index) => `
-              <div class="config-item" data-index="${index}">
-                <div>
-                  <p><strong>Vehículo ID:</strong> ${config.vehicleId}</p>
-                  <p><strong>Modo de Conducción:</strong> ${config.drivingMode}</p>
-                  <p><strong>Presión de Neumáticos:</strong> ${config.tirePressure}</p>
-                  <p><strong>Carga Aerodinámica:</strong> ${config.downforce}</p>
-                </div>
-                <button class="delete-config">Borrar</button>
-              </div>
-            `).join('')
-          : `<p style="text-align:center;">No hay configuraciones guardadas.</p>`
-        }
-      </div>
     `;
-    this.setupEventListeners();
   }
 
-  setupEventListeners() {
+  // Carga la lista de vehículos desde el servidor
+  async fetchVehicles() {
+    try {
+      const response = await fetch('http://localhost:3000/vehicles');
+      this.vehicles = await response.json();
+      this.updateGallery();
+      this.updateConfigurationsSection();
+    } catch (error) {
+      console.error("Error al cargar vehículos:", error);
+      this.shadowRoot.getElementById('galleryContainer').innerHTML = `<p>Error al cargar vehículos.</p>`;
+    }
+  }
 
+  // Actualiza la galería de vehículos (no muestra la configuración en cada tarjeta)
+  updateGallery() {
+    const filteredVehicles = this.vehicles.filter(vehicle => {
+      const fullName = `${vehicle.team} - ${vehicle.engine} - ${vehicle.model}`.toLowerCase();
+      return fullName.includes(this.searchTerm.toLowerCase());
+    });
+    const gallery = this.shadowRoot.getElementById('galleryContainer');
+    gallery.innerHTML = filteredVehicles.map(vehicle => `
+      <div class="card" data-id="${vehicle.id}">
+        <div class="model3d-container">
+          ${vehicle.model3dLink
+            ? `<iframe src="${vehicle.model3dLink}" title="Modelo 3D" allowfullscreen></iframe>`
+            : `<p style="color:#fff; text-align:center; padding-top: 40%;">No hay modelo 3D disponible.</p>`
+          }
+        </div>
+        <div class="card-body">
+          <h3>${vehicle.team} - ${vehicle.engine} - ${vehicle.model}</h3>
+          <p><strong>Motor:</strong> ${vehicle.engine}</p>
+          <p><strong>Velocidad:</strong> ${vehicle.maxSpeedKmh} km/h</p>
+        </div>
+      </div>
+    `).join('');
+    this.setupGalleryEventListeners();
+  }
+
+  // Actualiza la sección "Configuraciones Guardadas" mostrando todas las configuraciones de cada vehículo,
+  // incluyendo un iframe con el modelo 3D si existe.
+  updateConfigurationsSection() {
+    const configContainer = this.shadowRoot.getElementById('configurationsContainer');
+    // Filtramos los vehículos que tengan al menos una configuración
+    const configuredVehicles = this.vehicles.filter(v => v.configurations && v.configurations.length > 0);
+    if (configuredVehicles.length === 0) {
+      configContainer.innerHTML = `<h2>Configuraciones Guardadas</h2><p style="text-align:center;">No hay configuraciones guardadas.</p>`;
+    } else {
+      let html = `<h2>Configuraciones Guardadas</h2>`;
+      configuredVehicles.forEach(vehicle => {
+        vehicle.configurations.forEach((config, index) => {
+          html += `
+            <div class="config-item" data-vehicle-id="${vehicle.id}" data-config-index="${index}">
+              <div>
+                <p><strong>Vehículo ID:</strong> ${vehicle.id}</p>
+                <p><strong>Nombre:</strong> ${vehicle.engine} - ${vehicle.model}</p>
+                <p><strong>Velocidad máxima:</strong> ${vehicle.maxSpeedKmh} km/h</p>
+                <p><strong>Aceleración:</strong> ${vehicle.acceleration} s</p>
+                <p><strong>Combustible máximo:</strong> ${vehicle.maxFuel}</p>
+                <p><strong>Consumo combustible:</strong> ${vehicle.fuelConsumption}</p>
+                <p><strong>Modo de Conducción:</strong> ${config.drivingMode}</p>
+                <p><strong>Presión de Neumáticos:</strong> ${config.tirePressure}</p>
+                <p><strong>Carga Aerodinámica:</strong> ${config.downforce}</p>
+              </div>
+              <div>
+                ${
+                  vehicle.model3dLink
+                    ? `<div class="model3d-container" style="width:200px; height:150px; margin-bottom:8px;">
+                         <iframe src="${vehicle.model3dLink}" title="Modelo 3D" allowfullscreen style="width:100%; height:100%;"></iframe>
+                       </div>`
+                    : `<p>No hay modelo 3D.</p>`
+                }
+                <button class="delete-config" data-vehicle-id="${vehicle.id}" data-config-index="${index}">Eliminar Configuración</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+      configContainer.innerHTML = html;
+    }
+    this.setupDeleteConfigButtons();
+  }
+
+  // Configura los listeners del input y del modal
+  setupStaticEventListeners() {
     const searchInput = this.shadowRoot.getElementById('searchInput');
     searchInput.addEventListener('input', (e) => {
       this.searchTerm = e.target.value;
-      this.render();
+      this.updateGallery();
     });
+    const modalClose = this.shadowRoot.getElementById('modalClose');
+    modalClose.addEventListener('click', () => this.closeModal());
+    const modal = this.shadowRoot.getElementById('modal');
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) this.closeModal();
+    });
+  }
 
+  // Configura el listener del formulario de configuración
+  setupConfigEventListeners() {
+    const configForm = this.shadowRoot.getElementById('configForm');
+    configForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleConfigSubmit(e);
+    });
+  }
 
+  // Asigna listeners a las tarjetas de la galería para abrir el modal
+  setupGalleryEventListeners() {
     const cards = this.shadowRoot.querySelectorAll('.card');
     cards.forEach(card => {
       card.addEventListener('click', () => {
@@ -306,43 +361,32 @@ class VehicleGalleryComponent extends HTMLElement {
         }
       });
     });
+  }
 
-    const modalClose = this.shadowRoot.getElementById('modalClose');
-    modalClose.addEventListener('click', () => this.closeModal());
-    const modal = this.shadowRoot.getElementById('modal');
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        this.closeModal();
-      }
-    });
-
-   
-    const configForm = this.shadowRoot.getElementById('configForm');
-    configForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.handleConfigSubmit(e);
-    });
-
-   
+  // Asigna listeners a los botones de eliminar configuración de la sección "Configuraciones Guardadas"
+  setupDeleteConfigButtons() {
     const deleteButtons = this.shadowRoot.querySelectorAll('.delete-config');
     deleteButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        const configItem = e.target.closest('.config-item');
-        const index = configItem.getAttribute('data-index');
-        this.deleteConfiguration(index);
+        // Evita que se active el listener de la tarjeta
+        e.stopPropagation();
+        const vehicleId = button.getAttribute('data-vehicle-id');
+        const configIndex = parseInt(button.getAttribute('data-config-index'), 10);
+        this.deleteConfiguration(vehicleId, configIndex);
       });
     });
   }
 
+  // Abre el modal mostrando los detalles del vehículo y el formulario para configurar
   openModal(vehicle) {
     const modal = this.shadowRoot.getElementById('modal');
     const modalDetails = this.shadowRoot.getElementById('modalDetails');
-    
     modalDetails.innerHTML = `
       <p><strong>Nombre:</strong> ${vehicle.engine} - ${vehicle.model}</p>
       <p><strong>Velocidad máxima:</strong> ${vehicle.maxSpeedKmh} km/h</p>
-      <p><strong>Combustible máximo:</strong> ${vehicle.maxFuel}</p>
       <p><strong>Aceleración:</strong> ${vehicle.acceleration} s</p>
+      <p><strong>Combustible máximo:</strong> ${vehicle.maxFuel}</p>
+      <p><strong>Consumo:</strong> ${vehicle.fuelConsumption}</p>
     `;
     if (vehicle.model3dLink) {
       modalDetails.innerHTML += `
@@ -352,7 +396,7 @@ class VehicleGalleryComponent extends HTMLElement {
         </div>
       `;
     }
-
+    // Se asigna el id del vehículo al formulario para identificar cuál se actualizará
     this.shadowRoot.getElementById('configForm').setAttribute('data-vehicle-id', vehicle.id);
     modal.classList.add('active');
   }
@@ -363,27 +407,60 @@ class VehicleGalleryComponent extends HTMLElement {
     this.shadowRoot.getElementById('configForm').reset();
   }
 
-  handleConfigSubmit(event) {
+  // Al enviar el formulario, se añade una nueva configuración al vehículo (en el arreglo "configurations")
+  async handleConfigSubmit(event) {
     const form = event.target;
-    const config = {
-      vehicleId: form.getAttribute('data-vehicle-id'),
+    const vehicleId = form.getAttribute('data-vehicle-id');
+    const vehicle = this.vehicles.find(v => v.id == vehicleId);
+    if (!vehicle) return;
+    const newConfiguration = {
       drivingMode: this.shadowRoot.getElementById('drivingMode').value,
       tirePressure: this.shadowRoot.getElementById('tirePressure').value,
       downforce: this.shadowRoot.getElementById('downforce').value,
-     
     };
-    this.configurations.push(config);
-    localStorage.setItem('vehicleConfigurations', JSON.stringify(this.configurations));
-    console.log("Configuraciones almacenadas:", this.configurations);
-    this.closeModal();
-    
-    this.render();
+    // Si ya existen configuraciones, se añaden; de lo contrario, se crea el arreglo
+    const currentConfigurations = vehicle.configurations || [];
+    const updatedConfigurations = [...currentConfigurations, newConfiguration];
+    const updatedVehicle = { ...vehicle, configurations: updatedConfigurations };
+
+    try {
+      const response = await fetch(`http://localhost:3000/vehicles/${vehicleId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedVehicle)
+      });
+      if (response.ok) {
+        await this.fetchVehicles();
+        this.closeModal();
+        form.reset();
+      } else {
+        alert("Error en la respuesta del servidor: " + await response.text());
+      }
+    } catch (error) {
+      console.error("Error al guardar la configuración:", error);
+    }
   }
 
-  deleteConfiguration(index) {
-    this.configurations.splice(index, 1);
-    localStorage.setItem('vehicleConfigurations', JSON.stringify(this.configurations));
-    this.render();
+  // Para eliminar una configuración específica, se actualiza el vehículo removiendo el elemento del arreglo "configurations"
+  async deleteConfiguration(vehicleId, configIndex) {
+    const vehicle = this.vehicles.find(v => v.id == vehicleId);
+    if (!vehicle || !vehicle.configurations) return;
+    const updatedConfigurations = vehicle.configurations.filter((_, i) => i !== configIndex);
+    const updatedVehicle = { ...vehicle, configurations: updatedConfigurations };
+    try {
+      const response = await fetch(`http://localhost:3000/vehicles/${vehicleId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedVehicle)
+      });
+      if (response.ok) {
+        await this.fetchVehicles();
+      } else {
+        alert("Error al eliminar la configuración: " + await response.text());
+      }
+    } catch (error) {
+      console.error("Error al eliminar la configuración:", error);
+    }
   }
 }
 
