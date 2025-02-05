@@ -662,6 +662,33 @@
         "tireWear": 0.8
       },
       "id": "8142"
+    },
+    {
+      "id": "047c",
+      "team": "9d88",
+      "drivers": "2",
+      "model": "12",
+      "engine": "12",
+      "model3dLink": "https://sketchfab.com/models/5428653841f548408c2abdc236cd8fb8/embed",
+      "acceleration": 12,
+      "maxSpeedKmh": 12,
+      "maxFuel": 12,
+      "fuelConsumption": 12,
+      "savingDriving": {
+        "acceleration": 10.76,
+        "fuelConsumption": 9.47,
+        "tireWear": 0.2
+      },
+      "normalDriving": {
+        "acceleration": 12,
+        "fuelConsumption": 12,
+        "tireWear": 0.5
+      },
+      "aggressiveDriving": {
+        "acceleration": 12.82,
+        "fuelConsumption": 14.54,
+        "tireWear": 0.8
+      }
     }
   ]
 }
