@@ -66,7 +66,7 @@ class CircuitSlider extends HTMLElement {
               transition: color 0.3s ease, text-shadow 0.3s ease;
               color: rgb(187, 182, 182);
               text-shadow: 0 0 10px rgba(172, 163, 163, 0.79);
-              font-size: 3rem;
+              font-size: 2rem; /* Hice el texto un poco más pequeño */
           }
           
           h1:hover {
@@ -80,25 +80,27 @@ class CircuitSlider extends HTMLElement {
           }
       
           #slider {
-              height: 35vw;
+              height: 25vw;  /* Tamaño reducido para el slider */
               position: relative;
               perspective: 1000px;
               transform-style: preserve-3d;
+              margin: auto;
           }
       
-          /* Aplicar efecto de reflejo a las imágenes */
+          /* Aplicar efecto de reflejo a las imágenes con un efecto de piso */
           label img {
               width: 100%;
               height: 100%;
               border-radius: 8px;
-              /* Se crea un reflejo sutil debajo de la imagen */
-              -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(255,255,255,0.2));
+              /* Efecto de reflejo */
+              -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(255,255,255,0.3));
               transition: transform 0.3s ease;
+              box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombras en la imagen */
           }
       
           #slider label {
               margin: auto;
-              width: 60%;
+              width: 50%;  /* He reducido el tamaño de las imágenes */
               height: 100%;
               border-radius: 8px;
               position: absolute;
@@ -206,4 +208,3 @@ class CircuitSlider extends HTMLElement {
   
   // Definir el nuevo elemento personalizado
   customElements.define('circuit-slider', CircuitSlider);
-  
