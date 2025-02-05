@@ -1,25 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/inicio.css">
-    <script src="../js/inicio.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/inicio.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="../js/inicio.js" defer></script>
+  <!-- Importa los módulos de componentes -->
+  <script type="module" src="../components/showCircuitsComponent.js"></script>
+  <script type="module" src="../components/userComponent.js"></script>
+    <script type="module" src="../components/vehicleGalleryComponent.js"></script>
+    <script type="module" src="../components/searchCircuit.js"></script>
 </head>
-<body>
-    <img src="../../media/circuitos/yas-marina.wbm" alt="">
-    <section id="slider">
-        <input type="radio" name="slider" id="s1">
-        <input type="radio" name="slider" id="s2">
-        <input type="radio" name="slider" id="s3" checked>
-        <input type="radio" name="slider" id="s4">
-        <input type="radio" name="slider" id="s5">
-        <label for="s1" id="slide1"><img src="../../media/circuitos/2020-09-17-2019-formula-1-f1-bahrain_1u3tck9dc157a1g6y74lxr2a05.webp" alt=""></label>
-        <label for="s2" id="slide2"></label>
-        <label for="s3" id="slide3"></label>
-        <label for="s4" id="slide4"></label>
-        <label for="s5" id="slide5"></label>
-      </section>
+<body class="body bg-black">
+  <div class="container text-center">
+    <!-- Video de fondo -->
+    <video id="background-video" autoplay muted loop class="video-background" style="max-width:100%;">
+      <source src="../../media/20250204_2206_Dynamic F1 Logo Animation_simple_compose_01jka14ydce5n9b9e7x1bz0gpz.mp4" type="video/mp4" />
+      Tu navegador no soporta el video.
+    </video>
+
+    <!-- Botón para iniciar el programa -->
+    <div class="container my-3">
+      <button class="futuristic-button " id="start-button">
+        <span class="button-text">Iniciar Programa</span>
+      </button>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row align-items-center mt-3">
+          <!-- Columna para el botón "Volver" (alineado a la izquierda) -->
+          <div class="col-6 d-flex justify-content-start">
+            <button class="btn btn-4" id="back-button" style="display: none;">
+              Volver
+            </button>
+          </div>
+          
+          <!-- Columna para el botón "Siguiente" (alineado a la derecha) -->
+          <div class="col-6 d-flex justify-content-end">
+            <button class="btn btn-4" id="next-button" style="display: none;">
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </div>
+    <!-- Componente de Circuito Slider (inicialmente oculto) -->
+  
+    <vehicle-gallery-component id="vehicle-gallery-component" style="display: none;"></vehicle-gallery-component>
+    <search-component></search-component>
+    <circuit-slider id="circuit-slider" style="display: none;"></circuit-slider>
+    <!-- Componente de Galería de Vehículos (inicialmente oculto) -->
+  </div>
+
+  <script>document.addEventListener("DOMContentLoaded", () => {
+    const startButton = document.getElementById("start-button");
+    const circuitSlider = document.getElementById("circuit-slider");
+    const nextButton = document.getElementById("next-button");
+    const backButton = document.getElementById("back-button");
+    const backgroundVideo = document.getElementById("background-video");
+    const vehicleGallery = document.getElementById("vehicle-gallery-component");
+    const searchComponent = document.querySelector("search-component");
+  
+    // Mostrar la barra de búsqueda cuando el slider está activo
+    function toggleSearchBar(show) {
+      if (searchComponent && searchComponent.toggleSearchBar) {
+        searchComponent.toggleSearchBar(show);
+      }
+    }
+  
+    startButton.addEventListener("click", () => {
+      backgroundVideo.style.display = "none";
+      startButton.style.display = "none";
+      circuitSlider.style.display = "block";
+      nextButton.style.display = "block";
+      backButton.style.display = "block";
+      toggleSearchBar(true); // Mostrar barra de búsqueda
+    });
+  
+    nextButton.addEventListener("click", () => {
+      if (circuitSlider.style.display === "block") {
+        circuitSlider.style.display = "none";
+        vehicleGallery.style.display = "block";
+        toggleSearchBar(false); // Ocultar barra de búsqueda
+      } else if (vehicleGallery.style.display === "block") {
+        alert("No hay más componentes.");
+      }
+    });
+  
+    backButton.addEventListener("click", () => {
+      if (vehicleGallery.style.display === "block") {
+        vehicleGallery.style.display = "none";
+        circuitSlider.style.display = "block";
+        toggleSearchBar(true); // Mostrar barra de búsqueda
+      } else if (circuitSlider.style.display === "block") {
+        circuitSlider.style.display = "none";
+        backgroundVideo.style.display = "block";
+        startButton.style.display = "block";
+        nextButton.style.display = "none";
+        backButton.style.display = "none";
+        toggleSearchBar(false); // Ocultar barra de búsqueda
+      }
+    });
+  });
+  
+  </script>
 </body>
 </html>

@@ -155,12 +155,12 @@ export class FormDataDrivingComponent extends HTMLElement {
       vehicleDriverSelect.classList.remove('select-disabled');
       vehicleDriverSelect.innerHTML =
         '<option value="" disabled selected>Seleccione un piloto</option>';
-      const allDrivers = await getDrivers();
-      if (!Array.isArray(allDrivers)) {
+      const teams = await getTeams();
+      if (!Array.isArray(teams)) {
         console.error('Error: La respuesta de getDrivers() no es un array');
         return;
       }
-      const teamDrivers = getDriversByTeamId(allDrivers, teamId);
+      const teamDrivers = getDriversByTeamId(teams, teamId);
       if (teamDrivers.length === 0) {
         const option = document.createElement('option');
         option.value = "";

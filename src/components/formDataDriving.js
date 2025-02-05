@@ -111,6 +111,7 @@ export class FormDataDrivingComponent extends HTMLElement {
 
   vehicleTeamSelectHandleChange(event, vehicleDriverSelect) {
     const teamId = event.target.value;
+    console.log(teamId)
     if (teamId) {
       this.setVehicleDriverOptions(teamId, vehicleDriverSelect);
     } else {
@@ -155,12 +156,14 @@ export class FormDataDrivingComponent extends HTMLElement {
       vehicleDriverSelect.classList.remove('select-disabled');
       vehicleDriverSelect.innerHTML =
         '<option value="" disabled selected>Seleccione un piloto</option>';
-      const allDrivers = await getDrivers();
-      if (!Array.isArray(allDrivers)) {
-        console.error('Error: La respuesta de getDrivers() no es un array');
+      const teams = await getTeams();
+      if (!Array.isArray(teams)) {
+        console.error('Error: La respuesta de getTeams() no es un array');
         return;
       }
-      const teamDrivers = getDriversByTeamId(allDrivers, teamId);
+      const teamDrivers = getDriversByTeamId(teams, teamId);
+      const allDrivers = await getDrivers();
+
       if (teamDrivers.length === 0) {
         const option = document.createElement('option');
         option.value = "";
@@ -169,7 +172,8 @@ export class FormDataDrivingComponent extends HTMLElement {
         vehicleDriverSelect.appendChild(option);
         return;
       }
-      teamDrivers.forEach(driver => {
+      teamDrivers.forEach(driverId => {
+        const driver = allDrivers.find(driver => driver.id == driverId);
         const option = document.createElement('option');
         option.value = driver.id;
         option.textContent = driver.name;
@@ -246,6 +250,7 @@ export class FormDataDrivingComponent extends HTMLElement {
         driverSelect.classList.add('select-disabled');
       }
       this.editingVehicle = vehicle;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
