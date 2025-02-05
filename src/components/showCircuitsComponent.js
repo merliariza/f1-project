@@ -7,7 +7,7 @@ class CircuitSlider extends HTMLElement {
       const container = document.createElement('div');
       container.innerHTML = `
           <br>
-          <div class="container">
+          <div class="container overlay">
               <div class="col-12">
                   <h1> SELECCIONA UN CIRCUITO </h1>
                   <br>
@@ -34,135 +34,204 @@ class CircuitSlider extends HTMLElement {
                       <img src="../../media/circuitos/monza.webp" alt="Circuito 5">
                   </label>
               </section>
-              <div id="circuit-info" class="circuit-info"></div> <!-- Información del circuito -->
+                <!-- Resultados de búsqueda -->
+                <div id="searchResults" class="search-results"></div>
+                <div id="circuit-info" class="circuit-info"> <button id="selectButton" class="btn btn-4">Seleccionar</button></div> <!-- Información del circuito -->
+               
           </div>
       `;
   
       // Crear el estilo para el componente
       const style = document.createElement('style');
       style.textContent = `
-          /* Reset y estilos base */
+          /* Reset */
           * {
               margin: 0;
               padding: 0;
               box-sizing: border-box;
-              color: rgb(201, 197, 197);
+              color: rgb(230, 230, 230); /* Color gris claro para mejor legibilidad */
           }
           
           :host {
               display: block;
+              background:rgb(0, 0, 0); /* Fondo gris oscuro en lugar de puro negro */
           }
           
-          /* Estilos para el contenedor con una sombra neutra */
+          /* Contenedor */
           .container {
-              background: rgba(0, 0, 0, 0.6);
+              background: rgba(0, 0, 0, 0.85);
               padding: 20px;
               border-radius: 8px;
-              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+              box-shadow: 0 2px 8px rgba(122, 0, 0, 0.77); /* Sombra blanca suave */
+              border: 2px solid rgba(48, 45, 45, 0.57);
           }
       
-          /* Animación hover para el h1 */
+          /* Título con efecto de luz dinámica */
           h1 {
-              transition: color 0.3s ease, text-shadow 0.3s ease;
-              color: rgb(187, 182, 182);
-              text-shadow: 0 0 10px rgba(172, 163, 163, 0.79);
-              font-size: 2rem; /* Hice el texto un poco más pequeño */
+              color: #e0e0e0;
+              font-size: 2.5rem;
+              text-align: center;
+              text-shadow: 0 0 10px rgba(134, 78, 78, 0.4), 0 0 30px rgba(255, 0, 0, 0.95);
+              animation: flicker 1.8s infinite alternate;
           }
-          
-          h1:hover {
-              color: red;
-              text-shadow: 0 0 10px rgba(255, 0, 0, 0.45);
+
+          /* Efecto de parpadeo sutil */
+          @keyframes flicker {
+              0% { opacity: 1; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+              100% { opacity: 0.9; text-shadow: 0 0 8px rgba(148, 8, 8, 0.53); }
           }
       
-          /* Estilos para el slider */
-          [type=radio] {
-              display: none;
-          }
+          /* Slider */
+          [type=radio] { display: none; }
       
           #slider {
-              height: 25vw;  /* Tamaño reducido para el slider */
+              height: 22vw;
               position: relative;
               perspective: 1000px;
               transform-style: preserve-3d;
               margin: auto;
           }
       
-          /* Aplicar efecto de reflejo a las imágenes con un efecto de piso */
+          /* Imágenes del slider */
           label img {
               width: 100%;
-              height: 100%;
+              height: auto;
               border-radius: 8px;
-              /* Efecto de reflejo */
-              -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(255,255,255,0.3));
-              transition: transform 0.3s ease;
-              box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombras en la imagen */
+              transition: transform 0.3s ease, opacity 0.3s ease;
+              box-shadow: 0 0 15px rgba(141, 10, 10, 0.99), 0 0 10px rgba(61, 25, 25, 0.79);
+              -webkit-box-reflect: below 8px 
+                linear-gradient(transparent, rgba(255, 255, 255, 0.1)); /* Reflejo sutil */
           }
       
           #slider label {
               margin: auto;
-              width: 50%;  /* He reducido el tamaño de las imágenes */
+              width: 45%;
               height: 100%;
               border-radius: 8px;
               position: absolute;
               left: 0; right: 0;
               cursor: pointer;
               transition: transform 0.4s ease;
-              border: 4px solid rgba(240, 240, 240, 0.1);
+              border: 2px solid rgba(255, 255, 255, 0.3);
+              background: rgba(0, 0, 0, 0.5);
           }
-      
-          /* Hover en las tarjetas con un sutil brillo */
+
+          /* Efecto de hover */
           #slider label:hover {
-              box-shadow: 0 8px 16px rgba(255,255,255,0.2);
+              box-shadow: 0 10px 20px rgba(43, 0, 0, 0.81), 0 0 10px rgba(255, 0, 0, 0.6);
           }
       
-          /* Estados "checked" sin sombra roja, usando tonos neutros */
+          /* Posicionamiento de las imágenes */
           #s1:checked ~ #slide4, #s2:checked ~ #slide5,
           #s3:checked ~ #slide1, #s4:checked ~ #slide2,
           #s5:checked ~ #slide3 {
-              box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.5);
               transform: translate3d(-50%, 0, -200px);
           }
       
           #s1:checked ~ #slide5, #s2:checked ~ #slide1,
           #s3:checked ~ #slide2, #s4:checked ~ #slide3,
           #s5:checked ~ #slide4 {
-              box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(255,255,255,0.2);
               transform: translate3d(-25%, 0, -100px);
           }
       
           #s1:checked ~ #slide1, #s2:checked ~ #slide2,
           #s3:checked ~ #slide3, #s4:checked ~ #slide4,
           #s5:checked ~ #slide5 {
-              box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5), 0 11px 7px 0 rgba(255,255,255,0.2);
               transform: translate3d(0, 0, 0);
           }
       
           #s1:checked ~ #slide2, #s2:checked ~ #slide3,
           #s3:checked ~ #slide4, #s4:checked ~ #slide5,
           #s5:checked ~ #slide1 {
-              box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(255,255,255,0.2);
               transform: translate3d(25%, 0, -100px);
           }
       
           #s1:checked ~ #slide3, #s2:checked ~ #slide4,
           #s3:checked ~ #slide5, #s4:checked ~ #slide1,
           #s5:checked ~ #slide2 {
-              box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
               transform: translate3d(50%, 0, -200px);
           }
-  
-          /* Estilos para la información del circuito */
+
+          /* Información del circuito */
           .circuit-info {
               margin-top: 20px;
-              padding: 20px;
-              background-color: rgb(0, 0, 0);
+              padding: 15px;
+              background-color: rgba(30, 30, 30, 0.9);
               border-radius: 8px;
+              text-align: center;
+              font-size: 1rem;
+              color: #e0e0e0;
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
           }
-      `;
+       /* Barra de búsqueda */
+            .search-container {
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            #searchInput {
+                width: 80%;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                background: rgba(30, 30, 30, 0.8);
+                color: white;
+                outline: none;
+                transition: all 0.3s ease;
+            }
+
+            #searchInput:focus {
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+                border: 1px solid rgba(255, 0, 0, 0.8);
+            }
+
+            /* Resultados de búsqueda */
+            .search-results {
+                display: none;
+                margin-top: 15px;
+                text-align: center;
+            }
+
+            .result-card {
+                display: inline-block;
+                background: rgba(0, 0, 0, 0.9);
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+                margin: 10px;
+                text-align: center;
+                width: 250px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .result-card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .result-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+            }
+
+            /* Mensaje cuando no hay resultados */
+            .no-results {
+                text-align: center;
+                color: white;
+                margin-top: 15px;
+            }
+        `;
+
   
       // Adjuntar el estilo y el contenido al Shadow DOM
       shadow.appendChild(style);
       shadow.appendChild(container);
+
+        // Guardar elementos importantes
+        this.searchInput = shadow.querySelector("#searchInput");
+        this.searchResults = shadow.querySelector("#searchResults");
+        this.slider = shadow.querySelector("#slider");
   
       // Definir la URL del servidor para obtener la información de los circuitos
       this.apiUrl = 'http://localhost:3000/circuits/';
