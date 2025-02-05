@@ -72,3 +72,46 @@
   opacity: 1;
   transform: scale(1.1);
 }
+
+/* Diseño del botón con clase btn-4 */
+.btn-4 {
+  border: 1px solid;
+  overflow: hidden;
+  padding: 8px 20px;
+  position: relative;
+  background: linear-gradient(45deg, #140101, #770000);
+  color: #fff !important;
+}
+.btn-4:hover {
+  border: 1px solid;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(45deg, #470000, #8c0000);
+  color: #fff !important;
+  transform: scale(1.1);
+}
+.btn-4 span {
+  z-index: 20;
+  position: relative; /* Para asegurar que el span quede por encima del pseudo-elemento */
+}
+
+.btn-4:after {
+  background: #fff;
+  content: "";
+  height: 155px;
+  left: -75px;
+  opacity: 0.2;
+  position: absolute;
+  top: -50px;
+  transform: rotate(35deg);
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+  width: 50px;
+  z-index: 10;
+  color: #fff;
+  
+}
+
+.btn-4:hover:after {
+  left: 120%;
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}

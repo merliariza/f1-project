@@ -250,6 +250,7 @@ export class FormDataDrivingComponent extends HTMLElement {
         driverSelect.classList.add('select-disabled');
       }
       this.editingVehicle = vehicle;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
