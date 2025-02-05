@@ -13,6 +13,8 @@
   <!-- Importa los módulos de componentes -->
   <script type="module" src="../components/showCircuitsComponent.js"></script>
   <script type="module" src="../components/userComponent.js"></script>
+    <script type="module" src="../components/vehicleGalleryComponent.js"></script>
+    <script type="module" src="../components/searchCircuit.js"></script>
 </head>
 <body class="body bg-black">
   <div class="container text-center">
@@ -47,67 +49,64 @@
         </div>
       </div>
     <!-- Componente de Circuito Slider (inicialmente oculto) -->
-    <circuit-slider id="circuit-slider" style="display: none;"></circuit-slider>
-
-
-      
-
-
-    <!-- Componente de Galería de Vehículos (inicialmente oculto) -->
+  
     <vehicle-gallery-component id="vehicle-gallery-component" style="display: none;"></vehicle-gallery-component>
+    <search-component></search-component>
+    <circuit-slider id="circuit-slider" style="display: none;"></circuit-slider>
+    <!-- Componente de Galería de Vehículos (inicialmente oculto) -->
   </div>
 
-  <script>
-    // Espera a que se cargue el DOM
-    document.addEventListener("DOMContentLoaded", () => {
-      const startButton = document.getElementById('start-button');
-      const circuitSlider = document.getElementById('circuit-slider');
-      const nextButton = document.getElementById('next-button');
-      const backButton = document.getElementById('back-button');
-      const backgroundVideo = document.getElementById('background-video');
-      const vehicleGallery = document.getElementById('vehicle-gallery-component');
-
-      // Estado inicial: solo se muestran el video y el botón de inicio
-      // Cuando se pulsa "Iniciar Programa", ocultamos el video y mostramos el slider junto con los botones "Siguiente" y "Volver"
-      startButton.addEventListener('click', () => {
-        backgroundVideo.style.display = 'none';
-        startButton.style.display = 'none';
-
-        circuitSlider.style.display = 'block';
-        nextButton.style.display = 'block';
-        backButton.style.display = 'block';
-      });
-
-      // Evento para el botón "Siguiente"
-      nextButton.addEventListener('click', () => {
-        // Si el slider está visible, pasamos a la galería
-        if (circuitSlider.style.display === 'block') {
-          circuitSlider.style.display = 'none';
-          vehicleGallery.style.display = 'block';
-          // El botón "Volver" sigue visible para permitir retroceder a la pantalla anterior
-        } else if (vehicleGallery.style.display === 'block') {
-          // Aquí podrías agregar la lógica para avanzar a otro componente
-          alert('No hay más componentes.');
-        }
-      });
-
-      // Evento para el botón "Volver"
-      backButton.addEventListener('click', () => {
-        // Si la galería está visible, volvemos al slider
-        if (vehicleGallery.style.display === 'block') {
-          vehicleGallery.style.display = 'none';
-          circuitSlider.style.display = 'block';
-        } else if (circuitSlider.style.display === 'block') {
-          // Si ya estamos en el slider, volvemos a la pantalla inicial (video y botón de inicio)
-          circuitSlider.style.display = 'none';
-          backgroundVideo.style.display = 'block';
-          startButton.style.display = 'block';
-          // Ocultamos los botones de navegación, ya que volvemos al estado inicial
-          nextButton.style.display = 'none';
-          backButton.style.display = 'none';
-        }
-      });
+  <script>document.addEventListener("DOMContentLoaded", () => {
+    const startButton = document.getElementById("start-button");
+    const circuitSlider = document.getElementById("circuit-slider");
+    const nextButton = document.getElementById("next-button");
+    const backButton = document.getElementById("back-button");
+    const backgroundVideo = document.getElementById("background-video");
+    const vehicleGallery = document.getElementById("vehicle-gallery-component");
+    const searchComponent = document.querySelector("search-component");
+  
+    // Mostrar la barra de búsqueda cuando el slider está activo
+    function toggleSearchBar(show) {
+      if (searchComponent && searchComponent.toggleSearchBar) {
+        searchComponent.toggleSearchBar(show);
+      }
+    }
+  
+    startButton.addEventListener("click", () => {
+      backgroundVideo.style.display = "none";
+      startButton.style.display = "none";
+      circuitSlider.style.display = "block";
+      nextButton.style.display = "block";
+      backButton.style.display = "block";
+      toggleSearchBar(true); // Mostrar barra de búsqueda
     });
+  
+    nextButton.addEventListener("click", () => {
+      if (circuitSlider.style.display === "block") {
+        circuitSlider.style.display = "none";
+        vehicleGallery.style.display = "block";
+        toggleSearchBar(false); // Ocultar barra de búsqueda
+      } else if (vehicleGallery.style.display === "block") {
+        alert("No hay más componentes.");
+      }
+    });
+  
+    backButton.addEventListener("click", () => {
+      if (vehicleGallery.style.display === "block") {
+        vehicleGallery.style.display = "none";
+        circuitSlider.style.display = "block";
+        toggleSearchBar(true); // Mostrar barra de búsqueda
+      } else if (circuitSlider.style.display === "block") {
+        circuitSlider.style.display = "none";
+        backgroundVideo.style.display = "block";
+        startButton.style.display = "block";
+        nextButton.style.display = "none";
+        backButton.style.display = "none";
+        toggleSearchBar(false); // Ocultar barra de búsqueda
+      }
+    });
+  });
+  
   </script>
 </body>
 </html>

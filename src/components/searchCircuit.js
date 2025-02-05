@@ -55,7 +55,7 @@ class SearchComponent extends HTMLElement {
             }
 
             #searchInput:focus {
-                box-shadow: 0 0 25px rgba(255, 0, 0, 1);
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.74);
                 border: none;
                 transform: scale(1.05);
             }
@@ -72,16 +72,15 @@ class SearchComponent extends HTMLElement {
 
             .result-card {
                 display: inline-block;
-                background: rgb(46, 42, 42);
-                padding: 20px;
-                color: gray;
+                background: rgb(27, 24, 24);
+                padding: 20px;;
                 border-radius: 12px;
                 box-shadow: 0 0 5px rgba(58, 22, 22, 0.44);
                 margin: 12px;
                 text-align: center;
                 width: 260px;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
-                border: 2px solid rgba(255, 0, 0, 0.5);
+                border: 2px solid rgba(58, 2, 2, 0.5);
                 position: relative;
                 overflow: hidden;
             }
@@ -97,7 +96,7 @@ class SearchComponent extends HTMLElement {
             }
 
             .result-card h3 {
-                color:rgb(150, 22, 22);
+                color:rgb(139, 12, 12);
                 font-size: 20px;
                 font-weight: bold;
                 margin-top: 10px;
@@ -105,7 +104,7 @@ class SearchComponent extends HTMLElement {
             }
             
             .result-card p {
-                color: rgba(19, 19, 19, 0.85);
+                color: rgba(223, 219, 219, 0.85);
                 font-size: 20px;
                 margin: 5px 0;
             }

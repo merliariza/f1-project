@@ -10,6 +10,16 @@
   z-index: -1;
   
 }
+.search-container {
+  display: none; /* Inicialmente oculta */
+  opacity: 0; /* Oculta visualmente */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.search-container.show {
+  display: block;
+  opacity: 1;
+}
 
 /* Overlay para mayor contraste */
 .overlay {
