@@ -668,7 +668,30 @@
         "fuelConsumption": 2.96,
         "tireWear": 0.8
       },
-      "id": "8142"
+      "id": "8142",
+      "configurations": [
+        {
+          "drivingMode": "Ahorro",
+          "tirePressure": "Alta",
+          "downforce": "Baja"
+        }
+      ]
+    }
+  ],
+  "configurations": [
+    {
+      "id": "f3f9",
+      "vehicleId": "e5a9",
+      "drivingMode": "Agresiva",
+      "tirePressure": "Baja",
+      "downforce": "Alta"
+    },
+    {
+      "id": "9e75",
+      "vehicleId": "169d",
+      "drivingMode": "Normal",
+      "tirePressure": "Baja",
+      "downforce": "Baja"
     }
   ]
 }

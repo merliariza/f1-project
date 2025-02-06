@@ -2,13 +2,13 @@ const calcDrivingTypeFuelConsumption = function (drivingType, baseFuelConsumptio
     let fuelConsumptionFactor = 1;
 
     switch (drivingType.toLowerCase()) {
-        case "saving":
+        case "ahorro":
             fuelConsumptionFactor = 1 - (Math.random() * (30 - 15) + 15) / 100; // -15% a -30%
             break;
         case "normal":
             fuelConsumptionFactor = 1; // Sin reducción ni aumento
             break;
-        case "aggressive":
+        case "agresiva":
             fuelConsumptionFactor = 1 + (Math.random() * (25 - 10) + 10) / 100; // +10% a +25% de aumento
             break;
         default:
@@ -19,6 +19,6 @@ const calcDrivingTypeFuelConsumption = function (drivingType, baseFuelConsumptio
     // Calcular la nueva aceleración
     let adjustedFuelConsumption = baseFuelConsumption * fuelConsumptionFactor;
 
-    return adjustedFuelConsumption.toFixed(2); // Nueva aceleración considerando el estilo de conducción
+    return parseFloat(adjustedFuelConsumption.toFixed(2)); // Nueva aceleración considerando el estilo de conducción
 }
 export default calcDrivingTypeFuelConsumption;

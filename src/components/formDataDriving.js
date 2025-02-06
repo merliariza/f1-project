@@ -43,17 +43,46 @@ export class FormDataDrivingComponent extends HTMLElement {
     let baseFuelConsumption = parseFloat(formData.get('fuelConsumption'));
     
     if (isNaN(parseFloat(formData.get('maxSpeedKmh')))){
-      return "Velocidad máxima no valida.";
+      return "Velocidad máxima no válida.";
     }
     if (isNaN(baseAcceleration)){
-      return "Aceleración no valida.";
+      return "Aceleración no válida.";
     }
     
     if (isNaN(parseFloat(formData.get('maxFuel')))){
-      return "Combustible máximo no valido.";
+      return "Combustible máximo no válido.";
     }
     if (isNaN(baseFuelConsumption)){
-      return "Consumo de combustible no valido.";
+      return "Consumo de combustible no válido.";
+    }
+
+    // Validaciones adicionales para que los valores no superen los máximos permitidos por F1
+    const maxSpeedKmh = parseFloat(formData.get('maxSpeedKmh'));
+    const acceleration = baseAcceleration;
+    const maxFuel = parseFloat(formData.get('maxFuel'));
+    const fuelConsumption = baseFuelConsumption;
+
+    // Valores máximos de ejemplo (ajusta según los datos reales de F1)
+    const MAX_SPEED = 375;          // km/h
+    const MAX_ACCELERATION = 3;       // segundos (0-100 km/h)
+    const MAX_FUEL = 110;           // litros o kg (según la unidad que manejes)
+    const MAX_FUEL_CONSUMPTION = 10;  // valor de consumo (por ejemplo, L/100km)
+
+    if (maxSpeedKmh > MAX_SPEED) {
+      alert(`La velocidad máxima no puede superar los ${MAX_SPEED} km/h.`);
+      return;
+    }
+    if (acceleration > MAX_ACCELERATION) {
+      alert(`La aceleración (0-100 km/h) no puede superar los ${MAX_ACCELERATION} segundos.`);
+      return;
+    }
+    if (maxFuel > MAX_FUEL) {
+      alert(`El combustible máximo no puede superar ${MAX_FUEL}.`);
+      return;
+    }
+    if (fuelConsumption > MAX_FUEL_CONSUMPTION) {
+      alert(`El consumo de combustible no puede superar ${MAX_FUEL_CONSUMPTION}.`);
+      return;
     }
 
     const vehicleData = {
@@ -62,28 +91,27 @@ export class FormDataDrivingComponent extends HTMLElement {
       model: formData.get('model'),
       engine: formData.get('engine'),
       model3dLink: formData.get('model3dLink'),
-      acceleration: parseFloat(formData.get('acceleration')),
-      maxSpeedKmh: parseFloat(formData.get('maxSpeedKmh')),
-      maxFuel: parseFloat(formData.get('maxFuel')),
-      fuelConsumption: parseFloat(formData.get('fuelConsumption')),
+      acceleration: acceleration,
+      maxSpeedKmh: maxSpeedKmh,
+      maxFuel: maxFuel,
+      fuelConsumption: fuelConsumption,
       savingDriving: {
-        acceleration: parseFloat(calcDrivingTypeAcceleration("saving", baseAcceleration)),
-        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("saving", baseFuelConsumption)),
+        acceleration: parseFloat(calcDrivingTypeAcceleration("saving", acceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("saving", fuelConsumption)),
         tireWear: parseFloat(defineDrivingTypeTireWear("saving"))
       },
       normalDriving: {
-        acceleration: parseFloat(calcDrivingTypeAcceleration("normal", baseAcceleration)),
-        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("normal", baseFuelConsumption)),
+        acceleration: parseFloat(calcDrivingTypeAcceleration("normal", acceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("normal", fuelConsumption)),
         tireWear: parseFloat(defineDrivingTypeTireWear("normal"))
       },
       aggressiveDriving: {
-        acceleration: parseFloat(calcDrivingTypeAcceleration("aggressive", baseAcceleration)),
-        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("aggressive", baseFuelConsumption)),
+        acceleration: parseFloat(calcDrivingTypeAcceleration("aggressive", acceleration)),
+        fuelConsumption: parseFloat(calcDrivingTypeFuelConsumption("aggressive", fuelConsumption)),
         tireWear: parseFloat(defineDrivingTypeTireWear("aggressive"))
       },
     };
 
-   
     try {
       let url = 'http://localhost:3000/vehicles';
       let method = 'POST';
@@ -549,25 +577,29 @@ export class FormDataDrivingComponent extends HTMLElement {
                   <!-- Velocidad máxima y Aceleración -->
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="vehicleSpeed" name="maxSpeedKmh" placeholder="Velocidad máxima" required>
+                      <!-- Se agrega max="375" para limitar la velocidad máxima -->
+                      <input type="number" step="any" class="form-control" id="vehicleSpeed" name="maxSpeedKmh" placeholder="Velocidad máxima" required max="375">
                       <label for="vehicleSpeed">Velocidad Máxima (km/h)</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="vehicleAcceleration" name="acceleration" placeholder="Aceleración (0-100 km/h)" required>
+                      <!-- Se agrega max="3" para limitar la aceleración (0-100 km/h) -->
+                      <input type="number" step="any" class="form-control" id="vehicleAcceleration" name="acceleration" placeholder="Aceleración (0-100 km/h)" required max="3">
                       <label for="vehicleAcceleration">Aceleración (segundos)</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="maxFuel" name="maxFuel" placeholder="Combustible máximo" required>
+                      <!-- Se agrega max="110" para limitar el combustible máximo -->
+                      <input type="number" step="any" class="form-control" id="maxFuel" name="maxFuel" placeholder="Combustible máximo" required max="110">
                       <label for="maxFuel">Combustible máximo</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" step="any" class="form-control" id="fuelConsumption" name="fuelConsumption" placeholder="Consumo de combustible" required>
+                      <!-- Se agrega max="10" para limitar el consumo de combustible -->
+                      <input type="number" step="any" class="form-control" id="fuelConsumption" name="fuelConsumption" placeholder="Consumo de combustible" required max="10">
                       <label for="fuelConsumption">Consumo de combustible</label>
                     </div>
                   </div>

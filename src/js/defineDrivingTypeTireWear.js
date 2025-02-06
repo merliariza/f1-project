@@ -1,13 +1,12 @@
 const defineDrivingTypeTireWear = function (drivingType) {
-    let tireWear;
     switch (drivingType.toLowerCase()) {
-        case "saving":
+        case "ahorro":
             tireWear = 0.8;
             break;
         case "normal":
             tireWear = 1; // Sin reducción ni aumento
             break;
-        case "aggressive":
+        case "agresiva":
             tireWear = 1.2;
             break;
         default:
@@ -15,6 +14,6 @@ const defineDrivingTypeTireWear = function (drivingType) {
             tireWear = 1;
     }
 
-    return tireWear.toFixed(2); // Nueva aceleración considerando el estilo de conducción
+    return parseFloat(tireWear.toFixed(2)); // Nueva aceleración considerando el estilo de conducción
 }
 export default defineDrivingTypeTireWear;

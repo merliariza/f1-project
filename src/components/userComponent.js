@@ -1,17 +1,24 @@
+import simulateRace from '../js/simulateRace.js'
+
 class VehicleGalleryComponent extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.vehicles = [];
+    this.configurations = [];
     this.searchTerm = "";
+
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     // Inyectamos el template completo (barra de búsqueda, galería, sección de configuraciones y modal)
     this.shadowRoot.innerHTML = this.getTemplate();
-    this.fetchVehicles();
+    await this.fetchVehicles();
+    await this.fetchConfigurations();
     this.setupStaticEventListeners();
     this.setupConfigEventListeners();
+    this.obtenerBotonProbarSimulacion();
+
   }
 
   // Retorna el template estático del componente
@@ -202,6 +209,7 @@ class VehicleGalleryComponent extends HTMLElement {
       <div class="gallery" id="galleryContainer">
         <!-- Aquí se inyectará la galería de vehículos -->
       </div>
+      <a class="probar-simulacion">Probar simulación</a>
       <!-- Sección de configuraciones guardadas -->
       <div class="configurations" id="configurationsContainer">
         <h2>Configuraciones Guardadas</h2>
@@ -242,24 +250,35 @@ class VehicleGalleryComponent extends HTMLElement {
       </div>
     `;
   }
-
+  
   // Carga la lista de vehículos desde el servidor
   async fetchVehicles() {
     try {
       const response = await fetch('http://localhost:3000/vehicles');
       this.vehicles = await response.json();
       this.updateGallery();
-      this.updateConfigurationsSection();
+
     } catch (error) {
       console.error("Error al cargar vehículos:", error);
       this.shadowRoot.getElementById('galleryContainer').innerHTML = `<p>Error al cargar vehículos.</p>`;
+    }
+  }
+  async fetchConfigurations() {
+    try {
+      const response = await fetch('http://localhost:3000/configurations');
+      this.configurations = await response.json();
+
+      this.updateConfigurationsSection();
+    } catch (error) {
+      console.error("Error al cargar configuraciones:", error);
+      this.shadowRoot.getElementById('galleryContainer').innerHTML = `<p>Error al cargar configuraciones.</p>`;
     }
   }
 
   // Actualiza la galería de vehículos (no muestra la configuración en cada tarjeta)
   updateGallery() {
     const filteredVehicles = this.vehicles.filter(vehicle => {
-      const fullName = `${vehicle.team} - ${vehicle.engine} - ${vehicle.model}`.toLowerCase();
+      const fullName = ` ${vehicle.engine} - ${vehicle.model}`.toLowerCase();
       return fullName.includes(this.searchTerm.toLowerCase());
     });
     const gallery = this.shadowRoot.getElementById('galleryContainer');
@@ -272,7 +291,7 @@ class VehicleGalleryComponent extends HTMLElement {
           }
         </div>
         <div class="card-body">
-          <h3>${vehicle.team} - ${vehicle.engine} - ${vehicle.model}</h3>
+          <h3>${vehicle.engine} - ${vehicle.model}</h3>
           <p><strong>Motor:</strong> ${vehicle.engine}</p>
           <p><strong>Velocidad:</strong> ${vehicle.maxSpeedKmh} km/h</p>
         </div>
@@ -281,20 +300,19 @@ class VehicleGalleryComponent extends HTMLElement {
     this.setupGalleryEventListeners();
   }
 
-  // Actualiza la sección "Configuraciones Guardadas" mostrando todas las configuraciones de cada vehículo,
-  // incluyendo un iframe con el modelo 3D si existe.
+
   updateConfigurationsSection() {
     const configContainer = this.shadowRoot.getElementById('configurationsContainer');
-    // Filtramos los vehículos que tengan al menos una configuración
-    const configuredVehicles = this.vehicles.filter(v => v.configurations && v.configurations.length > 0);
-    if (configuredVehicles.length === 0) {
+    if (this.configurations.length === 0) {
       configContainer.innerHTML = `<h2>Configuraciones Guardadas</h2><p style="text-align:center;">No hay configuraciones guardadas.</p>`;
     } else {
       let html = `<h2>Configuraciones Guardadas</h2>`;
-      configuredVehicles.forEach(vehicle => {
-        vehicle.configurations.forEach((config, index) => {
+      this.configurations.forEach(configuration => {
+        let vehicleId = configuration.vehicleId;
+        const vehicle = this.vehicles.find(v => v.id == vehicleId);
+        console.log(vehicle);
           html += `
-            <div class="config-item" data-vehicle-id="${vehicle.id}" data-config-index="${index}">
+            <div class="config-item" data-vehicle-id="${vehicle.id}" data-config-id="${configuration.id}">
               <div>
                 <p><strong>Vehículo ID:</strong> ${vehicle.id}</p>
                 <p><strong>Nombre:</strong> ${vehicle.engine} - ${vehicle.model}</p>
@@ -302,9 +320,9 @@ class VehicleGalleryComponent extends HTMLElement {
                 <p><strong>Aceleración:</strong> ${vehicle.acceleration} s</p>
                 <p><strong>Combustible máximo:</strong> ${vehicle.maxFuel}</p>
                 <p><strong>Consumo combustible:</strong> ${vehicle.fuelConsumption}</p>
-                <p><strong>Modo de Conducción:</strong> ${config.drivingMode}</p>
-                <p><strong>Presión de Neumáticos:</strong> ${config.tirePressure}</p>
-                <p><strong>Carga Aerodinámica:</strong> ${config.downforce}</p>
+                <p><strong>Modo de Conducción:</strong> ${configuration.drivingMode}</p>
+                <p><strong>Presión de Neumáticos:</strong> ${configuration.tirePressure}</p>
+                <p><strong>Carga Aerodinámica:</strong> ${configuration.downforce}</p>
               </div>
               <div>
                 ${
@@ -314,18 +332,17 @@ class VehicleGalleryComponent extends HTMLElement {
                        </div>`
                     : `<p>No hay modelo 3D.</p>`
                 }
-                <button class="delete-config" data-vehicle-id="${vehicle.id}" data-config-index="${index}">Eliminar Configuración</button>
+                <button class="delete-config" data-config-id="${configuration.id}">Eliminar Configuración</button>
               </div>
             </div>
           `;
-        });
       });
       configContainer.innerHTML = html;
     }
     this.setupDeleteConfigButtons();
   }
 
-  // Configura los listeners del input y del modal
+
   setupStaticEventListeners() {
     const searchInput = this.shadowRoot.getElementById('searchInput');
     searchInput.addEventListener('input', (e) => {
@@ -340,16 +357,17 @@ class VehicleGalleryComponent extends HTMLElement {
     });
   }
 
-  // Configura el listener del formulario de configuración
+ 
   setupConfigEventListeners() {
     const configForm = this.shadowRoot.getElementById('configForm');
     configForm.addEventListener('submit', (e) => {
       e.preventDefault();
       this.handleConfigSubmit(e);
     });
+
+    
   }
 
-  // Asigna listeners a las tarjetas de la galería para abrir el modal
   setupGalleryEventListeners() {
     const cards = this.shadowRoot.querySelectorAll('.card');
     cards.forEach(card => {
@@ -363,21 +381,20 @@ class VehicleGalleryComponent extends HTMLElement {
     });
   }
 
-  // Asigna listeners a los botones de eliminar configuración de la sección "Configuraciones Guardadas"
+  
   setupDeleteConfigButtons() {
     const deleteButtons = this.shadowRoot.querySelectorAll('.delete-config');
     deleteButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        // Evita que se active el listener de la tarjeta
+      
         e.stopPropagation();
-        const vehicleId = button.getAttribute('data-vehicle-id');
-        const configIndex = parseInt(button.getAttribute('data-config-index'), 10);
-        this.deleteConfiguration(vehicleId, configIndex);
+        const configId = button.getAttribute('data-config-id');
+        this.deleteConfiguration(configId);
       });
     });
   }
 
-  // Abre el modal mostrando los detalles del vehículo y el formulario para configurar
+  
   openModal(vehicle) {
     const modal = this.shadowRoot.getElementById('modal');
     const modalDetails = this.shadowRoot.getElementById('modalDetails');
@@ -396,7 +413,7 @@ class VehicleGalleryComponent extends HTMLElement {
         </div>
       `;
     }
-    // Se asigna el id del vehículo al formulario para identificar cuál se actualizará
+ 
     this.shadowRoot.getElementById('configForm').setAttribute('data-vehicle-id', vehicle.id);
     modal.classList.add('active');
   }
@@ -407,30 +424,31 @@ class VehicleGalleryComponent extends HTMLElement {
     this.shadowRoot.getElementById('configForm').reset();
   }
 
-  // Al enviar el formulario, se añade una nueva configuración al vehículo (en el arreglo "configurations")
+  
   async handleConfigSubmit(event) {
     const form = event.target;
     const vehicleId = form.getAttribute('data-vehicle-id');
     const vehicle = this.vehicles.find(v => v.id == vehicleId);
     if (!vehicle) return;
     const newConfiguration = {
+      vehicleId: vehicleId,
       drivingMode: this.shadowRoot.getElementById('drivingMode').value,
       tirePressure: this.shadowRoot.getElementById('tirePressure').value,
       downforce: this.shadowRoot.getElementById('downforce').value,
     };
-    // Si ya existen configuraciones, se añaden; de lo contrario, se crea el arreglo
-    const currentConfigurations = vehicle.configurations || [];
-    const updatedConfigurations = [...currentConfigurations, newConfiguration];
-    const updatedVehicle = { ...vehicle, configurations: updatedConfigurations };
-
+  
     try {
-      const response = await fetch(`http://localhost:3000/vehicles/${vehicleId}`, {
-        method: 'PUT',
+      const response = await fetch(`http://localhost:3000/configurations/`, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedVehicle)
+        body: JSON.stringify(newConfiguration)
       });
       if (response.ok) {
-        await this.fetchVehicles();
+        const createdConfiguration = await response.json();
+        // Agregar la configuración creada al arreglo local
+        this.configurations.push(createdConfiguration);
+         // Actualizar la sección de configuraciones en la UI
+        this.updateConfigurationsSection();
         this.closeModal();
         form.reset();
       } else {
@@ -441,20 +459,14 @@ class VehicleGalleryComponent extends HTMLElement {
     }
   }
 
-  // Para eliminar una configuración específica, se actualiza el vehículo removiendo el elemento del arreglo "configurations"
-  async deleteConfiguration(vehicleId, configIndex) {
-    const vehicle = this.vehicles.find(v => v.id == vehicleId);
-    if (!vehicle || !vehicle.configurations) return;
-    const updatedConfigurations = vehicle.configurations.filter((_, i) => i !== configIndex);
-    const updatedVehicle = { ...vehicle, configurations: updatedConfigurations };
+  
+  async deleteConfiguration(configId) {
     try {
-      const response = await fetch(`http://localhost:3000/vehicles/${vehicleId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedVehicle)
+      const response = await fetch(`http://localhost:3000/configurations/${configId}`, {
+        method: 'DELETE',
       });
       if (response.ok) {
-        await this.fetchVehicles();
+        await this.fetchConfigurations();
       } else {
         alert("Error al eliminar la configuración: " + await response.text());
       }
@@ -462,6 +474,22 @@ class VehicleGalleryComponent extends HTMLElement {
       console.error("Error al eliminar la configuración:", error);
     }
   }
+
+  obtenerBotonProbarSimulacion() {
+    console.log("Obtiene boton")
+    const botonProbarSimulacion = this.shadowRoot.querySelector('.probar-simulacion');
+    console.log(botonProbarSimulacion);
+    botonProbarSimulacion.addEventListener('click', () => {
+      console.log("Click");
+      this.probarSimulacionHandleClick();
+      console.log("ACtualizado")
+    });
+  }
+
+  probarSimulacionHandleClick() {
+    console.log(simulateRace(5, [1.2, 2.3, 3.6, 4.5], 360, 2.3, 40, 1.2, 130, "baja", "estandar"));
+  }
 }
 
 customElements.define('vehicle-gallery-component', VehicleGalleryComponent);
+
