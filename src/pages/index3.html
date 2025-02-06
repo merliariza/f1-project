@@ -30,10 +30,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#vehicles" id="show-vehicles">Vehículos</a> 
+            <a href="#vehicles" class="nav-link" id="show-vehicles">Vehículos</a>
           </li>
           <li>
-            <a href="/src/pages/admin.html" >
+            <a href="#circuits" class="nav-link">
               <i class="fas fa-road"></i>
               Circuits
             </a>
@@ -100,10 +100,19 @@
           <form-data-driving-component></form-data-driving-component>
         </div>
       </section>
+
+      <!-- Nueva Sección Circuitos donde se muestra el componente -->
+      <section id="circuits" class="section">
+        <div class="container">
+          <circuits-component></circuits-component>
+        </div>
+      </section>
       
     </div>
-
+    
     <script type="module" src="../../app.js"></script>
+    <!-- Asegúrate de cargar el script del componente circuits-component -->
+    <script type="module" src="../components/circuitsComponent.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

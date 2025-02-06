@@ -3,10 +3,13 @@ class AdminTeamComponent extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.currentPanel = 'main'; // Panel principal por defecto
+        this.editingTeamId = null; // Para almacenar el ID del equipo que se está editando
     }
 
     connectedCallback() {
         this.render();
+        this.setupEventListeners();
+        this.cargarEstadisticas();
     }
 
     render() {
@@ -213,12 +216,12 @@ class AdminTeamComponent extends HTMLElement {
                     <div class="stats-container">
                         <div class="stat-box">
                             <i class="fas fa-users"></i>
-                            <div class="stat-number">0</div>
+                            <div class="stat-number" id="equiposActivosCount">0</div>
                             <div class="stat-label">Equipos Activos</div>
                         </div>
                         <div class="stat-box">
                             <i class="fas fa-helmet-safety"></i>
-                            <div class="stat-number">0</div>
+                            <div class="stat-number" id="pilotosRegistradosCount">0</div>
                             <div class="stat-label">Pilotos Registrados</div>
                         </div>
                     </div>
@@ -249,7 +252,7 @@ class AdminTeamComponent extends HTMLElement {
                                 <ul class="action-list">
                                     <li class="action-item" data-action="agregar-piloto"><i class="fas fa-plus"></i> Agregar nuevo piloto</li>
                                     <li class="action-item" data-action="editar-piloto"><i class="fas fa-user-pen"></i> Actualizar información</li>
-                                    <li class="action-item" data-action="cambiar-equipo"><i class="fas fa-arrows-rotate"></i> Cambiar equipo</li>
+                                    <li class="action-item" data-action="eliminar-piloto"><i class="fas fa-trash"></i> Eliminar piloto</li>
                                 </ul>
                             </div>
                         </div>
@@ -387,6 +390,64 @@ class AdminTeamComponent extends HTMLElement {
                         <button type="submit" class="btn btn-primary">Agregar Piloto</button>
                     </form>
                 </div>
+
+                <!-- Panel de Editar Piloto -->
+                <div id="editarPilotoPanel" class="operation-panel hidden">
+                    <button class="btn btn-secondary back-button" data-action="volver">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <h3>Editar Piloto</h3>
+                    <form id="editarPilotoForm">
+                        <div class="form-group">
+                            <label for="pilotoSelect">Seleccionar Piloto:</label>
+                            <select id="pilotoSelect" name="pilotoId" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoNombrePiloto">Nuevo Nombre:</label>
+                            <input type="text" id="nuevoNombrePiloto" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoFotoPiloto">Nueva Foto (URL):</label>
+                            <input type="url" id="nuevoFotoPiloto" name="photo">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoPaisPiloto">Nuevo País:</label>
+                            <input type="text" id="nuevoPaisPiloto" name="country">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoNumeroPiloto">Nuevo Número:</label>
+                            <input type="number" id="nuevoNumeroPiloto" name="number">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoRolPiloto">Rol:</label>
+                            <select id="nuevoRolPiloto" name="role" required>
+                                <option value="leader">Leader</option>
+                                <option value="support">Support</option>
+                            </select>
+                        </div>
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">Actualizar Piloto</button>
+                            <button type="button" class="btn btn-secondary" data-action="volver">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Panel de Eliminar Piloto -->
+                <div id="eliminarPilotoPanel" class="operation-panel hidden">
+                    <button class="btn btn-secondary back-button" data-action="volver">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <h3>Eliminar Piloto</h3>
+                    <form id="eliminarPilotoForm">
+                        <div class="form-group">
+                            <label for="pilotoEliminarSelect">Seleccionar Piloto:</label>
+                            <select id="pilotoEliminarSelect" name="pilotoId" required></select>
+                        </div>
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">Eliminar Piloto</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         `;
 
@@ -507,6 +568,59 @@ class AdminTeamComponent extends HTMLElement {
                 this.cargarEstadisticas();
             });
         }
+
+        // Manejador para el formulario de edición del equipo
+        this.shadowRoot.getElementById('editarEquipoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            await this.editarEquipo(formData.get('equipoId'), formData.get('nombre'));
+        });
+
+        // Formulario de edición de piloto
+        const formEditarPiloto = this.shadowRoot.getElementById('editarPilotoForm');
+        if (formEditarPiloto) {
+            formEditarPiloto.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const pilotoId = formData.get('pilotoId');
+                const nuevoNombre = formData.get('nombre');
+                const nuevaFoto = formData.get('photo');
+                const nuevoPais = formData.get('country');
+                const nuevoNumero = formData.get('number');
+                const nuevoRol = formData.get('role');
+                await this.editarPiloto(pilotoId, nuevoNombre, nuevaFoto, nuevoPais, nuevoNumero, nuevoRol);
+                this.mostrarPanel('main'); // Volver al panel principal
+            });
+        }
+
+        // Formulario de eliminación de piloto
+        const formEliminarPiloto = this.shadowRoot.getElementById('eliminarPilotoForm');
+        if (formEliminarPiloto) {
+            formEliminarPiloto.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const pilotoId = formData.get('pilotoId');
+                console.log('Piloto ID a eliminar:', pilotoId);
+                await this.eliminarPiloto(pilotoId);
+                this.mostrarPanel('main'); // Volver al panel principal
+            });
+        }
+
+        // Evento para cargar datos del piloto seleccionado en el formulario de edición
+        const pilotoSelect = this.shadowRoot.getElementById('pilotoSelect');
+        if (pilotoSelect) {
+            pilotoSelect.addEventListener('change', async (e) => {
+                const pilotoId = e.target.value;
+                if (pilotoId) {
+                    const piloto = await this.obtenerPilotoPorId(pilotoId);
+                    this.cargarDatosPilotoEnFormulario(piloto);
+                }
+            });
+        }
+
+        // Cargar pilotos y equipos en los selectores
+        this.cargarPilotosEnSelect();
+        this.cargarEquiposEnSelect();
     }
 
     handleAction(action) {
@@ -525,6 +639,14 @@ class AdminTeamComponent extends HTMLElement {
             case 'agregar-piloto':
                 this.mostrarPanel('agregarPiloto');
                 this.cargarEquiposEnSelectPiloto();
+                break;
+            case 'editar-piloto':
+                this.mostrarPanel('editarPiloto');
+                this.cargarPilotosEnSelect(); // Cargar pilotos en un select para elegir
+                break;
+            case 'eliminar-piloto':
+                this.mostrarPanel('eliminarPiloto');
+                this.cargarPilotosEnSelectEliminar(); // Cargar pilotos en un select para elegir
                 break;
             // ... otros casos
         }
@@ -555,7 +677,6 @@ class AdminTeamComponent extends HTMLElement {
             });
         } catch (error) {
             console.error('Error al cargar equipos en select:', error);
-            alert('Error al cargar la lista de equipos');
         }
     }
 
@@ -589,32 +710,18 @@ class AdminTeamComponent extends HTMLElement {
     }
 
     async obtenerEquipos() {
-        try {
-            const response = await fetch(`${AdminTeamComponent.API_URL}/teams`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const equipos = await response.json();
-            console.log('Equipos recibidos:', equipos);
-            
-            // Si la respuesta es un objeto con la propiedad "equipos"
-            if (!Array.isArray(equipos) && equipos.equipos) {
-                return equipos.equipos;
-            }
-
-            if (!Array.isArray(equipos)) {
-                return [];
-            }
-            
-            return equipos;
-        } catch (error) {
-            console.error('Error al obtener equipos:', error);
-            return [];
+        const response = await fetch('http://localhost:3000/teams');
+        if (!response.ok) {
+            throw new Error('Error al obtener equipos');
         }
+        return await response.json();
     }
 
     async obtenerPilotos() {
         const response = await fetch('http://localhost:3000/drivers');
+        if (!response.ok) {
+            throw new Error('Error al obtener pilotos');
+        }
         return await response.json();
     }
 
@@ -722,10 +829,10 @@ class AdminTeamComponent extends HTMLElement {
                 throw new Error(`Error del servidor: ${response.status}`);
             }
             this.cargarEstadisticas();
-            alert('Equipo eliminado con éxito');
+            // alert('Equipo eliminado con éxito');
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al eliminar el equipo');
+            // alert('Error al eliminar el equipo');
         }
     }
 
@@ -743,73 +850,60 @@ class AdminTeamComponent extends HTMLElement {
             });
             if (response.ok) {
                 this.cargarEstadisticas();
-                alert('Piloto agregado con éxito');
+                // alert('Piloto agregado con éxito');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al agregar el piloto');
+            // alert('Error al agregar el piloto');
         }
     }
 
-    async editarPiloto(id, nuevoNombre) {
+    async editarPiloto(id, nuevoNombre, nuevaFoto, nuevoPais, nuevoNumero, nuevoRol) {
         try {
             const response = await fetch(`http://localhost:3000/drivers/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: nuevoNombre })
-            });
-            if (response.ok) {
-                this.cargarEstadisticas();
-                alert('Piloto actualizado con éxito');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error al actualizar el piloto');
-        }
-    }
-
-    async cambiarEquipoPiloto(pilotoId, nuevoEquipoId) {
-        try {
-            const pilotoResponse = await fetch(`http://localhost:3000/drivers/${pilotoId}`);
-            const piloto = await pilotoResponse.json();
-            
-            const response = await fetch(`http://localhost:3000/drivers/${pilotoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...piloto,
-                    teamId: parseInt(nuevoEquipoId)
+                body: JSON.stringify({ 
+                    name: nuevoNombre,
+                    photo: nuevaFoto,
+                    country: nuevoPais,
+                    number: parseInt(nuevoNumero),
+                    role: nuevoRol
                 })
             });
-            if (response.ok) {
-                this.cargarEstadisticas();
-                alert('Equipo del piloto actualizado con éxito');
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
             }
+            this.cargarEstadisticas();
+            // alert('Piloto actualizado con éxito');
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error al cambiar el equipo del piloto');
+            console.error('Error al editar el piloto:', error);
+            // alert('Error al actualizar el piloto');
         }
     }
 
     async cargarEstadisticas() {
         try {
-            const equipos = await this.obtenerEquipos();
-            const response = await fetch(`${AdminTeamComponent.API_URL}/drivers`);
-            const pilotos = await response.json();
+            const [equipos, pilotos] = await Promise.all([
+                this.obtenerEquipos(),
+                this.obtenerPilotos()
+            ]);
+            const totalEquipos = equipos.length;
+            const totalPilotos = pilotos.length;
 
-            const statBoxes = this.shadowRoot.querySelectorAll('.stat-number');
-            statBoxes[0].textContent = Array.isArray(equipos) ? equipos.length : 0;
-            statBoxes[1].textContent = Array.isArray(pilotos) ? pilotos.length : 0;
+            const equiposContainer = this.shadowRoot.getElementById('equiposActivosCount');
+            const pilotosContainer = this.shadowRoot.getElementById('pilotosRegistradosCount');
+
+            if (equiposContainer) {
+                equiposContainer.textContent = totalEquipos;
+            }
+            if (pilotosContainer) {
+                pilotosContainer.textContent = totalPilotos;
+            }
         } catch (error) {
             console.error('Error al cargar estadísticas:', error);
-            // Establecer valores por defecto en caso de error
-            const statBoxes = this.shadowRoot.querySelectorAll('.stat-number');
-            statBoxes[0].textContent = '0';
-            statBoxes[1].textContent = '0';
         }
     }
 
@@ -906,6 +1000,67 @@ class AdminTeamComponent extends HTMLElement {
             }
         } catch (error) {
             console.error('Error al cargar pilotos sin equipo:', error);
+        }
+    }
+
+    async cargarPilotosEnSelect() {
+        try {
+            const select = this.shadowRoot.getElementById('pilotoSelect');
+            const pilotos = await this.obtenerPilotos();
+            
+            select.innerHTML = '<option value="">Seleccione un piloto</option>';
+            pilotos.forEach(piloto => {
+                select.innerHTML += `<option value="${piloto.id}">${piloto.name}</option>`;
+            });
+        } catch (error) {
+            console.error('Error al cargar pilotos en select:', error);
+        }
+    }
+
+    async obtenerPilotoPorId(id) {
+        const response = await fetch(`http://localhost:3000/drivers/${id}`);
+        if (!response.ok) {
+            throw new Error('Error al obtener piloto');
+        }
+        return await response.json();
+    }
+
+    cargarDatosPilotoEnFormulario(piloto) {
+        this.shadowRoot.getElementById('nuevoNombrePiloto').value = piloto.name || '';
+        this.shadowRoot.getElementById('nuevoFotoPiloto').value = piloto.photo || '';
+        this.shadowRoot.getElementById('nuevoPaisPiloto').value = piloto.country || '';
+        this.shadowRoot.getElementById('nuevoNumeroPiloto').value = piloto.number || '';
+        this.shadowRoot.getElementById('nuevoRolPiloto').value = piloto.role || '';
+    }
+
+    async cargarPilotosEnSelectEliminar() {
+        try {
+            const select = this.shadowRoot.getElementById('pilotoEliminarSelect');
+            const pilotos = await this.obtenerPilotos();
+            
+            select.innerHTML = '<option value="">Seleccione un piloto</option>';
+            pilotos.forEach(piloto => {
+                select.innerHTML += `<option value="${piloto.id}">${piloto.name}</option>`;
+            });
+        } catch (error) {
+            console.error('Error al cargar pilotos en select:', error);
+        }
+    }
+
+    async eliminarPiloto(id) {
+        try {
+            const response = await fetch(`http://localhost:3000/drivers/${id}`, {
+                method: 'DELETE'
+            });
+            console.log('Response:', response);
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
+            }
+            await this.cargarEstadisticas();
+            // alert('Piloto eliminado con éxito'); // Eliminar o comentar esta línea
+        } catch (error) {
+            console.error('Error al eliminar el piloto:', error);
+            alert('Error al eliminar el piloto');
         }
     }
 
