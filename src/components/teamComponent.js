@@ -302,7 +302,23 @@ class TeamComponent extends HTMLElement {
                 </div>
             `).join('');
 
-            const vehicle = this.vehicles.find(v => v.team === team.name);
+            const vehicle = this.vehicles.find(v => v.team === team.name) || {
+                model: 'No disponible',
+                max_speed_kmh: 'No disponible',
+                acceleration_0_100: 'No disponible',
+                performance: {
+                    normal_driving: {
+                        average_speed_kmh: 'No disponible',
+                        fuel_consumption: { dry: 'No disponible' },
+                        tire_wear: { dry: 'No disponible' }
+                    },
+                    aggressive_driving: {
+                        average_speed_kmh: 'No disponible',
+                        fuel_consumption: { dry: 'No disponible' },
+                        tire_wear: { dry: 'No disponible' }
+                    }
+                }
+            };
 
             return `
                 <div class="team-card">
@@ -322,29 +338,29 @@ class TeamComponent extends HTMLElement {
 
                     <!-- Información del Vehículo -->
                     <div class="vehicle-info">
-                        <h3><i class="fas fa-car"></i> Modelo: ${vehicle?.model || 'No disponible'}</h3>
+                        <h3><i class="fas fa-car"></i> Modelo: ${vehicle.model}</h3>
                         <div class="vehicle-stats">
                             <div class="stat">
                                 <span>Velocidad Máxima:</span>
-                                <span>${vehicle?.max_speed_kmh || 'No disponible'} km/h</span>
+                                <span>${vehicle.max_speed_kmh} km/h</span>
                             </div>
                             <div class="stat">
                                 <span>0-100 km/h:</span>
-                                <span>${vehicle?.acceleration_0_100 || 'No disponible'}s</span>
+                                <span>${vehicle.acceleration_0_100}s</span>
                             </div>
                         </div>
                         <div class="performance-modes">
                             <div class="mode">
                                 <h4>Modo Normal</h4>
-                                <p>Velocidad Promedio: ${vehicle?.performance?.normal_driving?.average_speed_kmh || 'No disponible'} km/h</p>
-                                <p>Consumo: ${vehicle?.performance?.normal_driving?.fuel_consumption?.dry || 'No disponible'} L/vuelta</p>
-                                <p>Desgaste: ${vehicle?.performance?.normal_driving?.tire_wear?.dry || 'No disponible'}%/vuelta</p>
+                                <p>Velocidad Promedio: ${vehicle.performance.normal_driving.average_speed_kmh} km/h</p>
+                                <p>Consumo: ${vehicle.performance.normal_driving.fuel_consumption.dry} L/vuelta</p>
+                                <p>Desgaste: ${vehicle.performance.normal_driving.tire_wear.dry}%/vuelta</p>
                             </div>
                             <div class="mode">
                                 <h4>Modo Agresivo</h4>
-                                <p>Velocidad Promedio: ${vehicle?.performance?.aggressive_driving?.average_speed_kmh || 'No disponible'} km/h</p>
-                                <p>Consumo: ${vehicle?.performance?.aggressive_driving?.fuel_consumption?.dry || 'No disponible'} L/vuelta</p>
-                                <p>Desgaste: ${vehicle?.performance?.aggressive_driving?.tire_wear?.dry || 'No disponible'}%/vuelta</p>
+                                <p>Velocidad Promedio: ${vehicle.performance.aggressive_driving.average_speed_kmh} km/h</p>
+                                <p>Consumo: ${vehicle.performance.aggressive_driving.fuel_consumption.dry} L/vuelta</p>
+                                <p>Desgaste: ${vehicle.performance.aggressive_driving.tire_wear.dry}%/vuelta</p>
                             </div>
                         </div>
                     </div>
