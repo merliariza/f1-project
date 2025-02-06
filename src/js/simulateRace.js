@@ -159,17 +159,14 @@ const simulateRace = async function (configurationId, totalLaps, circuitDistance
           body: JSON.stringify(simulationResults)
         });
         if (response.ok) {
-            alert("Se registraron los resultados de la simulación.");
-            // Guardamos los resultados para recuperarlos en el resumen
-            localStorage.setItem('simulationResults', JSON.stringify(simulationResults));
-          } else {
-            alert("Error en la respuesta del servidor: " + await response.text());
-          }
+          alert("Se registraron los resultados de la simulación.")
+        } else {
+          alert("Error en la respuesta del servidor: " + await response.text());
+        }
       } catch (error) {
-        console.error("Error al registrar los resultados de la simulación:", error);
-        alert("Error al registrar los resultados de la simulación. Por favor, inténtelo de nuevo más tarde.");
+        console.error("Error al guardar la configuración:", error);
       }
-};
 
+};
 
 export default simulateRace;
