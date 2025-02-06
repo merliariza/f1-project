@@ -54,7 +54,7 @@ const simulateRace = async function (configurationId, totalLaps, circuitDistance
 
     //  Simulación
     while (lapCount < totalLaps) {
-        alert("Vuelta " + lapCount);
+        console.log("Vuelta " + lapCount);
         let time = 0; // Reinicio del tiempo por vuelta
         while (position < circuitDistance) {
             // Comprobar si estamos en una curva y reducir velocidad
