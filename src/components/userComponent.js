@@ -6,6 +6,7 @@ class VehicleGalleryComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.vehicles = [];
     this.configurations = [];
+    this.circuits = [];
     this.searchTerm = "";
 
   }
@@ -15,6 +16,7 @@ class VehicleGalleryComponent extends HTMLElement {
     this.shadowRoot.innerHTML = this.getTemplate();
     await this.fetchVehicles();
     await this.fetchConfigurations();
+    await this.fetchCircuits();
     this.setupStaticEventListeners();
     this.setupConfigEventListeners();
     this.obtenerBotonProbarSimulacion();
@@ -274,6 +276,15 @@ class VehicleGalleryComponent extends HTMLElement {
       this.shadowRoot.getElementById('galleryContainer').innerHTML = `<p>Error al cargar configuraciones.</p>`;
     }
   }
+  async fetchCircuits() {
+    try {
+      const response = await fetch('http://localhost:3000/circuits');
+      this.circuits = await response.json();
+    } catch (error) {
+      console.error("Error al cargar configuraciones:", error);
+      this.shadowRoot.getElementById('galleryContainer').innerHTML = `<p>Error al cargar configuraciones.</p>`;
+    }
+  }
 
   // Actualiza la galería de vehículos (no muestra la configuración en cada tarjeta)
   updateGallery() {
@@ -476,19 +487,38 @@ class VehicleGalleryComponent extends HTMLElement {
   }
 
   obtenerBotonProbarSimulacion() {
-    console.log("Obtiene boton")
     const botonProbarSimulacion = this.shadowRoot.querySelector('.probar-simulacion');
-    console.log(botonProbarSimulacion);
     botonProbarSimulacion.addEventListener('click', () => {
-      console.log("Click");
       this.probarSimulacionHandleClick();
-      console.log("ACtualizado")
     });
   }
 
   probarSimulacionHandleClick() {
-    console.log(simulateRace(5, [1.2, 2.3, 3.6, 4.5], 360, 2.3, 40, 1.2, 130, "baja", "estandar"));
+    const circuitName = "Circuito de Spa-Francorchamps"; // TODO: obtener nombre circuito
+    const selectedCircuit = this.circuits.find(circuit => circuit.name == circuitName);
+    const configurationId = "f3f9"; // TODO: obtener ID de la configuración, sea una nueva creada, o una ya existente
+    const configuration = this.configurations.find(configuration => configuration.id == configurationId);
+    const vehicle = this.vehicles.find(vehicle => vehicle.id == configuration.vehicleId);
+
+    let vehicleAcceleration, vehicleFuelConsumption, vehicleTireWear;
+    if ( configuration.drivingMode.toLowerCase() == "agresiva") {
+      vehicleAcceleration = vehicle.aggressiveDriving.acceleration;
+      vehicleFuelConsumption = vehicle.aggressiveDriving.fuelConsumption;
+      vehicleTireWear = vehicle.aggressiveDriving.tireWear;
+    } else if (configuration.drivingMode.toLowerCase() == "normal"){
+      vehicleAcceleration = vehicle.normalDriving.acceleration;
+      vehicleFuelConsumption = vehicle.normalDriving.fuelConsumption;
+      vehicleTireWear = vehicle.normalDriving.tireWear;
+    } else {
+      vehicleAcceleration = vehicle.savingDriving.acceleration;
+      vehicleFuelConsumption = vehicle.savingDriving.fuelConsumption;
+      vehicleTireWear = vehicle.savingDriving.tireWear;
+    }
+    //Recibe ID de configuracion como primer parametro
+    //TO DO: reemplazar el array de curvas por las curvas asociadas al circuito
+    simulateRace(configurationId, selectedCircuit.laps, selectedCircuit.lengthKm, [1.2, 2, 3.9, 4.5], vehicle.maxSpeedKmh, vehicleAcceleration, vehicleFuelConsumption, vehicleTireWear, vehicle.maxFuel, configuration.downforce, configuration.tirePressure); //Recibe ID de configuración
   }
+
 }
 
 customElements.define('vehicle-gallery-component', VehicleGalleryComponent);

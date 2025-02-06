@@ -65,8 +65,8 @@ export class FormDataDrivingComponent extends HTMLElement {
     // Valores máximos de ejemplo (ajusta según los datos reales de F1)
     const MAX_SPEED = 375;          // km/h
     const MAX_ACCELERATION = 3;       // segundos (0-100 km/h)
-    const MAX_FUEL = 110;           // litros o kg (según la unidad que manejes)
-    const MAX_FUEL_CONSUMPTION = 10;  // valor de consumo (por ejemplo, L/100km)
+    const MAX_FUEL = 110;           // litros
+    const MAX_FUEL_CONSUMPTION = 10;  // valor de consumo L/100km
 
     if (maxSpeedKmh > MAX_SPEED) {
       alert(`La velocidad máxima no puede superar los ${MAX_SPEED} km/h.`);

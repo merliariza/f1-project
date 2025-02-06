@@ -622,5 +622,36 @@
       "tirePressure": "Baja",
       "downforce": "Baja"
     }
+  ],
+  "simulationResults": [
+    {
+      "id": "1b48"
+    },
+    {
+      "id": "5784",
+      "configurationId": "f3f9",
+      "randomWeather": "lluvioso",
+      "maxSpeed": 275.3,
+      "acceleration": 1.61,
+      "fuelConsumption": 45.57,
+      "tireWearPerLap": 5.08,
+      "averageLapTime": 79.3,
+      "fuelStops": 0,
+      "tireChanges": 3,
+      "totalTime": 3965
+    },
+    {
+      "id": "e1cd",
+      "configurationId": "f3f9",
+      "randomWeather": "seco",
+      "maxSpeed": 285.08,
+      "acceleration": 2.45,
+      "fuelConsumption": 4.38,
+      "tireWearPerLap": 6.89,
+      "averageLapTime": 90.79545454545455,
+      "fuelStops": 0,
+      "tireChanges": 4,
+      "totalTime": 3995
+    }
   ]
 }

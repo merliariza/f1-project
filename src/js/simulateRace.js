@@ -8,13 +8,10 @@ import calcWeatherTireWear from './calcWeatherTireWear.js';
 import curveReduceSpeed from './curveReduceSpeed.js';
 import generateRandomWeather from './generateRandomWeather.js';
 
-const simulateRace = function (circuitDistance, curvePositions, maxSpeed, acceleration, fuelConsumption, tireWear, fuelMax, downforce, tirePressure) {
+const simulateRace = async function (configurationId, totalLaps, circuitDistance, curvePositions, maxSpeed, acceleration, fuelConsumption, tireWear, fuelMax, downforce, tirePressure) {
     let randomWeather = generateRandomWeather();
-    console.log("Simulacion")
+
     let modifiedCurves = [...curvePositions];
-    //let circuitDistance = 5; // Distancia total en km
-    //let curvePositions = [1.2, 2.8, 3.5, 4.7]; // Posiciones de curvas (en km)
-    
     
     // Ajustes por carga aerodinámica
 
@@ -37,10 +34,8 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
     acceleration = calcWeatherAcceleration(acceleration, randomWeather, downforce, tirePressure);
     fuelConsumption = calcWeatherFuelConsumption(fuelConsumption, randomWeather, downforce, tirePressure);
     tireWear = calcWeatherTireWear(tireWear, randomWeather, downforce, tirePressure);
-    console.log("Desgaste de neumaticos");
-    console.log(tireWear)
-    console.log(typeof tireWear)
-    let error = false;
+
+
     // Parámetros del vehículo
     let speed = 0; // Velocidad actual (km/h)
     let tireWearPerLap = calcTireWearPerLap(circuitDistance, tireWear); // Desgaste por vuelta (%)
@@ -58,7 +53,7 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
     let totalTime = 0;
 
     //  Simulación
-    while (lapCount < 50) { // Simula 10 vueltas
+    while (lapCount < totalLaps) {
         console.log("Vuelta " + lapCount);
         let time = 0; // Reinicio del tiempo por vuelta
         while (position < circuitDistance) {
@@ -69,10 +64,6 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
                     speed = parseFloat(curveReduceSpeed(speed, randomWeather, downforce, tirePressure));
                     // Se elimina la curva del array
                     modifiedCurves.splice(i, 1);
-                    console.log("Curva eliminada")
-                    console.log(modifiedCurves)
-                    console.log("Curvas originales");
-                    console.log(curvePositions);
                     // Se sale del bucle
                     break;
                 }
@@ -101,11 +92,7 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
             if (position >= circuitDistance) {
                 lapCount++;
                 position = (position-circuitDistance); // Reiniciamos la posición
-                modifiedCurves = curvePositions;
-                console.log("Curvas restablecidas");
-                console.log(modifiedCurves);
-                console.log("Curvas originales");
-                console.log(curvePositions);
+                modifiedCurves = [...curvePositions];
                 //  Desgaste de neumáticos
                 raceTireWear += tireWearPerLap;
                 
@@ -116,6 +103,7 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
                     raceTireWear = 0;
                     maxSpeedInCircuit = maxSpeed; // Restauramos velocidad máxima
                     tireChanges++;
+                    speed = 0;
                 }
                 
                 // Consumo de combustible
@@ -126,16 +114,8 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
                 if (raceFuel < fuelUsed) {
                     raceFuel = fuelMax;
                     fuelStops++;
+                    speed = 0;
                 }
-
-                //  Mostrar datos de la vuelta
-                console.log(`Vuelta ${lapCount}:`);
-                console.log(`Tiempo: ${time} s`);
-                console.log(`Combustible restante: ${raceFuel.toFixed(2)} L`);
-                console.log(`Desgaste de neumáticos: ${raceTireWear}%`);
-                console.log(`Max Speed: ${maxSpeedInCircuit} km/h`);
-                console.log("------------------------------");
-
                 // Acumulamos el tiempo total de la carrera
                 totalTime += time;
                 break;
@@ -144,15 +124,49 @@ const simulateRace = function (circuitDistance, curvePositions, maxSpeed, accele
         
         
     }
-
+    totalTime += ((fuelStops*10) + (tireChanges*5));
+    
+    let averageLapTime = totalTime/totalLaps;
     //  Resumen de carrera
     console.log("Simulación completada");
-    console.log(`Total de vueltas: ${lapCount}`);
+    console.log(`Clima: ${randomWeather}`);
+    console.log(`Velocidad Max: ${maxSpeed} Km/h`);
+    console.log(`Aceleración: ${acceleration} m/s2`);
+    console.log(`Consumo de combustible: ${fuelConsumption} L/100km`);
+    console.log(`Desgaste de neumáticos: ${tireWearPerLap} % por vuelta`);
+    console.log(`Tiempo promedio por vuelta: ${averageLapTime} s`);
     console.log(`Paradas para combustible: ${fuelStops}`);
     console.log(`Cambios de neumáticos: ${tireChanges}`);
     console.log(`Tiempo total de la carrera: ${totalTime} s`);
 
-    return "hola"
+    const simulationResults = {
+        configurationId: configurationId,
+        randomWeather: randomWeather,
+        maxSpeed: maxSpeed,
+        acceleration: acceleration,
+        fuelConsumption: fuelConsumption,
+        tireWearPerLap: tireWearPerLap,
+        averageLapTime: averageLapTime,
+        fuelStops: fuelStops,
+        tireChanges: tireChanges,
+        totalTime: totalTime,
+      };
+    
+      try {
+        const response = await fetch(`http://localhost:3000/simulationResults/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(simulationResults)
+        });
+        if (response.ok) {
+          alert("Se registraron los resultados de la simulación.")
+        } else {
+          alert("Error en la respuesta del servidor: " + await response.text());
+        }
+      } catch (error) {
+        console.error("Error al guardar la configuración:", error);
+      }
+
 };
 
 export default simulateRace;
