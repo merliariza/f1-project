@@ -54,7 +54,7 @@ const simulateRace = async function (configurationId, totalLaps, circuitDistance
 
     //  Simulación
     while (lapCount < totalLaps) {
-        console.log("Vuelta " + lapCount);
+        alert("Vuelta " + lapCount);
         let time = 0; // Reinicio del tiempo por vuelta
         while (position < circuitDistance) {
             // Comprobar si estamos en una curva y reducir velocidad
@@ -128,16 +128,16 @@ const simulateRace = async function (configurationId, totalLaps, circuitDistance
     
     let averageLapTime = totalTime/totalLaps;
     //  Resumen de carrera
-    console.log("Simulación completada");
-    console.log(`Clima: ${randomWeather}`);
-    console.log(`Velocidad Max: ${maxSpeed} Km/h`);
-    console.log(`Aceleración: ${acceleration} m/s2`);
-    console.log(`Consumo de combustible: ${fuelConsumption} L/100km`);
-    console.log(`Desgaste de neumáticos: ${tireWearPerLap} % por vuelta`);
-    console.log(`Tiempo promedio por vuelta: ${averageLapTime} s`);
-    console.log(`Paradas para combustible: ${fuelStops}`);
-    console.log(`Cambios de neumáticos: ${tireChanges}`);
-    console.log(`Tiempo total de la carrera: ${totalTime} s`);
+    alert("Simulación completada");
+    alert(`Clima: ${randomWeather}`);
+    alert(`Velocidad Max: ${maxSpeed} Km/h`);
+    alert(`Aceleración: ${acceleration} m/s2`);
+    alert(`Consumo de combustible: ${fuelConsumption} L/100km`);
+    alert(`Desgaste de neumáticos: ${tireWearPerLap} % por vuelta`);
+    alert(`Tiempo promedio por vuelta: ${averageLapTime} s`);
+    alert(`Paradas para combustible: ${fuelStops}`);
+    alert(`Cambios de neumáticos: ${tireChanges}`);
+    alert(`Tiempo total de la carrera: ${totalTime} s`);
 
     const simulationResults = {
         configurationId: configurationId,
