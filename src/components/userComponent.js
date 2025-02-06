@@ -317,7 +317,7 @@ class VehicleGalleryComponent extends HTMLElement {
     if (this.configurations.length === 0) {
       configContainer.innerHTML = `<h2>Configuraciones Guardadas</h2><p style="text-align:center;">No hay configuraciones guardadas.</p>`;
     } else {
-      let html = `<h2>Configuraciones Guardadas</h2>`;
+      let html = `<h2>Vehiculos Seleccionados Con Sus Configuraciones Guardadas</h2>`;
       this.configurations.forEach(configuration => {
         let vehicleId = configuration.vehicleId;
         const vehicle = this.vehicles.find(v => v.id == vehicleId);
