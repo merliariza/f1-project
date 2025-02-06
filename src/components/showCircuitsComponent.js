@@ -12,6 +12,10 @@ class CircuitSlider extends HTMLElement {
                   <h1> SELECCIONA UN CIRCUITO </h1>
                   <br>
               </div>
+               <div class="search-container" id="searchWrapper">
+                <input type="text" id="searchInput" placeholder="Buscar circuito...">
+            </div>
+            <div id="searchResults" class="search-results"></div>
               <section id="slider">
                   <input type="radio" name="slider" id="s1">
                   <input type="radio" name="slider" id="s2">
@@ -51,6 +55,135 @@ class CircuitSlider extends HTMLElement {
               box-sizing: border-box;
               color: rgb(230, 230, 230); /* Color gris claro para mejor legibilidad */
           }
+               /* Estilo Profesional */
+            .search-container {
+                text-align: center;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                display: none; /* Inicialmente oculto */
+                position: relative;
+            }
+
+                     #searchInput {
+                width: 60%;
+                padding: 12px;
+                font-size: 18px;
+                border-radius: 30px;
+                border: none;
+                background: linear-gradient(45deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8));
+                color: white;
+                outline: none;
+                transition: all 0.4s ease;
+                text-align: center;
+                box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+                border: 1px solid rgba(255, 0, 0, 0.2);
+            }
+
+            #searchInput::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+                font-style: italic;
+            }
+
+            #searchInput:focus {
+                box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.8), 0px 0px 10px rgba(255, 255, 255, 0.3);
+                border: 1px solid rgba(255, 0, 0, 0.8);
+                transform: scale(1.05);
+            }
+
+            #searchInput::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+                font-style: italic;
+            }
+
+            #searchInput:focus {
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.74);
+                border: none;
+                transform: scale(1.05);
+            }
+
+            .search-results {
+                display: none;
+                margin-top: 15px;
+                text-align: center;
+                padding: 20px;
+                border-radius: 10px;
+                background: rgba(5, 5, 5, 0.9);
+                box-shadow: 0 0 20px rgba(82, 15, 15, 0.49);
+            }
+
+            .result-card {
+                display: inline-block;
+                background: rgb(27, 24, 24);
+                padding: 20px;;
+                border-radius: 12px;
+                box-shadow: 0 0 5px rgba(58, 22, 22, 0.44);
+                margin: 12px;
+                text-align: center;
+                width: 260px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border: 2px solid rgba(58, 2, 2, 0.5);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .result-card img {
+                width: 100%;
+                border-radius: 8px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .result-card:hover img {
+                transform: scale(1.05);
+            }
+
+            .result-card h3 {
+                color:rgb(139, 12, 12);
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 10px;
+                text-transform: uppercase;
+            }
+            
+            .result-card p {
+                color: rgba(223, 219, 219, 0.85);
+                font-size: 20px;
+                margin: 5px 0;
+            }
+
+            .result-card:hover {
+                transform: scale(1.08);
+                box-shadow: 0 0 25px rgba(53, 35, 35, 0.52);
+                border-color: rgb(34, 5, 5);
+            }
+
+            /* Brillo al pasar el cursor */
+            .result-card::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 0, 0, 0.3), transparent 60%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .result-card:hover::before {
+                opacity: 1;
+            }
+
+            .no-results {
+                text-align: center;
+                color: white;
+                margin-top: 15px;
+                font-size: 18px;
+                font-weight: bold;
+                background: rgba(255, 0, 0, 0.2);
+                padding: 10px;
+                border-radius: 5px;
+            }
+
           
           :host {
               display: block;
@@ -242,6 +375,8 @@ class CircuitSlider extends HTMLElement {
       this.loadCircuitData();
     }
   
+    
+
     async loadCircuitData() {
       try {
         // Obtén la información de los circuitos

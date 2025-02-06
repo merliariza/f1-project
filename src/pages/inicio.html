@@ -3,110 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Simulación de Equipos y Carreras</title>
   <link rel="stylesheet" href="../css/inicio.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="../js/inicio.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
   <!-- Importa los módulos de componentes -->
-  <script type="module" src="../components/showCircuitsComponent.js"></script>
+  <script type="module" src="../components/teamsComponent.js"></script>
   <script type="module" src="../components/userComponent.js"></script>
-    <script type="module" src="../components/vehicleGalleryComponent.js"></script>
-    <script type="module" src="../components/searchCircuit.js"></script>
+  <script type="module" src="../components/searchCircuit.js"></script>
+  <script type="module" src="../components/showCircuitsComponent.js"></script>
 </head>
 <body class="body bg-black">
   <div class="container text-center">
     <!-- Video de fondo -->
-    <video id="background-video" autoplay muted loop class="video-background" style="max-width:100%;">
+    <video id="background-video" autoplay muted loop class="video-background">
       <source src="../../media/20250204_2206_Dynamic F1 Logo Animation_simple_compose_01jka14ydce5n9b9e7x1bz0gpz.mp4" type="video/mp4" />
       Tu navegador no soporta el video.
     </video>
 
     <!-- Botón para iniciar el programa -->
     <div class="container my-3">
-      <button class="futuristic-button " id="start-button">
+      <button class="futuristic-button" id="start-button">
         <span class="button-text">Iniciar Programa</span>
       </button>
     </div>
 
     <div class="container-fluid">
         <div class="row align-items-center mt-3">
-          <!-- Columna para el botón "Volver" (alineado a la izquierda) -->
           <div class="col-6 d-flex justify-content-start">
-            <button class="btn btn-4" id="back-button" style="display: none;">
-              Volver
-            </button>
+            <button class="btn btn-danger" id="back-button" style="display: none;">Volver</button>
           </div>
-          
-          <!-- Columna para el botón "Siguiente" (alineado a la derecha) -->
           <div class="col-6 d-flex justify-content-end">
-            <button class="btn btn-4" id="next-button" style="display: none;">
-              Siguiente
-            </button>
+            <button class="btn btn-danger" id="next-button" style="display: none;">Siguiente</button>
           </div>
         </div>
       </div>
-    <!-- Componente de Circuito Slider (inicialmente oculto) -->
-  
+
+    <!-- Componentes (Solo teams visible al inicio) -->
+    <teams-component id="teams-component" style="display: block;"></teams-component>
     <vehicle-gallery-component id="vehicle-gallery-component" style="display: none;"></vehicle-gallery-component>
-    <search-component></search-component>
+    <search-component id="search-component" style="display: none;"></search-component>
     <circuit-slider id="circuit-slider" style="display: none;"></circuit-slider>
-    <!-- Componente de Galería de Vehículos (inicialmente oculto) -->
+
   </div>
 
-  <script>document.addEventListener("DOMContentLoaded", () => {
-    const startButton = document.getElementById("start-button");
-    const circuitSlider = document.getElementById("circuit-slider");
-    const nextButton = document.getElementById("next-button");
-    const backButton = document.getElementById("back-button");
-    const backgroundVideo = document.getElementById("background-video");
-    const vehicleGallery = document.getElementById("vehicle-gallery-component");
-    const searchComponent = document.querySelector("search-component");
-  
-    // Mostrar la barra de búsqueda cuando el slider está activo
-    function toggleSearchBar(show) {
-      if (searchComponent && searchComponent.toggleSearchBar) {
-        searchComponent.toggleSearchBar(show);
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const startButton = document.getElementById("start-button");
+      const teamsComponent = document.getElementById("teams-component");
+      const vehicleGallery = document.getElementById("vehicle-gallery-component");
+      const circuitSlider = document.getElementById("circuit-slider");
+      const nextButton = document.getElementById("next-button");
+      const backButton = document.getElementById("back-button");
+      const backgroundVideo = document.getElementById("background-video");
+      const searchComponent = document.getElementById("search-component");
+
+      function toggleSearchBar(show) {
+        if (show) {
+          searchComponent.style.display = "block";
+        } else {
+          searchComponent.style.display = "none";
+        }
       }
-    }
-  
-    startButton.addEventListener("click", () => {
-      backgroundVideo.style.display = "none";
-      startButton.style.display = "none";
-      circuitSlider.style.display = "block";
-      nextButton.style.display = "block";
-      backButton.style.display = "block";
-      toggleSearchBar(true); // Mostrar barra de búsqueda
+
+      startButton.addEventListener("click", () => {
+        backgroundVideo.style.display = "none";
+        startButton.style.display = "none";
+        teamsComponent.style.display = "block";
+        nextButton.style.display = "block";
+        backButton.style.display = "block";
+        toggleSearchBar(false);
+      });
+
+      nextButton.addEventListener("click", () => {
+        if (teamsComponent.style.display === "block") {
+          teamsComponent.style.display = "none";
+          vehicleGallery.style.display = "block";
+          toggleSearchBar(true); // Mostrar barra en vehicle-gallery
+        } else if (vehicleGallery.style.display === "block") {
+          vehicleGallery.style.display = "none";
+          circuitSlider.style.display = "block";
+          toggleSearchBar(true); // Mostrar barra en circuit-slider
+        } else {
+          alert("No hay más componentes.");
+        }
+      });
+
+      backButton.addEventListener("click", () => {
+        if (circuitSlider.style.display === "block") {
+          circuitSlider.style.display = "none";
+          vehicleGallery.style.display = "block";
+          toggleSearchBar(true);
+        } else if (vehicleGallery.style.display === "block") {
+          vehicleGallery.style.display = "none";
+          teamsComponent.style.display = "block";
+          toggleSearchBar(false);
+        } else {
+          teamsComponent.style.display = "none";
+          backgroundVideo.style.display = "block";
+          startButton.style.display = "block";
+          nextButton.style.display = "none";
+          backButton.style.display = "none";
+          toggleSearchBar(false);
+        }
+      });
     });
-  
-    nextButton.addEventListener("click", () => {
-      if (circuitSlider.style.display === "block") {
-        circuitSlider.style.display = "none";
-        vehicleGallery.style.display = "block";
-        toggleSearchBar(false); // Ocultar barra de búsqueda
-      } else if (vehicleGallery.style.display === "block") {
-        alert("No hay más componentes.");
-      }
-    });
-  
-    backButton.addEventListener("click", () => {
-      if (vehicleGallery.style.display === "block") {
-        vehicleGallery.style.display = "none";
-        circuitSlider.style.display = "block";
-        toggleSearchBar(true); // Mostrar barra de búsqueda
-      } else if (circuitSlider.style.display === "block") {
-        circuitSlider.style.display = "none";
-        backgroundVideo.style.display = "block";
-        startButton.style.display = "block";
-        nextButton.style.display = "none";
-        backButton.style.display = "none";
-        toggleSearchBar(false); // Ocultar barra de búsqueda
-      }
-    });
-  });
-  
   </script>
 </body>
 </html>
