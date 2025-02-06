@@ -493,19 +493,19 @@ class VehicleGalleryComponent extends HTMLElement {
     });
   }
 
-  probarSimulacionHandleClick() {
-    const circuitName = "Circuito de Spa-Francorchamps"; // TODO: obtener nombre circuito
-    const selectedCircuit = this.circuits.find(circuit => circuit.name == circuitName);
-    const configurationId = "f3f9"; // TODO: obtener ID de la configuración, sea una nueva creada, o una ya existente
-    const configuration = this.configurations.find(configuration => configuration.id == configurationId);
-    const vehicle = this.vehicles.find(vehicle => vehicle.id == configuration.vehicleId);
-
+  async probarSimulacionHandleClick() {
+    const circuitName = "Circuito de Spa-Francorchamps"; // TODO: obtener nombre del circuito dinámicamente
+    const selectedCircuit = this.circuits.find(circuit => circuit.name === circuitName);
+    const configurationId = "f3f9"; // TODO: obtener el ID de configuración (nuevo o ya existente)
+    const configuration = this.configurations.find(configuration => configuration.id === configurationId);
+    const vehicle = this.vehicles.find(vehicle => vehicle.id === configuration.vehicleId);
+  
     let vehicleAcceleration, vehicleFuelConsumption, vehicleTireWear;
-    if ( configuration.drivingMode.toLowerCase() == "agresiva") {
+    if (configuration.drivingMode.toLowerCase() === "agresiva") {
       vehicleAcceleration = vehicle.aggressiveDriving.acceleration;
       vehicleFuelConsumption = vehicle.aggressiveDriving.fuelConsumption;
       vehicleTireWear = vehicle.aggressiveDriving.tireWear;
-    } else if (configuration.drivingMode.toLowerCase() == "normal"){
+    } else if (configuration.drivingMode.toLowerCase() === "normal") {
       vehicleAcceleration = vehicle.normalDriving.acceleration;
       vehicleFuelConsumption = vehicle.normalDriving.fuelConsumption;
       vehicleTireWear = vehicle.normalDriving.tireWear;
@@ -514,11 +514,27 @@ class VehicleGalleryComponent extends HTMLElement {
       vehicleFuelConsumption = vehicle.savingDriving.fuelConsumption;
       vehicleTireWear = vehicle.savingDriving.tireWear;
     }
-    //Recibe ID de configuracion como primer parametro
-    //TO DO: reemplazar el array de curvas por las curvas asociadas al circuito
-    simulateRace(configurationId, selectedCircuit.laps, selectedCircuit.lengthKm, [1.2, 2, 3.9, 4.5], vehicle.maxSpeedKmh, vehicleAcceleration, vehicleFuelConsumption, vehicleTireWear, vehicle.maxFuel, configuration.downforce, configuration.tirePressure); //Recibe ID de configuración
+    
+    try {
+      await simulateRace(
+        configurationId,
+        selectedCircuit.laps,
+        selectedCircuit.lengthKm,
+        [1.2, 2, 3.9, 4.5],
+        vehicle.maxSpeedKmh,
+        vehicleAcceleration,
+        vehicleFuelConsumption,
+        vehicleTireWear,
+        vehicle.maxFuel,
+        configuration.downforce,
+        configuration.tirePressure
+      );
+      // Redirigir al HTML que contiene la tabla de resumen
+      window.location.href = "simulation-summary.html";
+    } catch (error) {
+      console.error("Error en la simulación:", error);
+    }
   }
-
 }
 
 customElements.define('vehicle-gallery-component', VehicleGalleryComponent);

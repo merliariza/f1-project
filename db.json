@@ -652,6 +652,32 @@
       "fuelStops": 0,
       "tireChanges": 4,
       "totalTime": 3995
+    },
+    {
+      "configurationId": "f3f9",
+      "randomWeather": "lluvioso",
+      "maxSpeed": 298.14,
+      "acceleration": 2.65,
+      "fuelConsumption": 3.39,
+      "tireWearPerLap": 5.17,
+      "averageLapTime": 88.22727272727273,
+      "fuelStops": 0,
+      "tireChanges": 3,
+      "totalTime": 3882,
+      "id": "4gYfHPg"
+    },
+    {
+      "configurationId": "f3f9",
+      "randomWeather": "seco",
+      "maxSpeed": 285.08,
+      "acceleration": 2.45,
+      "fuelConsumption": 4.38,
+      "tireWearPerLap": 6.89,
+      "averageLapTime": 90.79545454545455,
+      "fuelStops": 0,
+      "tireChanges": 4,
+      "totalTime": 3995,
+      "id": "7_GD6aN"
     }
   ]
 }

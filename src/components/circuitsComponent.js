@@ -22,7 +22,7 @@ class CircuitsComponent extends HTMLElement {
         }
         .card-admin {
           margin-top: 2rem;
-          background: linear-gradient(145deg, #1a1717, #2b2626);
+          background: linear-gradient(145deg,rgb(255, 249, 249), #2b2626);
           border: 2px solid #31312d;
           border-radius: 12px;
           box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
@@ -46,7 +46,7 @@ class CircuitsComponent extends HTMLElement {
           width: 100%;
           padding: 0.75rem 1rem;
           border: 1px solid #5e52527a;
-          background-color: #383535;
+          background-color:rgb(93, 90, 90);
           color: #ffffff;
           border-radius: 6px;
           transition: background-color 0.3s, border-color 0.3s;

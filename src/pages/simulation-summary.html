@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen de Simulación</title>
+  <style>
+    body {
+      background: #000;
+      color: #ffffff;
+      font-family: "Orbitron", sans-serif;
+    }
+
+    /* Estilos para la tabla de resumen de simulación */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: #1a1a1a;
+    }
+
+    /* Bordes con acento rojo oscuro */
+    table, th, td {
+      border: 1px solid #8b0000;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #8b0000;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    /* Filas alternadas para mejorar la legibilidad */
+    tr:nth-child(even) {
+      background-color: #262626;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #1a1a1a;
+    }
+
+    /* Efecto hover para resaltar la fila al pasar el mouse */
+    tr:hover {
+      background-color: #3a3a3a;
+    }
+  </style>
+</head>
+<body>
+  <h2>Resumen de la Simulación</h2>
+  <table id="simulationSummaryTable">
+    <thead>
+      <tr>
+        <th>ID Configuración</th>
+        <th>Clima</th>
+        <th>Velocidad Máxima (Km/h)</th>
+        <th>Aceleración (m/s²)</th>
+        <th>Consumo (L/100km)</th>
+        <th>Desgaste/Vuelta (%)</th>
+        <th>Tiempo Promedio (s)</th>
+        <th>Paradas Combustible</th>
+        <th>Cambios Neumáticos</th>
+        <th>Tiempo Total (s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Se insertarán los datos de la simulación -->
+    </tbody>
+  </table>
+  <script>
+    // Recuperamos los resultados almacenados en localStorage
+    const simulationResults = JSON.parse(localStorage.getItem('simulationResults'));
+    if (simulationResults) {
+      const tbody = document.getElementById('simulationSummaryTable').querySelector('tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+         <td>${simulationResults.configurationId}</td>
+         <td>${simulationResults.randomWeather}</td>
+         <td>${simulationResults.maxSpeed}</td>
+         <td>${simulationResults.acceleration}</td>
+         <td>${simulationResults.fuelConsumption}</td>
+         <td>${simulationResults.tireWearPerLap}</td>
+         <td>${simulationResults.averageLapTime}</td>
+         <td>${simulationResults.fuelStops}</td>
+         <td>${simulationResults.tireChanges}</td>
+         <td>${simulationResults.totalTime}</td>
+      `;
+      tbody.appendChild(row);
+    }
+  </script>
+</body>
+</html>

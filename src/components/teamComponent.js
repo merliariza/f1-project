@@ -3,9 +3,6 @@ class TeamComponent extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.teams = [];
-        this.filteredTeams = [];
-        this.drivers = [];
-        this.vehicles = [];
     }
 
     connectedCallback() {
@@ -13,57 +10,61 @@ class TeamComponent extends HTMLElement {
     }
 
     async loadData() {
+        // Se obtiene la URL de la API desde el atributo api-url o se usa un valor por defecto.
+        const apiUrl = this.getAttribute('api-url') || 'http://localhost:3000/db';
         try {
-            const [teamsResponse, driversResponse, vehiclesResponse] = await Promise.all([
-                fetch('http://localhost:3000/teams'),
-                fetch('http://localhost:3000/drivers'),
-                fetch('http://localhost:3000/vehicles')
-            ]);
+            const response = await fetch(apiUrl);
+            const data = await response.json();
 
-            const teamsData = await teamsResponse.json();
-            const driversData = await driversResponse.json();
-            const vehiclesData = await vehiclesResponse.json();
-            
-            this.teams = teamsData.map(team => ({
-                ...team,
-                id: team.id || team.name
-            }));
-            
-            this.drivers = driversData.map(driver => ({
-                ...driver,
-                teamId: driver.teamId || this.teams.find(t => t.name === driver.team)?.id
-            }));
-            
-            this.vehicles = vehiclesData.map(vehicle => ({
-                ...vehicle,
-                team: vehicle.team || this.teams.find(t => t.id === vehicle.teamId)?.name
-            }));
-            
-            this.filteredTeams = [...this.teams];
-            
+            // Se espera que el JSON tenga las propiedades "drivers" y "vehicles"
+            const drivers = data.drivers || [];
+            const vehicles = data.vehicles || [];
+
+            // Agrupar pilotos por el nombre del equipo (propiedad "team")
+            const teamsMap = {};
+            drivers.forEach(driver => {
+                if (driver.team) {
+                    if (!teamsMap[driver.team]) {
+                        teamsMap[driver.team] = {
+                            name: driver.team,
+                            drivers: [],
+                            vehicle: null
+                        };
+                    }
+                    teamsMap[driver.team].drivers.push(driver.name);
+                }
+            });
+
+            // Asignar el vehículo a cada equipo buscando aquel cuya propiedad "drivers"
+            // coincida con el id de alguno de los pilotos del equipo.
+            vehicles.forEach(vehicle => {
+                // Se asume que la propiedad "drivers" del vehículo es un id que corresponde a un piloto
+                const driver = drivers.find(d => d.id === vehicle.drivers);
+                if (driver && driver.team) {
+                    // Asigna el primer vehículo encontrado para el equipo (si aún no se ha asignado ninguno)
+                    if (!teamsMap[driver.team].vehicle) {
+                        teamsMap[driver.team].vehicle = vehicle;
+                    }
+                }
+            });
+
+            // Convertir el objeto de equipos en un array
+            this.teams = Object.values(teamsMap);
             this.render();
         } catch (error) {
-            console.error('Error cargando los datos:', error);
-            this.shadowRoot.innerHTML = `
-                <p style="color: red; padding: 1rem;">
-                    Error cargando los datos: ${error.message}
-                    <br>
-                    Asegúrate de que json-server está corriendo y la URL es correcta.
-                    <br>
-                    URL actual: http://localhost:3000/teams
-                    <br>
-                    Intenta: json-server --watch db.json
-                </p>`;
+            console.error("Error al cargar datos del db:", error);
         }
     }
 
-    getDriversByTeam(teamId) {
-        return this.drivers.filter(driver => driver.teamId === teamId);
-    }
-
-    handleImageError(event) {
-        console.error('Error cargando imagen:', event.target.src);
-        event.target.src = 'https://via.placeholder.com/120x60?text=Logo+No+Disponible';
+    getLogoForTeam(teamName) {
+        // Mapeo de logos para cada equipo (actualiza o agrega las claves según los nombres reales)
+        const logos = {
+            "Red Bull Racing": "https://upload.wikimedia.org/wikipedia/en/3/35/Red_Bull_Racing_Logo.svg",
+            "Mercedes-AMG Petronas": "https://upload.wikimedia.org/wikipedia/en/8/80/Mercedes_AMG_Petronas_Formula_One_Team_logo.svg",
+            "Ferrari": "https://upload.wikimedia.org/wikipedia/en/0/0e/Scuderia_Ferrari_Logo.svg",
+            "McLaren": "https://upload.wikimedia.org/wikipedia/en/2/21/McLaren_Logo.svg"
+        };
+        return logos[teamName] || "https://via.placeholder.com/120x60?text=Logo";
     }
 
     render() {
@@ -150,224 +151,21 @@ class TeamComponent extends HTMLElement {
                 .team-details p {
                     margin: 0.3rem 0;
                 }
-
-                .drivers-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                    margin-top: 1rem;
-                }
-
-                .driver-card {
-                    text-align: center;
-                    padding: 1rem;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 8px;
-                    background: rgba(255, 255, 255, 0.05);
-                    transition: all 0.3s ease;
-                }
-
-                .driver-card:hover {
-                    background: rgba(225, 6, 0, 0.1);
-                    border-color: var(--f1-red);
-                    box-shadow: 0 0 15px rgba(225, 6, 0, 0.2);
-                }
-
-                .driver-photo {
-                    width: 120px;
-                    height: 120px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                    margin-bottom: 0.5rem;
-                    border: 2px solid var(--f1-red);
-                    box-shadow: var(--neon-glow);
-                }
-
-                .driver-card:hover .driver-photo {
-                    transform: scale(1.05);
-                    box-shadow: 0 0 20px rgba(225, 6, 0, 0.5);
-                }
-
-                .driver-name {
-                    margin: 0;
-                    font-size: 1.2rem;
-                    color: var(--f1-light);
-                }
-
-                .driver-role {
-                    margin: 0.2rem 0 0;
-                    font-size: 0.8rem;
-                    color: var(--f1-red);
-                    text-transform: uppercase;
-                }
-
-                @keyframes neonPulse {
-                    0% {
-                        box-shadow: 0 0 10px rgba(225, 6, 0, 0.3);
-                    }
-                    50% {
-                        box-shadow: 0 0 20px rgba(225, 6, 0, 0.5);
-                    }
-                    100% {
-                        box-shadow: 0 0 10px rgba(225, 6, 0, 0.3);
-                    }
-                }
-
-                .team-card:hover {
-                    animation: neonPulse 2s infinite;
-                }
-
-                .vehicle-info {
-                    background: rgba(20, 20, 20, 0.8);
-                    border-radius: 8px;
-                    padding: 1rem;
-                    margin: 1rem 0;
-                }
-
-                .vehicle-stats {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                    margin-top: 1rem;
-                }
-
-                .performance-modes {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                    margin-top: 1rem;
-                }
-
-                .mode {
-                    background: rgba(255, 0, 0, 0.1);
-                    padding: 0.8rem;
-                    border-radius: 6px;
-                    border: 1px solid rgba(255, 0, 0, 0.2);
-                }
-
-                .stats-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 1rem;
-                    margin-top: 1rem;
-                }
-
-                .stat-box {
-                    background: rgba(255, 0, 0, 0.1);
-                    padding: 1rem;
-                    border-radius: 8px;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 0.5rem;
-                }
-
-                .stat-box i {
-                    font-size: 1.5rem;
-                    color: #ff0000;
-                }
-
-                .stat {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.5rem;
-                    background: rgba(255, 0, 0, 0.05);
-                    border-radius: 4px;
-                }
-
-                .mode h4 {
-                    color: #ff0000;
-                    margin: 0 0 0.5rem 0;
-                }
-
-                .mode p {
-                    margin: 0;
-                    font-size: 0.9rem;
-                }
             </style>
         `;
 
         const teamsHTML = this.teams.map(team => {
-            const teamDrivers = this.getDriversByTeam(team.name);
-            const driversHTML = teamDrivers.map(driver => `
-                <div class="driver-card">
-                    <img class="driver-photo" 
-                         src="${driver.photo}" 
-                         alt="${driver.name}"
-                         onerror="this.onerror=null; this.src='https://www.formula1.com/etc/designs/fom-website/images/driver-silhouette.png';">
-                    <h3 class="driver-name">${driver.name}</h3>
-                    <p class="driver-role">${driver.role}</p>
-                </div>
-            `).join('');
-
-            const vehicle = this.vehicles.find(v => v.team === team.name) || {
-                model: 'No disponible',
-                max_speed_kmh: 'No disponible',
-                acceleration_0_100: 'No disponible',
-                performance: {
-                    normal_driving: {
-                        average_speed_kmh: 'No disponible',
-                        fuel_consumption: { dry: 'No disponible' },
-                        tire_wear: { dry: 'No disponible' }
-                    },
-                    aggressive_driving: {
-                        average_speed_kmh: 'No disponible',
-                        fuel_consumption: { dry: 'No disponible' },
-                        tire_wear: { dry: 'No disponible' }
-                    }
-                }
-            };
-
             return `
                 <div class="team-card">
                     <div class="team-header">
-                        <img class="team-logo" 
-                             src="${team.image}" 
-                             alt="${team.name} logo"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/120x60?text=Logo';">
+                        <img src="${this.getLogoForTeam(team.name)}" alt="${team.name} logo" class="team-logo">
                         <div class="team-info">
                             <h2 class="team-name">${team.name}</h2>
                             <div class="team-details">
-                                <p><i class="fas fa-flag"></i> País: ${team.country}</p>
-                                <p><i class="fas fa-cog"></i> Motor: ${team.engine}</p>
+                                <p>Pilotos: ${team.drivers.length ? team.drivers.join(', ') : 'Sin pilotos asignados'}</p>
+                                <p>Vehículo asignado: ${team.vehicle ? team.vehicle.model : 'Sin vehículo asignado'}</p>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Información del Vehículo -->
-                    <div class="vehicle-info">
-                        <h3><i class="fas fa-car"></i> Modelo: ${vehicle.model}</h3>
-                        <div class="vehicle-stats">
-                            <div class="stat">
-                                <span>Velocidad Máxima:</span>
-                                <span>${vehicle.max_speed_kmh} km/h</span>
-                            </div>
-                            <div class="stat">
-                                <span>0-100 km/h:</span>
-                                <span>${vehicle.acceleration_0_100}s</span>
-                            </div>
-                        </div>
-                        <div class="performance-modes">
-                            <div class="mode">
-                                <h4>Modo Normal</h4>
-                                <p>Velocidad Promedio: ${vehicle.performance.normal_driving.average_speed_kmh} km/h</p>
-                                <p>Consumo: ${vehicle.performance.normal_driving.fuel_consumption.dry} L/vuelta</p>
-                                <p>Desgaste: ${vehicle.performance.normal_driving.tire_wear.dry}%/vuelta</p>
-                            </div>
-                            <div class="mode">
-                                <h4>Modo Agresivo</h4>
-                                <p>Velocidad Promedio: ${vehicle.performance.aggressive_driving.average_speed_kmh} km/h</p>
-                                <p>Consumo: ${vehicle.performance.aggressive_driving.fuel_consumption.dry} L/vuelta</p>
-                                <p>Desgaste: ${vehicle.performance.aggressive_driving.tire_wear.dry}%/vuelta</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pilotos del Equipo -->
-                    <div class="drivers-container">
-                        ${driversHTML}
                     </div>
                 </div>
             `;
